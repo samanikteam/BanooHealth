@@ -21,5 +21,9 @@ namespace Data.Contracts
         Task Active(int id, CancellationToken cancellationToken);
         Task Deactive(int id, CancellationToken cancellationToken);
         public ListProductCategoryDto GetListProductCategoryByCategoryId(int categoryId);
+
+        ProductCategoryDto GetProductCategorybyId(int id);
+        Task UpdateCategory(ProductCategoryDto Dto, List<IFormFile> Image, CancellationToken cancellationToken);
+
     }
 }

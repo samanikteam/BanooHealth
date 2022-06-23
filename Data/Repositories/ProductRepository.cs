@@ -88,6 +88,7 @@ namespace Data.Repositories
                 KeyWords = t.KeyWords,
                 Country = t.Country,
                 RegisterDate = t.RegisterDate,
+                RegisterDateFa = t.RegisterDate.ToShamsi(),
                 RegisterUserId = t.RegisterUserId,
                 IsDelete = t.IsDelete,
                 MinimumPrice = t.PharmacyProducts.Where(x => x.productId == t.Id).Select(x => x.Price).Min().ToString(),

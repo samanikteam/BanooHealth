@@ -59,5 +59,16 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
 
             return Redirect("/Administration/Blog/Articles/Index");
         }
+
+        public async Task<IActionResult> OnPostActive(int id, CancellationToken cancellationToken)
+        {
+            await _Repasitory.Active(id, cancellationToken);
+            return Redirect("/Administration/Blog/Articles/Index");
+        }
+        public async Task<IActionResult> OnPostDeactive(int id, CancellationToken cancellationToken)
+        {
+            await _Repasitory.Deactive(id, cancellationToken);
+            return Redirect("/Administration/Blog/Articles/Index");
+        }
     }
 }

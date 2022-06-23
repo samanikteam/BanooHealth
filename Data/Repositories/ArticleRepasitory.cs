@@ -296,5 +296,18 @@ namespace Data.Repositories
             return list;
         }
 
+        public async Task Active(int id, CancellationToken cancellationToken)
+        {
+            var article = GetById(id);
+            article.IsDelete = false;
+            await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task Deactive(int id, CancellationToken cancellationToken)
+        {
+            var article = GetById(id);
+            article.IsDelete = true;
+            await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
     }
 }

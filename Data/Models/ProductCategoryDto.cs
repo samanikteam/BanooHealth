@@ -20,7 +20,7 @@ namespace Data.Models
         [Display(Name = "توضیحات دسته")]
         public string Description { get; set; }
 
-        [Required]
+
         [Display(Name = "آیکون دسته")]
         public byte[] Avatar { get; set; }
 
@@ -40,12 +40,13 @@ namespace Data.Models
         [Display(Name = "شناسه والد")]
         public int? ParentId { get; set; }
 
-        [Required]
         [Display(Name = "تاریخ ایجاد")]
         public DateTime RegisterDate { get; set; }
 
         [Required]
         public bool IsDelete { get; set; }
+
+        public string Mothername { get; set; }
     }
 
     public class ListProductCategoryDto

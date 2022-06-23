@@ -43,6 +43,9 @@ namespace Data.Contracts
 
         ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId);
 
+        Task Active(int id, CancellationToken cancellationToken);
+        Task Deactive(int id, CancellationToken cancellationToken);
+
 
     }
 }

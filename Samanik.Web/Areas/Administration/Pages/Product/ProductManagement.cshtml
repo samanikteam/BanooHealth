@@ -34,7 +34,8 @@
                 <div class="col-xl col-lg-3 col-md-6 col-12 mt-4" style="max-height:300px; max-width:300px;">
                     <div class="card shop-list border-0 overflow-hidden rounded shadow">
                         <ul class="label list-unstyled mb-0">
-                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">جدید</a></li>
+                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">@item.RegisterDateFa</a></li>
+                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">@item.RegisterUserId</a></li>
                         </ul>
                         <div class="shop-image position-relative overflow-hidden">
                             <a asp-page="ProductDetail" asp-route-id="@item.Id">

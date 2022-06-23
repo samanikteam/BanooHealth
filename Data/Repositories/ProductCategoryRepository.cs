@@ -81,7 +81,7 @@ namespace Data.Repositories
                 Avatar = t.Avatar,
                 RegisterDate = t.RegisterDate,
                 IsDelete = t.IsDelete,
-                Slug=t.Slug
+                Slug=t.Slug,
             }).ToList();
 
             return list;
@@ -116,6 +116,55 @@ namespace Data.Repositories
             }).ToList();
 
             return list;
+        }
+
+        public ProductCategoryDto GetProductCategorybyId(int id)
+        {
+            var result = GetById(id);
+
+            var Productcategory = new ProductCategoryDto()
+            {
+                AvatarAlt = result.AvatarAlt,
+                AvatarTitle = result.AvatarTitle,
+                Description = result.Description,
+                IsDelete = result.IsDelete,
+                Slug = result.Slug,
+                Title = result.Title,
+                Avatar = result.Avatar,
+                ParentId = result.ParentId,
+                Id = result.Id
+            };
+            return Productcategory;
+        }
+
+        public async Task UpdateCategory(ProductCategoryDto Dto,List<IFormFile> Image, CancellationToken cancellationToken)
+        {
+            var ProductCategory = await base.GetByIdAsync(cancellationToken, Dto.Id);
+
+            ProductCategory.Title = Dto.Title;
+            ProductCategory.Description = Dto.Description;
+            ProductCategory.AvatarAlt = Dto.AvatarAlt;
+            ProductCategory.AvatarTitle = Dto.AvatarTitle;
+            ProductCategory.Slug = Dto.Slug;
+            ProductCategory.ParentId = Dto.ParentId;
+            ProductCategory.IsDelete = Dto.IsDelete;
+
+
+            #region Add Avatar(FileStream) in Model
+            foreach (var item in Image)
+            {
+                if (item.Length > 0)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        await item.CopyToAsync(stream);
+                        ProductCategory.Avatar = stream.ToArray();
+                    }
+                }
+            }
+            #endregion
+
+            await base.UpdateAsync(ProductCategory, cancellationToken);
         }
     }
 }

@@ -61,10 +61,23 @@
 
 
                                 <div class="post-meta d-flex justify-content-between mt-3">
-                                    <ul class="list-unstyled mb-0">
-                                        @*<li class="list-inline-item ms-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline ms-1"></i>33</a></li>
-                                    <li class="list-inline-item"><a href="#" class="text-muted comments"><i class="mdi mdi-comment-outline ms-1"></i>08</a></li>*@
-                                    </ul>
+                                    @if (item.IsDelete == false)
+                                    {
+                                        <form method="post" asp-page-handler="Deactive" class="float-left">
+                                            <button class="btn btn-icon btn-pills btn-soft-danger uil uil-trash"></button>
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form method="post" asp-page-handler="active" class="float-left">
+                                            <button class="btn btn-icon btn-pills btn-soft-success uil uil-refresh"></button>
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                        </form>
+                                    }
+                                    @*<ul class="list-unstyled mb-0">
+            <li class="list-inline-item ms-2 mb-0"><a href="#" class="text-muted like"><i class="mdi mdi-heart-outline ms-1"></i>33</a></li>
+        </ul>*@
                                     <a asp-page="ArticleDetail" asp-route-id="@item.Id" class="link">بیشتر بخوانید<i class="mdi mdi-chevron-left align-middle"></i></a>
                                 </div>
                             </div>
@@ -171,7 +184,7 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
-                                            <input asp-for="dto.KeyWords" id="name" type="text" class="form-control" placeholder="key words :">
+                                            <input asp-for="dto.Description" id="name" type="text" class="form-control" placeholder="key words :">
                                         </div>
                                     </div><!--end col-->
 
