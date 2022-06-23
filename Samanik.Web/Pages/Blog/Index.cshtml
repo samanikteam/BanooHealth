@@ -1,0 +1,140 @@
+﻿@page
+@model Samanik.Web.Pages.Blog.IndexModel
+@{
+    ViewData["Title"] = "مجله سمانیک";
+    ViewData["Description"] = "";
+    ViewData["Keywords"] = "";
+    int counter = 0;
+}
+
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="~/Index">خانه</a></li>
+                        <li>بلاگ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="blog_bg_area">
+    <div class="container">
+        <div class="blog_page_section">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <div class="blog_wrapper mb-60">
+                        <div class="blog_header">
+                            <h1>مجله علمی بانو هلث</h1>
+                        </div>
+                        <div class="blog_wrapper_inner">
+                            @foreach (var item in Model.listArticleDto.Articles)
+                            {
+                                <article class="single_blog single_blog_gallery">
+                                    <figure>
+                                        <div class="blog_thumb">
+                                            <div class="single_blog_thumb">
+                                                <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt"></a>
+                                            </div>
+                                        </div>
+                                        <figcaption class="blog_content">
+                                            <h4 class="post_title"><a asp-page="ArticleDetails" asp-route-slug="@item.Slug" asp-route-id="@item.Id">@item.Title</a></h4>
+                                            <div class="blog_meta">
+                                                <span class="author">ارسال توسط : <a href="#">دکتر علیرضاولی‌زاده</a> / </span>
+                                                <span class="meta_date">ارسال شده در :  <a href="#">@item.RegisterDate</a></span>
+                                            </div>
+                                            <div class="blog_desc">
+                                                <p>@item.Description</p>
+                                            </div>
+                                            <footer class="btn_more">
+                                                <a asp-page="ArticleDetails" asp-route-slug="@item.Slug" asp-route-id="@item.Id"> بیشتر بخوانید</a>
+                                            </footer>
+                                        </figcaption>
+                                    </figure>
+                                </article>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="blog_pagination">
+                        <div class="pagination">
+                            <ul>
+                                <li class="current">1</li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li class="next"><a href="#">بعدی</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--blog pagination area end-->
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="blog_sidebar_widget">
+                        <div class="widget_list comments">
+                            <div class="widget_title">
+                                <h3>دیدگاه‌های جدید</h3>
+                            </div>
+                            @foreach (var item in Model.commentDto.Comments.OrderByDescending(a => a.RegisterDate).Where(a => a.Status == 1))
+                            {
+                                counter++;
+                                <div class="post_wrapper">
+                                    <div class="post_info">
+                                        <span> <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Name</a> می‌گوید:</span>
+                                        <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Message</a>
+                                    </div>
+                                </div>
+                                if (counter == 5)
+                                {
+                                    counter = 0;
+                                    break;
+
+                                }
+                            }
+                        </div>
+                        <div class="widget_list widget_post">
+                            <div class="widget_title">
+                                <h3>مطالب اخیر</h3>
+                            </div>
+                            @foreach (var item in Model.listArticleDto.Articles.OrderByDescending(a => a.RegisterDate))
+                            {
+                                counter++;
+                                <div class="post_wrapper">
+                                    <div class="post_thumb">
+                                        <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"><img style="max-height:60px; max-width:60px;" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.Title"></a>
+                                    </div>
+                                    <div class="post_info">
+                                        <h4><a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Title</a></h4>
+                                        <span>@item.RegisterDate </span>
+                                    </div>
+                                </div>
+                                if (counter == 5)
+                                {
+                                    counter = 0;
+                                    break;
+                                }
+                            }
+
+                        </div>
+                        <div class="widget_list widget_categories">
+                            <div class="widget_title">
+                                <h3>دسته‌ها</h3>
+                            </div>
+                            <ul>
+                                @foreach (var item in Model.listArticleCategoryDto.Where(a => a.IsDelete == false && a.ParentId == null))
+                                {
+                                    <li><a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

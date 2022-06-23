@@ -1,0 +1,549 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.IndexModel
+@{
+    Layout = "_AdminLayout";
+}
+<div class="container-fluid">
+    <div class="layout-specing">
+        <h5 class="mb-0">داشبرد</h5>
+
+        <div class="row">
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+                <div class="card features feature-primary rounded border-0 shadow p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon text-center rounded-md">
+                            <i class="uil uil-bed h3 mb-0"></i>
+                        </div>
+                        <div class="flex-1 me-2">
+                            <h5 class="mb-0">558</h5>
+                            <p class="text-muted mb-0">بیماران</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+                <div class="card features feature-primary rounded border-0 shadow p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon text-center rounded-md">
+                            <i class="uil uil-file-medical-alt h3 mb-0"></i>
+                        </div>
+                        <div class="flex-1 me-2">
+                            <h5 class="mb-0">2164</h5>
+                            <p class="text-muted mb-0">هزینه میانگین</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+                <div class="card features feature-primary rounded border-0 shadow p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon text-center rounded-md">
+                            <i class="uil uil-social-distancing h3 mb-0"></i>
+                        </div>
+                        <div class="flex-1 me-2">
+                            <h5 class="mb-0">112</h5>
+                            <p class="text-muted mb-0">کارکنان</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+                <div class="card features feature-primary rounded border-0 shadow p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon text-center rounded-md">
+                            <i class="uil uil-ambulance h3 mb-0"></i>
+                        </div>
+                        <div class="flex-1 me-2">
+                            <h5 class="mb-0">16</h5>
+                            <p class="text-muted mb-0">وسایل</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+                <div class="card features feature-primary rounded border-0 shadow p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon text-center rounded-md">
+                            <i class="uil uil-medkit h3 mb-0"></i>
+                        </div>
+                        <div class="flex-1 me-2">
+                            <h5 class="mb-0">220</h5>
+                            <p class="text-muted mb-0">نوبت گرفتن</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-2 col-lg-4 col-md-4 mt-4">
+                <div class="card features feature-primary rounded border-0 shadow p-4">
+                    <div class="d-flex align-items-center">
+                        <div class="icon text-center rounded-md">
+                            <i class="uil uil-medical-drip h3 mb-0"></i>
+                        </div>
+                        <div class="flex-1 me-2">
+                            <h5 class="mb-0">10</h5>
+                            <p class="text-muted mb-0">اپراطور</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-xl-8 col-lg-7 mt-4">
+                <div class="card shadow border-0 p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="align-items-center mb-0">بیماران بر اساس جنسیت</h6>
+
+                        <div class="mb-0 position-relative">
+                            <select class="form-select form-control" id="yearchart">
+                                <option selected>1400</option>
+                                <option value="1399">1399</option>
+                                <option value="1398">1398</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="dashboard" class="apex-chart"></div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-4 col-lg-5 mt-4">
+                <div class="card shadow border-0 p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="align-items-center mb-0">بیماران بر اساس دپارتمان</h6>
+
+                        <div class="mb-0 position-relative">
+                            <select class="form-select form-control" id="dailychart">
+                                <option selected>امروز</option>
+                                <option value="2019">دیروز</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="department" class="apex-chart"></div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-6 mt-4">
+                <div class="card border-0 shadow rounded">
+                    <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
+                        <h6 class="mb-0"><i class="uil uil-calender text-primary ms-1 h5"></i>آخرین نوبت ها</h6>
+                        <h6 class="text-muted mb-0">55 بیمار</h6>
+                    </div>
+
+                    <ul class="list-unstyled mb-0 p-4">
+                        <li>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-inline-flex">
+                                    <img src="~/AdminThem/images/client/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                    <div class="me-3">
+                                        <h6 class="text-dark mb-0 d-block">کلوین کارلو</h6>
+                                        <small class="text-muted">نوبت در 27ام اسفند 1399</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mt-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-inline-flex">
+                                    <img src="~/AdminThem/images/client/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                    <div class="me-3">
+                                        <h6 class="text-dark mb-0 d-block">جویا خان</h6>
+                                        <small class="text-muted">نوبت در 27ام اسفند 1399</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mt-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-inline-flex">
+                                    <img src="~/AdminThem/images/client/03.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                    <div class="me-3">
+                                        <h6 class="text-dark mb-0 d-block">امیلی مولی</h6>
+                                        <small class="text-muted">نوبت در 27ام اسفند 1399</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mt-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-inline-flex">
+                                    <img src="~/AdminThem/images/client/04.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                    <div class="me-3">
+                                        <h6 class="text-dark mb-0 d-block">نیک رونالدو</h6>
+                                        <small class="text-muted">نوبت در 27ام اسفند 1399</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="mt-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-inline-flex">
+                                    <img src="~/AdminThem/images/client/05.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                    <div class="me-3">
+                                        <h6 class="text-dark mb-0 d-block">کریس جوژپه</h6>
+                                        <small class="text-muted">نوبت در 27ام اسفند 1399</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-success"><i class="uil uil-check icons"></i></a>
+                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-times icons"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-4 col-lg-6 mt-4">
+                <div class="card chat chat-person border-0 shadow rounded">
+                    <div class="d-flex justify-content-between border-bottom p-4">
+                        <div class="d-flex">
+                            <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                            <div class="flex-1 overflow-hidden me-3">
+                                <a href="#" class="text-dark mb-0 h6 d-block text-truncate">کریستسن مورفی</a>
+                                <small class="text-muted"><i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i> آنلاین</small>
+                            </div>
+                        </div>
+
+                        <ul class="list-unstyled mb-0">
+                            <li class="dropdown dropdown-primary list-inline-item">
+                                <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-ellipsis-h icons"></i></button>
+                                <div class="dropdown-menu dd-menu dropdown-menu-start bg-white shadow border-0 mt-3 py-3">
+                                    <a class="dropdown-item text-dark" href="#"><span class="mb-0 d-inline-block ms-1"><i class="uil uil-user align-middle h6"></i></span>پروفایل</a>
+                                    <a class="dropdown-item text-dark" href="#"><span class="mb-0 d-inline-block ms-1"><i class="uil uil-setting align-middle h6"></i></span>تنظیمات پروفایل</a>
+                                    <a class="dropdown-item text-dark" href="#"><span class="mb-0 d-inline-block ms-1"><i class="uil uil-trash align-middle h6"></i></span>حذف</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="p-4 list-unstyled mb-0 chat" data-simplebar style="background: url('AdminThem/images/bg/bg-chat.png') center center; max-height: 295px;">
+                        <li>
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative">
+                                        <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">سلام کریستوفر</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>59 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="chat-right">
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative chat-user-image">
+                                        <img src="~/AdminThem/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">سلام کریستین</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>45 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="chat-right">
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative chat-user-image">
+                                        <img src="~/AdminThem/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">چطور میتونم کمکت کنم؟</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>44 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative">
+                                        <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">خوشحالم میبینمت</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>42 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative">
+                                        <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">امیدوارم حالت خیلی خوب باشه</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>40 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="chat-right">
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative chat-user-image">
+                                        <img src="~/AdminThem/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">خیلی خوبم ممنونم میپرسی</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>45 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative">
+                                        <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1"> من علاقه مندم درباره قیمت ها و خدماتی که ارائه می دهید بیشتر بدانم </p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>35 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="chat-right">
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative chat-user-image">
+                                        <img src="~/AdminThem/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1"> لطفاً برای یافتن اطلاعات مفیدتر لینک زیر را بررسی کنید <a href=" " target="_blank" class="text-primary">http://google.com/</a></p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>25 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative">
+                                        <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1"> ممنونم😊</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>20 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="chat-right">
+                            <div class="d-inline-block">
+                                <div class="d-flex chat-type mb-3">
+                                    <div class="position-relative chat-user-image">
+                                        <img src="~/AdminThem/images/client/09.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <i class="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
+                                    </div>
+
+                                    <div class="flex-1 chat-msg" style="max-width: 500px;">
+                                        <p class="text-muted small msg px-3 py-2 bg-light rounded mb-1">خواهش میکنم</p>
+                                        <small class="text-muted msg-time"><i class="uil uil-clock-nine ms-1"></i>18 دقیقه قبل</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="p-2 rounded-bottom shadow">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control border" placeholder="اینجا تایپ کنید">
+                            </div>
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-icon btn-primary"><i class="uil uil-message icons"></i></a>
+                                <a href="#" class="btn btn-icon btn-primary"><i class="uil uil-smile icons"></i></a>
+                                <a href="#" class="btn btn-icon btn-primary"><i class="uil uil-paperclip icons"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-xl-4 col-lg-12 mt-4">
+                <div class="card border-0 shadow rounded">
+                    <div class="p-4 border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0"><i class="uil uil-user text-primary ms-1 h5"></i>نظرات بیماران</h6>
+
+                            <div class="mb-0 position-relative">
+                                <select class="form-select form-control" id="dailypatient">
+                                    <option selected>جدید</option>
+                                    <option value="2019">قدیمی</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled mb-0 p-4" data-simplebar style="height: 355px;">
+                        <li class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="~/AdminThem/images/doctors/01.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
+                                <div class="flex-1 me-3">
+                                    <span class="d-block h6 mb-0">پزشک. کلوین کارلو</span>
+                                    <small class="text-muted"> ارتوپدی </small>
+
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item text-muted">(45)</li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p class="text-muted mb-0">150 بیمار</p>
+                        </li>
+
+                        <li class="d-flex align-items-center justify-content-between mt-4">
+                            <div class="d-flex align-items-center">
+                                <img src="~/AdminThem/images/doctors/02.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
+                                <div class="flex-1 me-3">
+                                    <span class="d-block h6 mb-0">پزشک. کریستین مورفی</span>
+                                    <small class="text-muted"> زنان </small>
+
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item text-muted">(75)</li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p class="text-muted mb-0">350 بیمار</p>
+                        </li>
+
+                        <li class="d-flex align-items-center justify-content-between mt-4">
+                            <div class="d-flex align-items-center">
+                                <img src="~/AdminThem/images/doctors/03.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
+                                <div class="flex-1 me-3">
+                                    <span class="d-block h6 mb-0">پزشک. آیا ردی</span>
+                                    <small class="text-muted"> روان درمانی </small>
+
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item text-muted">(48)</li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p class="text-muted mb-0">450 بیمار</p>
+                        </li>
+
+                        <li class="d-flex align-items-center justify-content-between mt-4">
+                            <div class="d-flex align-items-center">
+                                <img src="~/AdminThem/images/doctors/04.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
+                                <div class="flex-1 me-3">
+                                    <span class="d-block h6 mb-0">پزشک. تونی کاور</span>
+                                    <small class="text-muted"> دندانپزشک </small>
+
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item text-muted">(68)</li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p class="text-muted mb-0">484 بیمار</p>
+                        </li>
+
+                        <li class="d-flex align-items-center justify-content-between mt-4">
+                            <div class="d-flex align-items-center">
+                                <img src="~/AdminThem/images/doctors/05.jpg" class="avatar avatar-small rounded-circle border shadow" alt="">
+                                <div class="flex-1 me-3">
+                                    <span class="d-block h6 mb-0">پزشک. جنیفر بالانس</span>
+                                    <small class="text-muted"> قلب و عروق </small>
+
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="list-inline-item text-muted">(55)</li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                        <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p class="text-muted mb-0">476 بیمار</p>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div><!--end container-->

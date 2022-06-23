@@ -1,0 +1,386 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Product.IndexModel
+@{
+    Layout = "_AdminLayout";
+
+}
+
+
+<!--Start container-->
+<div class="container-fluid">
+
+    <div class="layout-specing">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">محصولات</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="index.html">سمانیک</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">مدیریت محصولات</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="mt-4 mt-sm-0">
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-product">افزودن محصول</a>
+            </div>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger text-dark" role="alert"></div>
+        <h6 class="mt-4 mb-0"> محصولات </h6>
+
+        <div class="row row-cols-xl-5">
+            @foreach (var item in Model.listProductDto.Products)
+            {
+                <div class="col-xl col-lg-3 col-md-6 col-12 mt-4">
+                    <div class="card shop-list border-0 overflow-hidden rounded shadow">
+                        <ul class="label list-unstyled mb-0">
+                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">جدید</a></li>
+                        </ul>
+                        <div style="width:220px;height:170px" class="shop-image position-relative overflow-hidden">
+                            <a asp-page="ProductDetail" asp-route-id="@item.Id">
+                                <img width="100%" height="100%" src="data:ProductPicture;base64,@Convert.ToBase64String(item.Avatar1)">
+                            </a>
+                            <ul class="list-unstyled shop-icons">
+                                <li><a href="#" class="btn btn-icon btn-pills btn-soft-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-primary"><i data-feather="eye" class="icons"></i></a></li>
+                                <li class="mt-2"><a href="#" class="btn btn-icon btn-pills btn-soft-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                            </ul>
+
+                            <div class="qty-icons">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-primary minus">-</button>
+                                <input min="0" name="quantity" value="0" type="number" class="btn btn-pills btn-icon btn-primary qty-btn quantity">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-primary plus">+</button>
+                            </div>
+                        </div>
+                        <div class="card-body content p-4 border-top">
+                            <a href="#" class="text-dark product-name h6">@item.Title</a>
+                            <div class="d-flex justify-content-between mt-1">
+                                @*<h6 class="text-muted small font-italic mb-0 mt-1">160 تومان</h6>*@
+                                <ul class="list-unstyled text-warning mb-0">
+                                    <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                    <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!--end col-->
+
+
+        </div><!--end row-->
+
+    </div>
+</div><!--end container-->
+<!--End page-content" -->
+<!-- page-wrapper -->
+<!-- Start Modal -->
+<div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">افزودن محصول جدید</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-3 pt-4">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-3">
+                            @**@
+                            <div class="d-grid">
+                                <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
+                                <div id="p1" class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
+                                <input type="file" id="input-file1" name="Image1" accept="image/*" onchange={handleChange()} hidden required />
+                                <label class="btn-upload btn btn-primary mt-4" for="input-file1">بارگذاری تصویر1 <span class="text-danger">*</span></label>
+                                <br />
+                                <div class="mb-3">
+                                    <label class="form-label">عنوان تصویر1: <span class="text-danger">*</span></label>
+                                    <input asp-for="dto.AvatarTitle1" id="name" type="text" class="form-control" placeholder="Image Tilte :" required>
+                                </div>
+                                <br />
+                                <div class="mb-3">
+                                    <label class="form-label">متن جایگذین تصویر1: <span class="text-danger">*</span></label>
+                                    <input asp-for="dto.AvatarAlt1" id="name" type="text" class="form-control" placeholder="Image Alt :" required>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-md-9 mt-4 mt-sm-0">
+                            <div class="me-md-4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام محصول<span class="text-danger">*</span></label>
+                                            <input id="Title" type="text" class="form-control" asp-for="dto.Title" placeholder="نام محصول :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label"> دسته بندی مادر: <span class="text-danger">*</span></label>
+
+                                            <select id="productCategoriesMother" class="form-control doctor-name select2input" asp-items="ViewBag.ProductCategoryMother" name="productCategoriesMother" required>
+                                                <option disabled selected value="">دسته بندی ها را انتخاب کنید</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="divchild1" hidden>
+                                        <div class="mb-3">
+                                            <label class="form-label"> دسته بندی فرزند1: <span class="text-danger">*</span></label>
+
+                                            <select id="productCategoriesChild1" class="form-control doctor-name select2input" name="productCategoriesChild1">
+                                                <option disabled selected value="">دسته بندی ها را انتخاب کنید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="divchild2" hidden>
+                                        <div class="mb-3">
+                                            <label class="form-label"> دسته بندی فرزند2: <span class="text-danger">*</span></label>
+
+                                            <select id="productCategoriesChild2" class="form-control doctor-name select2input" name="productCategoriesChild2">
+                                                <option disabled selected value="">دسته بندی ها را انتخاب کنید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="divchild3" hidden>
+                                        <div class="mb-3">
+                                            <label class="form-label"> دسته بندی فرزند3: <span class="text-danger">*</span></label>
+
+                                            <select id="productCategoriesChild3" class="form-control doctor-name select2input" name="productCategoriesChild3">
+                                                <option disabled selected value="">دسته بندی ها را انتخاب کنید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">مجلات: <span class="text-danger">*</span></label>
+
+                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleList" name="articleListId" multiple required>
+                                                <option disabled>مجله را انتخاب کنید</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">اسلاگ: <span class="text-danger">*</span></label>
+                                            <input id="Slug" type="text" class="form-control" asp-for="dto.Slug" placeholder="Slug :" readonly>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام کشور <span class="text-danger">*</span></label>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.Country" placeholder="نام کشور سازنده :">
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.KeyWords" placeholder="key words :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام برند: <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" asp-for="dto.BrandName" placeholder="Brand Name :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="dto.popular" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">آیا این محصول پر فروش است؟</label>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">توضیحات جامع مجله: <span class="text-danger">*</span></label>
+                                            <textarea asp-for="dto.Description" id="myeditor" class="form-control" placeholder="Description :"></textarea>
+                                            <script src="~/lib/ckeditor/ckeditor.js"></script>
+                                            <script>
+                                                CKEDITOR.replace("myeditor");
+                                            </script>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-lg-12 text-end">
+                                        <button type="submit" class="btn btn-primary">افزودن محصول</button>
+                                    </div><!--end col-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div>
+
+<!-- End modal -->
+
+@section Scripts
+{
+
+    <script>
+
+        $(function () {
+
+
+            $("#productCategoriesMother").on("change", function () {
+
+                var pId = $(this).val();
+                $("#divchild1").attr("hidden", "true");
+                $("#divchild2").attr("hidden", "true");
+                $("#divchild3").attr("hidden", "true");
+                $("#divchild1").removeAttr("required");
+                $("#divchild2").removeAttr("required");
+                $("#divchild3").removeAttr("required");
+
+
+                $.getJSON(`?handler=GetProductCategoryChild&id=${pId}`, (data) => {
+
+                    $.each(data, function (i, item) {
+                        if (item != null || item != empty) {
+
+
+                            $("#divchild1").removeAttr("hidden");
+                            $("#productCategoriesChild1").attr("required", "true");
+                            $("#productCategoriesChild1").append(`<option value="${item.id}">${item.title}</option>`);
+                        }
+
+
+                    });
+                });
+
+            });
+
+            $("#productCategoriesChild1").on("change", function () {
+
+                var pId = $(this).val();
+
+
+                $.getJSON(`?handler=GetProductCategoryChild&id=${pId}`, (data) => {
+
+                    $.each(data, function (i, item) {
+                        if (item != null || item != empty) {
+
+                            $("#divchild2").removeAttr("hidden");
+                            $("#productCategoriesChild2").attr("required", "true");
+                            $("#productCategoriesChild2").append(`<option value="${item.id}">${item.title}</option>`);
+                        }
+
+
+                    });
+                });
+            });
+
+            $("#productCategoriesChild2").on("change", function () {
+
+                var pId = $(this).val();
+
+
+                $.getJSON(`?handler=GetProductCategoryChild&id=${pId}`, (data) => {
+
+                    $.each(data, function (i, item) {
+                        if (item != null || item != empty) {
+
+                            $("#divchild3").removeAttr("hidden");
+                            $("#productCategoriesChild3").attr("required", "true");
+                            $("#productCategoriesChild3").append(`<option value="${item.id}">${item.title}</option>`);
+                        }
+
+
+                    });
+                });
+
+            });
+
+
+            //
+
+            $("#productCategoriesChildFirst").on("change", function () {
+                var pId = $(this).val();
+
+                $("#productCategoriesChildSecond").empty();
+                $("#productCategoriesChildSecond").append("<option value=''>دسته بندی زیر شاخه را انتخاب کنید</option>");
+                $.getJSON(`?handler=GetProductCategoryCildSecond&id=${pId}`, (data) => {
+                    $.each(data, function (i, item) {
+                        $("#productCategoriesChildSecond").append(`<option value="${item.id}">${item.productCatTitle}</option>`);
+                    });
+                });
+            });
+
+        });
+
+        document.getElementById("Title").addEventListener("input", function () {
+            let theSlug = string_to_slug(this.value);
+            document.getElementById("Slug").value = theSlug;
+        });
+
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ""); // trim
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaeeeeiiiioooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9-آ-ی-]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            //.replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+            //.replace(/\s+/g, "-") // collapse whitespace and replace by -
+            //.replace(/-+/g, "-"); // collapse dashes
+
+            return str;
+        }
+
+        const handleChange = () => {
+            const fileUploader1 = document.querySelector('#input-file1');
+            const getFile1 = fileUploader1.files
+            if (getFile1.length !== 0) {
+                const uploadedFile = getFile1[0];
+                readFile1(uploadedFile);
+            }
+        }
+
+
+
+        const readFile1 = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('#p1');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+
+
+
+
+
+    </script>
+}

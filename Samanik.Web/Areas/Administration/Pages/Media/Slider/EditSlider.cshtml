@@ -1,0 +1,81 @@
+﻿@page "{id}"
+@model Samanik.Web.Areas.Administration.Pages.Media.Slider.EditSliderModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="layout-specing">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">اسلایدر</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="">سمانیک</a></li>
+                        <li class="breadcrumb-item"><a href="">مدیریت رسانه</a></li>
+                        <li class="breadcrumb-item"><a href="">مدیریت اسلایدرها</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">ویرایش اسلایدر</li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-16 mt-4">
+                <div class="card border-0 p-4 rounded shadow">
+                    <form class="mt-4" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <input type="hidden" asp-for="Dto.Id" />
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label"> تصویر جدید</label>
+                                    <input asp-for="Dto.Avatar" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">عنوان اسلایدر</label>
+                                    <input asp-for="Dto.Title" type="text" class="form-control" placeholder="Tilte: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">متن جایگزین اسلایدر</label>
+                                    <input asp-for="Dto.AvatarAlt" type="text" class="form-control" placeholder="Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">لینک اسلایدر</label>
+                                    <input asp-for="Dto.Link" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">ترتیب اسلایدر</label>
+                                    <input asp-for="Dto.Sort" type="number" class="form-control" placeholder="Sort: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    <input asp-for="Dto.Status" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">وضعیت بنر</label>
+                                </div>
+                            </div><!--end col-->
+
+                        </div><!--end row-->
+                        <button type="submit" class="btn btn-primary">ویرایش اسلایدر</button>
+                    </form>
+                </div>
+            </div><!--end col-->
+
+        </div><!--end row-->
+    </div>
+</div>  

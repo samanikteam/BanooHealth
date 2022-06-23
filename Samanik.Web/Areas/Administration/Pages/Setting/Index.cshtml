@@ -1,0 +1,168 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Setting.IndexModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="layout-specing">
+
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">تنظیمات سایت</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="">سمانیک</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">تنظیمات سایت</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-16 mt-4">
+                <div class="card border-0 p-4 rounded shadow">
+                    <form class="mt-4" method="post" enctype="multipart/form-data">
+                        <input type="hidden"asp-for="Dto.Id" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان سایت</label>
+                                    <input asp-for="Dto.Title" type="text" class="form-control" placeholder="Tilte: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">تعداد لیست</label>
+                                    <input  asp-for="Dto.Paging" type="number" class="form-control" placeholder="Paging: ">
+                                </div>
+                            </div><!--end col-->
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">ایمیل مدیریت</label>
+                                    <input  asp-for="Dto.SMTP" type="email" class="form-control" placeholder="SMTP: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لوگو</label>
+                                    <input  asp-for="Dto.Logo" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان لوگو</label>
+                                    <input  asp-for="Dto.LogoTitle" type="text" class="form-control" placeholder="Logo tilte: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">متن جایگزین لوگو</label>
+                                    <input  asp-for="Dto.LogoAlt" type="text" class="form-control" placeholder="Logo alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">آیکون</label>
+                                    <input  asp-for="Dto.Favicon" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان آیکون</label>
+                                    <input asp-for="Dto.FaviconTitle" type="text" class="form-control" placeholder="favicon tilte: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">متن جایگزین آیکون</label>
+                                    <input  asp-for="Dto.FaviconAlt" type="text" class="form-control" placeholder="favicon alt: ">
+                                </div>
+                            </div><!--end col-->
+
+
+
+                            <div class="col-md-12">
+                                <div class="mb-2">
+                                    <label class="form-label">توضیحات</label>
+                                    <textarea  asp-for="Dto.Description" type="text" class="form-control" placeholder="Description: "></textarea>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-12">
+                                <div class="mb-2">
+                                    <label class="form-label">کلمات کلیدی</label>
+                                    <input  asp-for="Dto.Keywords" type="text" class="form-control" placeholder="Keywords: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <br />
+
+                        <button type="submit" class="btn btn-primary">ذخیره تنظیمات</button>
+                    </form>
+                </div>
+            </div><!--end col-->
+
+        </div><!--end row-->
+    </div>
+</div>
+
+
+
+
+<!-- Start Modal -->
+<div class="modal fade" id="newblogadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">راهنمای بنرها</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <div class="row">
+                    <img src="~/Them/assets/img/slider/Banner-Size.png" />
+                </div><!--end row-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- End modal -->
+@section Scripts
+        {
+    <script>
+        const handleChange = () => {
+            const fileUploader = document.querySelector('#input-file');
+            const getFile = fileUploader.files
+            if (getFile.length !== 0) {
+                const uploadedFile = getFile[0];
+                readFile(uploadedFile);
+            }
+        }
+
+        const readFile = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('.preview-box');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+    </script>
+
+}

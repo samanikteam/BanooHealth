@@ -1,0 +1,144 @@
+﻿@page
+@model Samanik.Web.Pages.Login.loginAppModel
+@{
+    Layout = "";
+}
+
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title> سمانیک | فرم ورود و ثبت نام </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/Login/rtl/img/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/Login/rtl/css/bootstrap-rtl.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="/Login/rtl/css/fontawesome-all.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="/Login/rtl/font/flaticon.css">
+    <!-- Vegas CSS -->
+    <link rel="stylesheet" href="/Login/rtl/css/vegas.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Login/rtl/style.css">
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <section class="fxt-template-animation fxt-template-layout29">
+        <div class="container-fluid">
+            <div class="row">
+                <!--<div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide"
+         data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[
+         @foreach (var item in Model.sliderDto.LoginSliders)
+         {
+             string s = "{'src':'data:/Them/assets/img/blog;base64,@Convert.ToBase64String('"+@item.Avatar+"')'},";
+             //string s2 = '{"src":"data:/Them/assets/img/blog;base64,@Convert.ToBase64String('"+@item.Avatar+"')"},';
+
+             s.ToString();
+         }
+         ]}'>-->
+                @*{"src": "/Login/rtl/img/figure/bg29-l-1.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-2.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-3.jpg"}*@
+                <!--<div class="fxt-page-switcher">
+            <a href="#" class="switcher-text1 active">ورود</a>
+            <a href="/Login/Register" class="switcher-text1">ثبت نام</a>
+        </div>
+    </div>-->
+                <div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide" data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "/Login/rtl/img/figure/bg29-l-1.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-2.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-3.jpg"}]}'>
+                    <div class="fxt-page-switcher">
+                        <a href="#" class="switcher-text1">ورود</a>
+                        <a href="/Login/Register" class="switcher-text1 active">ثبت نام</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 fxt-bg-color">
+                    <div class="fxt-content">
+                        <div class="fxt-header">
+                            <a href="login-29.html" class="fxt-logo"><img src="/Them/LogoSamanik/MainLogo.png" width="200px" height="20px" alt="Logo"></a>
+                        </div>
+                        <div class="fxt-form">
+                            <div class="fxt-transformY-50 fxt-transition-delay-1">
+                                <h2>ورود</h2>
+                            </div>
+                            <div class="fxt-transformY-50 fxt-transition-delay-2">
+                                <p> برای ادامه در وب سایت ما وارد شوید </p>
+                            </div>
+                            <form method="POST">
+                                <div class="form-group">
+                                    <div class="fxt-transformY-50 fxt-transition-delay-4">
+                                        <input asp-for="dto.UserName" type="tel" class="form-control" placeholder="شماره موبایل خود را وارد کنید" required="required">
+                                        <i class="fa fa-fw fa-phone"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="fxt-transformY-50 fxt-transition-delay-5">
+                                        <input asp-for="dto.Password" type="password" class="form-control" placeholder="رمز عبور خود را وارد کنید" required="required">
+                                        <i class="flaticon-padlock"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="fxt-transformY-50 fxt-transition-delay-6">
+                                        <div class="fxt-content-between">
+                                            <button type="submit" class="fxt-btn-fill">ورود</button>
+                                            @* <a href="/administration">ورود</a>*@
+                                            <a href="/Login/forgetPassword" class="switcher-text2">فراموشی رمزعبور</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="fxt-footer">
+                            <div class="fxt-transformY-50 fxt-transition-delay-8">
+                                <h3>یا ورود با</h3>
+                            </div>
+                            <ul class="fxt-socials">
+                                <li class="fxt-facebook fxt-transformY-50 fxt-transition-delay-9">
+                                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                </li>
+                                <li class="fxt-twitter fxt-transformY-50 fxt-transition-delay-10">
+                                    <a href="#" title="twitter"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li class="fxt-google fxt-transformY-50 fxt-transition-delay-11">
+                                    <a href="#" title="google"><i class="fab fa-google-plus-g"></i></a>
+                                </li>
+                                <li class="fxt-linkedin fxt-transformY-50 fxt-transition-delay-12">
+                                    <a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                                <li class="fxt-pinterest fxt-transformY-50 fxt-transition-delay-13">
+                                    <a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jquery-->
+    <script src="/Login/rtl/js/jquery-3.5.0.min.js"></script>
+    <!-- Popper js -->
+    <script src="/Login/rtl/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/Login/rtl/js/bootstrap.min.js"></script>
+    <!-- Imagesloaded js -->
+    <script src="/Login/rtl/js/imagesloaded.pkgd.min.js"></script>
+    <!-- Vegas js -->
+    <script src="/Login/rtl/js/vegas.min.js"></script>
+    <!-- Validator js -->
+    <script src="/Login/rtl/js/validator.min.js"></script>
+    <!-- Custom Js -->
+    <script src="/Login/rtl/js/main.js"></script>
+
+
+
+</body>
+
+</html>
+

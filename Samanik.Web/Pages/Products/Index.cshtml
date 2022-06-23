@@ -1,0 +1,228 @@
+﻿@page "{id}/{slug?}"
+@model Samanik.Web.Pages.MainPage.ProductDetails.ProductDetailModel
+@using VisitorManagment.Core.Convertors;
+@{
+    ViewData["Title"] = Model.productDto.Title;
+    ViewData["Description"] = Model.productDto.Description;
+    ViewData["Keywords"] = Model.productDto.KeyWords;
+}
+
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="/Index">خانه</a></li>
+                        <li><a href="/MainPage/ProductsShop/ProductShop">محصولات</a></li>
+                        <li>@Model.productDto.Title</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blog_bg_area">
+    <div class="container">
+        <div class="blog_page_section">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="product_details_wrapper mb-55">
+                        <!--product details start-->
+                        <div class="product_details">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="product-details-tab">
+                                        <div id="img-1" class="zoomWrapper single-zoom">
+                                            <a href="#">
+                                                <img height="250px" id="zoom1" src="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)" data-zoom-image="/ProductPicture/@Model.productDto.Avatar1" alt="big-1">
+                                            </a>
+                                        </div>
+                                        <div class="single-zoom-thumb">
+                                            <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
+
+                                                @foreach (var item in Model.listProGalleryDto.ProGallery)
+                                                {
+                                                    <li>
+                                                        <a href="#" class="elevatezoom-gallery active" data-update="" data-image="/ProductPicture/@item.Avatar" data-zoom-image="/ProductPicture/@item.Avatar">
+                                                            <img src="data:/ProductPicture;base64,@Convert.ToBase64String(@item.Avatar)" alt="zo-th-1">
+                                                        </a>
+
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7 col-md-6">
+                                    <div class="product_d_right">
+                                        <form action="#">
+
+                                            <h3><a href="#"></a></h3>
+
+                                            <div class="product_desc">
+                                                <h1 style="font-size:24px;">
+                                                    @Model.productDto.Title
+                                                </h1>
+                                            </div>
+                                            <div class="product_info_content" style=" width: 200px; height:200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <span>
+                                                    @Model.productDto.Description
+                                                </span>
+
+                                            </div>
+
+                                            <div class="product_meta">
+                                                <span>دسته: <a href="#">@ViewBag.ProductCategory</a></span>
+                                            </div>
+
+                                        </form>
+                                        <div class="priduct_social">
+                                            <ul>
+                                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> لایک</a></li>
+                                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> توییت</a></li>
+                                                <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> ذخیره</a></li>
+                                                <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> اشتراک گذاری</a></li>
+                                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> لینکدین</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <!--blog grid area start-->
+                    <div class="blog_wrapper blog_details">
+                        <article class="single_blog">
+                            <figure>
+                                <div class="post_header">
+                                    <h1 class="post_title"></h1>
+                                    <div class="blog_meta">
+                                        <span class="fw-bolder">داروخانه‌های اینترنتی</span>
+                                        <span class="meta_date" style="float:left"> <a href="#">راهنمای خرید امن</a> </span>
+                                        @*<span class="post_category">در : <a href="#">شرکت، عکس، مسافرت</a></span>*@
+                                    </div>
+                                </div>
+                            </figure>
+
+                            @foreach (var item in Model.listPharmacyWithProductDto.pharmaciesWithProduct)
+                            {
+                                if (item != null)
+                                {
+                                    <figure>
+                                        <div class="post_header">
+                                            <h1 class="post_title"></h1>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-6">
+                                                    <div>
+                                                        <span class="" style="margin-right:0%;">
+                                                            @item.Name
+                                                        </span>
+                                                        <span class="fw-bolder " style="margin-right:25%;">
+                                                            @item.ProductTitle
+                                                        </span>
+                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0")</span>
+                                                        <a href="@item.LinkAddress" class="btn btn-outline-danger float-right"> خرید اینترنتی</a>
+                                                        <br />
+                                                        <span class=""> @item.City</span>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </figure>
+                                }
+                                else
+                                {
+                                    <figure>
+                                        <div class="post_header">
+                                            <h1 class="post_title"></h1>
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-12">
+                                                    <div class="blog_meta">
+                                                        <span class="fw-bolder">در حال حاضر هیچ داروخانه این محصول را ارائه نمیکند</span>
+                                                        <br />
+
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </figure>
+                                }
+
+                                <hr />
+
+
+                            }
+
+
+
+                        </article>
+                    </div>
+                    <!--blog grid area start-->
+
+                    <br />
+                    <div class="blog_wrapper blog_details">
+                        <article class="single_blog">
+                            <figure>
+                                <div class="post_header">
+                                    <div class="blog_meta">
+                                        <span class="fw-bolder">توضیحات تکمیلی</span>
+
+                                    </div>
+                                    <div class="blog_content">
+                                        @Html.Raw(Model.productDto.Text)
+                                    </div>
+                                </div>
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="blog_sidebar_widget">
+
+                        <div class="widget_list comments">
+                            <div class="widget_title">
+                                <h3>مشخصات کلی  @Model.productDto.Title</h3>
+                            </div>
+                            <div class="post_wrapper">
+                                <div class="product_d_table">
+                                    <div class="subscribe_content">
+                                        @foreach (var item in Model.listProductFilterDto.ProductFilters)
+                                        {
+
+                                            <p>
+                                                <strong>@item.Filtername</strong>
+                                                <br />
+                                                @item.Value
+                                            </p>
+
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

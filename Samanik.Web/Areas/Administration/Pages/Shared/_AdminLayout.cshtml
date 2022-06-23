@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>پنل ادمین سمانیک </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Bootstrap 4 Landing Page Template" />
+    <meta name="keywords" content="Appointment, Booking, System, Dashboard, Health" />
+    <meta name="robots" content="noindex, follow">
+    <meta name="author" content="Shreethemes" />
+    <meta name="email" content="" />
+    <meta name="website" content="" />
+    <meta name="Version" content="v1.0.0" />
+    <!-- favicon -->
+    <link rel="shortcut icon" href="~/Them/LogoSamanik/favicon.png">
+    <!-- Bootstrap -->
+    <link href="~/AdminThem/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- simplebar -->
+    <link href="~/AdminThem/css/simplebar.css" rel="stylesheet" type="text/css" />
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/AdminThem/css/select2.min.css" />
+    <!-- Icons -->
+    <link href="~/AdminThem/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/AdminThem/css/remixicon.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/AdminThem/unicons.iconscout.com/release/v3.0.6/css/line.css">
+    <!-- SLIDER -->
+    <link rel="stylesheet" href="~/AdminThem/css/owl.carousel.css" />
+    <link rel="stylesheet" href="~/AdminThem/css/owl.theme.default.css" />
+    <!-- <link rel="stylesheet" href="css/tiny-slider.css"/> -->
+    <!-- Css -->
+    <link href="~/AdminThem/css/style.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/AdminThem/css/line.css" rel="stylesheet" />
+    <link href="~/AdminThem/css/select2.min.css" rel="stylesheet" />
+
+    @RenderSection("Css", false)
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+
+    <div class="page-wrapper chiller-theme toggled">
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content" data-simplebar style="height: calc(100% - 60px);">
+                <div class="sidebar-brand">
+                    <a href="#"><img src="/Them/LogoSamanik/MainLogo.png" height="40" alt=""></a>
+                </div>
+
+                <ul class="sidebar-menu pt-3">
+
+                    <li><a href="/Index"><i class="uil uil-sitemap ms-2 d-inline-block"></i>صفحه اصلی</a></li>
+                    <li><a href="/Administration"><i class="uil uil-dashboard ms-2 d-inline-block"></i>داشبرد</a></li>
+
+                     <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-dollar-sign-alt  ms-2  d-inline-block"></i>مدیریت کاربران</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Users">لیست کاربران‌</a></li>
+                                <li><a href="#">مدیریت نفش ها</a></li>
+                                <li><a href="#">مدیریت دسترسی ها</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-letter-english-a ms-2 d-inline-block"></i>مدیریت بلاگ</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Blog/Articles/Index">مدیریت مجله‌ها</a></li>
+                                <li><a href="/Administration/Blog/Categories">مدیریت دسته‌بندی‌ها</a></li>
+                                <li><a href="/Administration/Blog/Comments">مدیریت نظرات</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-box ms-2 d-inline-block"></i>مدیریت محصولات دارویی</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Product/ProductManagement">مدیریت ‌محصولات</a></li>
+                                <li><a href="/Administration/Product/ProductCategory">مدیریت دسته‌بندی‌ محصولات</a></li>
+                                <li><a href="/Administration/Product/Filter">مدیریت ویژگی محصولات</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-picture ms-2 d-inline-block"></i>مدیریت رسانه‌ها</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Media/Slider">مدیریت اسلایدر</a></li>
+                                <li><a href="/Administration/Media/LoginSlider">مدیریت اسلایدر صفحه ورود</a></li>
+                                <li><a href="/Administration/Media/Banner">مدیریت بنرها</a></li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-building ms-2 d-inline-block"></i>مدیریت داروخانه‌ها</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="~/Administration/Pharmacy">مدیریت داروخانه‌ها</a></li>
+                                <li><a href="~/Administration/Pharmacy/Product">محصولات داروخانه‌ها</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-setting ms-2 d-inline-block"></i>تنظیمات</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Setting">تنظیمات سایت</a></li>
+                                <li><a href="/Administration/Slogan">شعارهای تبلیغاتی</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <!-- sidebar-menu  -->
+            </div>
+            <!-- sidebar-content  -->
+            <ul class="sidebar-footer list-unstyled mb-0">
+                <li class="list-inline-item mb-0 me-1">
+                    <a href="#" class="btn btn-icon btn-pills btn-soft-primary">
+                        <i class="uil uil-comment icons"></i>
+                    </a>
+                </li>
+
+                <li class="list-inline-item mb-0 me-1">
+                    <div class="dropdown dropdown-primary">
+                        <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/AdminThem/images/language/american.png" class="avatar avatar-ex-small rounded-circle" alt=""></button>
+                        <div class="dropdown-menu dd-menu drop-ups dropdown-menu-end bg-white shadow border-0 mt-3 p-2" data-simplebar style="height: 175px;">
+                            <a href="javascript:void(0)" class="d-flex align-items-center">
+                                <img src="~/AdminThem/images/language/chinese.png" class="avatar avatar-client rounded-circle shadow" alt="">
+                                <div class="flex-1 text-left me-2 overflow-hidden">
+                                    <small class="text-dark mb-0">چینی</small>
+                                </div>
+                            </a>
+
+                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
+                                <img src="~/AdminThem/images/language/european.png" class="avatar avatar-client rounded-circle shadow" alt="">
+                                <div class="flex-1 text-left me-2 overflow-hidden">
+                                    <small class="text-dark mb-0">اوروپایی</small>
+                                </div>
+                            </a>
+
+                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
+                                <img src="~/AdminThem/images/language/indian.png" class="avatar avatar-client rounded-circle shadow" alt="">
+                                <div class="flex-1 text-left me-2 overflow-hidden">
+                                    <small class="text-dark mb-0">هندی</small>
+                                </div>
+                            </a>
+
+                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
+                                <img src="~/AdminThem/images/language/japanese.png" class="avatar avatar-client rounded-circle shadow" alt="">
+                                <div class="flex-1 text-left me-2 overflow-hidden">
+                                    <small class="text-dark mb-0">ژاپنی</small>
+                                </div>
+                            </a>
+
+                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
+                                <img src="~/AdminThem/images/language/russian.png" class="avatar avatar-client rounded-circle shadow" alt="">
+                                <div class="flex-1 text-left me-2 overflow-hidden">
+                                    <small class="text-dark mb-0">روسی</small>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- sidebar-wrapper  -->
+        <!-- Start Page Content -->
+        <main class="page-content bg-light">
+            <div class="top-header">
+                <div class="header-bar d-flex justify-content-between border-bottom">
+                    <div class="d-flex align-items-center">
+                        <a href="#" class="logo-icon">
+                            <img src="~/AdminThem/images/logo-icon.png" height="30" class="small" alt="">
+                            <img src="~/AdminThem/images/logo-dark.png" height="22" class="big" alt="">
+                        </a>
+                        <a id="close-sidebar" class="btn btn-icon btn-pills btn-soft-primary me-2" href="#">
+                            <i class="uil uil-bars"></i>
+                        </a>
+                        <div class="search-bar p-0 d-none d-md-block me-2">
+                            <div id="search" class="menu-search mb-0">
+                                <form role="search" method="get" id="searchform" class="searchform">
+                                    <div>
+                                        <input type="text" class="border rounded-pill" name="s" id="s" placeholder="جستجو کلیدواژه...">
+                                        <input type="submit" id="searchsubmit" value="جستجو">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled mb-0">
+                        <li class="list-inline-item mb-0 me-1">
+                            <div class="dropdown dropdown-primary">
+                                <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-bell icons"></i></button>
+                                <span class="position-absolute top-0 end-100  translate-middle badge rounded-pill bg-danger">3 <span class="visually-hidden">پیام های خوانده نشده</span></span>
+
+                                <div class="dropdown-menu dd-menu dropdown-menu-start bg-white shadow border-0 mt-3 px-2 py-2" data-simplebar style="height: 320px; width: 300px;">
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/02.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3">شما ثبت نام کاربر جدید دریافت کردید<small class="text-muted fw-normal d-inline-block">1 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/Codepen.svg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3">ورود به سیستم جدید<b> کدپن </b>  <small class="text-muted fw-normal d-inline-block">4 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/03.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"><b> کریستینا</b> داروی شما را پسندید <small class="text-muted fw-normal d-inline-block">5 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/dribbble.svg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"><b>دریبل</b> شات شما را پذیرفت <small class="text-muted fw-normal d-inline-block">24 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/06.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3">درخواست فالو از طرف <b> دونالد اریکاری </b> <small class="text-muted fw-normal d-inline-block">1 روز قبل </small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/07.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"><b> کوین </b> به شما پیام داد <small class="text-muted fw-normal d-inline-block">2 روز قبل </small></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-inline-item mb-0 me-1">
+                            <div class="dropdown dropdown-primary">
+                                <button type="button" class="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="uil uil-envelope icons"></i></button>
+                                <span class="position-absolute top-0 end-100  translate-middle badge rounded-pill bg-danger">4 <span class="visually-hidden">unread mail</span></span>
+
+                                <div class="dropdown-menu dd-menu dropdown-menu-start bg-white shadow rounded border-0 mt-3 px-2 py-2" data-simplebar style="height: 320px; width: 300px;">
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/02.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"> یک ایمیل جدید دریافت کردید <b> جولیا </b> <small class="text-muted fw-normal d-inline-block">1 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/Codepen.svg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"> یک ایمیل جدید دریافت کردید <b> کدپن </b>  <small class="text-muted fw-normal d-inline-block">4 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/03.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"> یک ایمیل جدید دریافت کردید <b> کریستینا</b> <small class="text-muted fw-normal d-inline-block">5 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/dribbble.svg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"> یک ایمیل جدید دریافت کردید <b>دریبل</b> <small class="text-muted fw-normal d-inline-block">24 ساعت قبل</small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/06.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"> یک ایمیل جدید دریافت کردید <b> دونالد اریکاری </b> <small class="text-muted fw-normal d-inline-block">1 روز قبل </small></span>
+                                        </div>
+                                    </a>
+
+                                    <a href="#" class="d-flex align-items-center justify-content-between py-2 border-top">
+                                        <div class="d-inline-flex position-relative overflow-hidden">
+                                            <img src="~/AdminThem/images/client/07.jpg" class="avatar avatar-md-sm rounded-circle shadow" alt="">
+                                            <span class="text-dark mb-0 d-block text-truncat me-3"> یک ایمیل جدید دریافت کردید <b> کوین </b> <small class="text-muted fw-normal d-inline-block">2 روز قبل </small></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-inline-item mb-0 me-1">
+                            <div class="dropdown dropdown-primary">
+                                <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/AdminThem/images/doctors/01.jpg" class="avatar avatar-ex-small rounded-circle" alt=""></button>
+                                <div class="dropdown-menu dd-menu dropdown-menu-start bg-white shadow border-0 mt-3 py-3" style="min-width: 200px;">
+                                    <a class="dropdown-item d-flex align-items-center text-dark" href="profile.html">
+                                        <img src="~/AdminThem/images/doctors/01.jpg" class="avatar avatar-md-sm rounded-circle border shadow" alt="">
+                                        <div class="flex-1 me-2">
+                                            <span class="d-block mb-1">کلوین کارلو</span>
+                                            <small class="text-muted"> ارتوپدی </small>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item text-dark" href="index.html"><span class="mb-0 d-inline-block ms-1"><i class="uil uil-dashboard align-middle h6"></i></span>داشبرد</a>
+                                    <a class="dropdown-item text-dark" href="dr-profile.html"><span class="mb-0 d-inline-block ms-1"><i class="uil uil-setting align-middle h6"></i></span>تنظیمات پروفایل</a>
+                                    <div class="dropdown-divider border-top"></div>
+                                    <a class="dropdown-item text-dark" href="/index"><span class="mb-0 d-inline-block ms-1"><i class="uil uil-sign-out-alt align-middle h6"></i></span> خروج</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            @RenderBody()
+            <!-- Footer Start -->
+            <footer class="bg-white shadow py-3">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <div class="text-sm-end text-center">
+                                <p class="mb-0 text-muted"><i class="mdi mdi-heart text-danger"></i> <a href=" " target="_blank" class="text-reset">Samanik Team</a>.</p>
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </footer><!--end footer-->
+            <!-- End -->
+        </main>
+        <!--End page-content" -->
+    </div>
+    <!-- page-wrapper -->
+    <!-- javascript -->
+    <script src="~/AdminThem/js/bootstrap.bundle.min.js"></script>
+    <script src="~/AdminThem/js/jquery-3.5.1.min.js"></script>
+    <!--select2-->
+    <script src="~/AdminThem/js/select2.min.js"></script>
+    <script src="~/AdminThem/js/select2.init.js"></script>
+
+    <!-- simplebar -->
+    <script src="~/AdminThem/js/simplebar.min.js"></script>
+    <!-- SLIDER -->
+    //خط زیر مانع کار سلکت 2 میشود
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>*@
+    <!-- Chart -->
+    @*<script src="~/AdminThem/js/apexcharts.min.js"></script>*@
+    @*<script src="~/AdminThem/js/columnchart.init.js"></script>*@
+    <!-- Icons -->
+    <script src="~/AdminThem/js/feather.min.js"></script>
+    <!-- Main Js -->
+    <script src="~/AdminThem/js/app-admin.js"></script>
+    <!--CkEditor Jquery-->
+    <script src="~/lib/ckeditor/prism_1.0.1/prism/lib/prism/prism_patched.min.js"></script>
+    <script src="~/Slug/site.js"></script>
+
+    @RenderSection("Scripts", false)
+</body>
+
+</html>

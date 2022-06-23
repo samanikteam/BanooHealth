@@ -1,0 +1,355 @@
+﻿@page "{id}"
+@model Samanik.Web.Areas.Administration.Pages.Product.ProductDetailModel
+@{
+    Layout = "_AdminLayout";
+    var productId = ViewBag.productId;
+    string style = "";
+}
+
+<div class="layout-specing">
+    <div class="d-md-flex justify-content-between">
+        <h5 class="mb-0">جزئیات محصول</h5>
+
+        <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
+            <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
+                <li class="breadcrumb-item"><a href="index.html">سمانیک</a></li>
+                <li class="breadcrumb-item"><a href="shop.html">فروشگاه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">جزییات محصول</li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="card border-0 rounded shadow p-4 mt-4">
+        <div class="mt-4 mt-sm-0">
+            <a href="#" class="btn btn-primary" style="float:left" data-bs-toggle="modal" data-bs-target="#add-productPicture">افزودن تصویر</a>
+
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-4 col-md-5">
+                <div class="slider slider-for">
+
+                    <div><img src="data:/Them/assets/img/product;base64,@Convert.ToBase64String(Model.dto.Avatar1)" class="img-fluid rounded" alt="@Model.dto.AvatarAlt1"></div>
+
+                </div>
+
+
+            </div>
+            <!--end col-->
+
+            <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
+                <div class="me-md-4">
+                    <h4 class="title">@Model.dto.Title</h4>
+                    @*<ul class="list-unstyled text-warning h5 mb-0">
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        <li class="list-inline-item me-2 h6 text-muted">(20 امتیاز)</li>
+                    </ul>*@
+
+                    <h5 class="mt-4 py-2">توضیحات:</h5>
+                    <p class="text-muted">
+                        @Html.Raw(Model.dto.Description)
+                    </p>
+
+                    <h5 class="mt-4 py-2">دسته‌بندی:</h5>
+                    <p class="text-muted">
+
+                    </p>
+
+
+                    <div class="mt-4 pt-2">
+
+                        <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#EditProductModal">ویرایش</a>
+                        <a asp-page="AssignFilter" asp-route-id="@Model.dto.Id" class="btn btn-warning">افزودن ویژگی</a>
+                    </div>
+                    <br />
+
+                    @if (Model.dto.IsDelete == false)
+                    {
+                        <form method="post" asp-page-handler="Deactive">
+                            <button class="btn btn-soft-danger me-2">غیرفعال‌سازی</button>
+                            <input type="hidden" name="id" value="@Model.dto.Id" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="Active">
+                            <button class="btn btn-soft-success me-2">فعال‌سازی</button>
+                            <input type="hidden" name="id" value="@Model.dto.Id" />
+                        </form>
+                    }
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+
+
+    </div>
+
+
+    <div class="row row-cols-xl-5">
+        @foreach (var item in Model.listProGalleryDto.ProGallery)
+        {
+            <div class="col-xl col-lg-3 col-md-6 col-12 mt-4">
+                <div class="card shop-list border-0 overflow-hidden rounded shadow">
+                    <div style="max-height:300px; max-width:300px;" class="shop-image position-relative overflow-hidden">
+                       
+                        @if (item.IsDelete == true)
+                        {
+                            style = "border:solid 2px red";
+                        }
+                        else
+                        {
+                            style = "border:solid 2px green";
+                        }
+
+                         <form method="post" asp-page-handler="Activate">
+                            <input type="hidden" name="productId" value="@Model.dto.Id">
+                            <button type="submit" value="@item.Id" name="id" style="border:none;">
+                                <img width="100%" height="100%" style="@style" src="data:ProductPicture;base64,@Convert.ToBase64String(item.Avatar)">
+                            </button>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+        <!--end col-->
+
+
+    </div>
+</div>
+<!--end container-->
+<div class="modal fade" id="add-productPicture" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">افزودن تصویر محصول </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-3 pt-4">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="productId" value="@Model.dto.Id" />
+                    <div class="row">
+                        <div class="col-md-12">
+                            @**@
+                            <div class="d-grid">
+                                <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
+                                <div id="p1" class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
+                                <input type="file" id="input-file1" name="image1" accept="image/*" onchange={handleChange()} hidden required />
+                                <label class="btn-upload btn btn-primary mt-4" for="input-file1">بارگذاری تصویر <span class="text-danger">*</span></label>
+                                <br />
+
+                            </div>
+
+                        </div><!--end col-->
+
+                        <div class="col-md-12 mt-4 mt-sm-0">
+                            <div class="mb-3">
+                                <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
+                                <input asp-for="proGalleryDto.AvatarTitle" id="name" type="text" class="form-control" placeholder="Image Tilte :" required>
+                            </div>
+                            <br />
+                            <div class="mb-3">
+                                <label class="form-label">متن جایگزین تصویر: <span class="text-danger">*</span></label>
+                                <input asp-for="proGalleryDto.AvatarAlt" id="name" type="text" class="form-control" placeholder="Image Alt :" required>
+                            </div>
+
+                            <div class="col-lg-12 text-end">
+                                <button type="submit" asp-page-handler="AddProductPictureToGallery" class="btn btn-primary">افزودن  تصویر</button>
+                            </div><!--end col-->
+                        </div>
+                    </div>
+                </form>
+
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div>
+
+<div class="modal fade" id="EditProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">ویرایش محصول</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-3 pt-4">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="hidden" asp-for="dto.Id" />
+                            <div class="d-grid">
+                                <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
+                                <div id="p1" class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
+                                <input type="file" id="input-file1" name="Image" accept="image/*" onchange={handleChange()} hidden />
+                                <label class="btn-upload btn btn-primary mt-4" for="input-file1">بارگذاری تصویر <span class="text-danger">*</span></label>
+                                <br />
+                                <div class="mb-3">
+                                    <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
+                                    <input asp-for="dto.AvatarTitle1" id="name" type="text" class="form-control" placeholder="Image Tilte :" required>
+                                </div>
+                                <br />
+                                <div class="mb-3">
+                                    <label class="form-label">متن جایگذین تصویر: <span class="text-danger">*</span></label>
+                                    <input asp-for="dto.AvatarAlt1" id="name" type="text" class="form-control" placeholder="Image Alt :" required>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-md-9 mt-4 mt-sm-0">
+                            <div class="me-md-4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام محصول<span class="text-danger">*</span></label>
+                                            <input id="Title" type="text" class="form-control" asp-for="dto.Title" placeholder="نام محصول :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">توضیحات کوتاه<span class="text-danger">*</span></label>
+                                            <textarea maxlength="150" class="form-control" asp-for="dto.Description" placeholder="Description :" required></textarea>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">دسته‌بندی: <span class="text-danger">*</span></label>
+                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ProductCategory" name="productCategoryId" multiple>
+                                                <option disabled>دسته‌بندی را انتخاب کنید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">مجلات: <span class="text-danger">*</span></label>
+
+                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleList" name="articleListId" multiple>
+                                                <option disabled>مجله را انتخاب کنید</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">اسلاگ: <span class="text-danger">*</span></label>
+                                            <input id="Slug" type="text" class="form-control" asp-for="dto.Slug" placeholder="Slug :" readonly>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام کشور <span class="text-danger">*</span></label>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.Country" placeholder="نام کشور سازنده :">
+                                        </div>
+                                    </div><!--end col-->
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.KeyWords" placeholder="key words :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام برند: <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" asp-for="dto.BrandName" placeholder="Brand Name :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">توضیحات جامع مجله: <span class="text-danger">*</span></label>
+                                            <textarea asp-for="dto.Text" id="myeditor" class="form-control" placeholder="Text :"></textarea>
+                                            <script src="~/lib/ckeditor/ckeditor.js"></script>
+                                            <script>
+                                                CKEDITOR.replace("myeditor");
+                                            </script>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="dto.popular" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">آیا این محصول پر فروش است؟</label>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-lg-12 text-end">
+                                        <button type="submit" class="btn btn-primary">ویرایش محصول</button>
+                                    </div><!--end col-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div>
+
+<!-- End modal -->
+
+
+@section Scripts
+{
+
+    <script>
+        const handleChange = () => {
+            const fileUploader1 = document.querySelector('#input-file1');
+            const getFile1 = fileUploader1.files
+            if (getFile1.length !== 0) {
+                const uploadedFile = getFile1[0];
+                readFile1(uploadedFile);
+            }
+        }
+
+
+
+        const readFile1 = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('#p1');
+                    parent.innerHTML = `
+<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+
+
+        $(function () {
+            $("#categoryIdMother").on("change", function () {
+                var pId = $(this).val();
+                alert(pId);
+                $("#categoryIdZirShakhe").empty();
+                $("#cityList").append("<option value=''>دسته بندی زیر شاخه را انتخاب کنید</option>");
+                $.getJSON(`?handler=GetProductCategoryZirShakhe&id=${pId}`, (data) => {
+                    $.each(data, function (i, item) {
+                        $("#categoryIdZirShakhe").append(`<option value="${item.id}">${item.title}</option>`);
+                    });
+                });
+            });
+
+        });
+
+    </script>
+
+}

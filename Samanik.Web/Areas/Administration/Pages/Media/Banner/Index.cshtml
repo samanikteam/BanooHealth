@@ -1,0 +1,303 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Media.Banner.IndexModel
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid">
+    <div class="layout-specing">
+
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">اسلایدر</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="">سمانیک</a></li>
+                        <li class="breadcrumb-item"><a href="">مدیریت رسانه</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">بنر</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="mt-4 mt-sm-0">
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newblogadd">راهنمای بنرها</a>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-16 mt-4">
+                <div class="card border-0 p-4 rounded shadow">
+                    <form class="mt-4" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Dto.Id" />
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر اول</label>
+                                    <input asp-for="Dto.Avatar1" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title1" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link1" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر دوم</label>
+                                    <input asp-for="Dto.Avatar2" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title2" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link2" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر سوم</label>
+                                    <input asp-for="Dto.Avatar3" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title3" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link3" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر چهارم</label>
+                                    <input asp-for="Dto.Avatar4" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title4" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link4" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر پنجم</label>
+                                    <input asp-for="Dto.Avatar5" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title5" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link5" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر ششم</label>
+                                    <input asp-for="Dto.Avatar6" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title6" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link6" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر هفتم</label>
+                                    <input asp-for="Dto.Avatar7" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title7" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link7" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر هشتم</label>
+                                    <input asp-for="Dto.Avatar8" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title8" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link8" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label"> تصویر بنر نهم</label>
+                                    <input asp-for="Dto.Avatar9" type="file" class="form-control">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">عنوان و متن جایگزین</label>
+                                    <input asp-for="Dto.Title9" type="text" class="form-control" placeholder="Tilte and Alt: ">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">لینک بنر</label>
+                                    <input asp-for="Dto.Link9" type="text" class="form-control" placeholder="Link: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <button type="submit" class="btn btn-primary">ویرایش بنرها</button>
+                    </form>
+                </div>
+            </div><!--end col-->
+
+        </div><!--end row-->
+    </div>
+</div>
+
+
+
+
+<!-- Start Modal -->
+<div class="modal fade" id="newblogadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">راهنمای بنرها</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3 pt-4">
+                <div class="row">
+                    <img src="~/Them/assets/img/slider/Banner-Size.png" />
+                </div><!--end row-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- End modal -->
+@section Scripts
+        {
+    <script>
+        const handleChange = () => {
+            const fileUploader = document.querySelector('#input-file');
+            const getFile = fileUploader.files
+            if (getFile.length !== 0) {
+                const uploadedFile = getFile[0];
+                readFile(uploadedFile);
+            }
+        }
+
+        const readFile = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('.preview-box');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+    </script>
+
+}

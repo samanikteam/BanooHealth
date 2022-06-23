@@ -1,0 +1,177 @@
+﻿@page "{productCategoryId}/{slug?}"
+@model Samanik.Web.Pages.MainPage.ProductsShop.ProductByProductCategoryModel
+@using VisitorManagment.Core.Convertors;
+
+@{
+    ViewData["Title"] = "جستجو";
+    ViewData["Description"] = "";
+    ViewData["Keywords"] = "";
+}
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="index.html">خانه</a></li>
+                        <li>فروشگاه</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop_area shop_reverse">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <!--sidebar widget start-->
+                <aside class="sidebar_widget">
+                    <div class="widget_list widget_categories">
+                        <h3>دسته‌های محصولات</h3>
+                        <ul>
+                            @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null))
+                            {
+                                <li>
+                                    <a href="/Shopping/ProductCategory/@item.Id/@item.Slug" class="category-level-2">@item.Title</a>
+                                    <ul>
+                                        @foreach (var itemsub in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == item.Id))
+                                        {
+
+                                            <li>
+                                                <a href="/Shopping/ProductCategory/@itemsub.Id/@itemsub.Slug" class="category-level-2">@itemsub.Title</a>
+                                                <ul>
+                                                    @foreach (var itemsub2 in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == itemsub.Id))
+                                                    {
+
+                                                        <li>
+                                                            <a href="/Shopping/ProductCategory/@itemsub2.Id/@itemsub2.Slug" class="category-level-3">@itemsub2.Title</a>
+                                                            <ul>
+                                                                @foreach (var itemsub3 in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == itemsub2.Id))
+                                                                {
+                                                                    <li><a href="/Shopping/ProductCategory/@itemsub3.Id/@itemsub3.Slug" class="category-level-3">@itemsub3.Title</a></li>
+                                                                }
+                                                            </ul>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </aside>
+                <!--sidebar widget end-->
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <!--shop banner area start-->
+                <div class="shop_banner_area mb-10">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="shop_banner_thumb">
+
+                                <img src="~/ProductPicture/b1.jpg" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--shop toolbar start-->
+                <div class="shop_toolbar_wrapper">
+                    <div class="shop_toolbar_btn">
+                        <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
+                    </div>
+                    <div class="niceselect_container">
+                        <form action="#">
+                            <label>ترتیب:</label>
+                            <select class="select_option" name="orderby" id="short">
+                                <option selected value="1">امتیاز متوسط</option>
+                                <option value="2">محبوبیت</option>
+                                <option value="3">تاریخ ارسال</option>
+                                <option value="4">قیمت صعودی</option>
+                                <option value="5">قیمت نزولی</option>
+                                <option value="6">نام محصول</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="page_amount">
+                        <p>@Model.listProductDto.Products.Count() محصول</p>
+                    </div>
+                </div>
+                <!--shop toolbar end-->
+                <!--shop wrapper start-->
+                <div class="row no-gutters shop_wrapper">
+
+                    @if (Model.listProductDto.Products.Count() != 0)
+                    {
+                        @foreach (var item in Model.listProductDto.Products)
+                        {
+                            <div class="col-lg-3 col-md-4 col-12 ">
+                                <article class="single_product">
+                                    <figure>
+                                        <div class="product_thumb">
+                                            <a class="primary_img" href="/Products/Details/@item.Id/@item.Slug">
+                                                <img width="250" height="250" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="">
+                                            </a>
+                                            <div class="label_product">
+                                                <span class="label_sale">فروش</span>
+                                            </div>
+                                            @*<div class="action_links">
+                                                    <ul>
+                                                        <li class="wishlist"><a href="#" title="افزودن به علاقه‌مندی‌ها"><i class="ion-android-favorite-outline"></i></a></li>
+                                                        <li class="compare"><a href="#" title="افزودن به مقایسه"><i class="ion-ios-settings-strong"></i></a></li>
+                                                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="مشاهده سریع"><i class="ion-ios-search-strong"></i></a></li>
+                                                    </ul>
+                                                </div>*@
+                                        </div>
+
+                                        <div class="product_content grid_content">
+                                            <div class="product_content_inner">
+
+                                                <h4 class="product_name"><a>@item.Title</a></h4>
+                                                <div class="price_box">
+
+                                                    @if (item.MinimumPrice != null)
+                                                    {
+                                                        <span class="current_price">از: @Int32.Parse(item.MinimumPrice).ToString("N0") تومان</span>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <span class="current_price">در حال حاضر قیمتی برای این محصول ارائه نشده</span>
+                                                    }
+
+                                                    <span>در @item.CountPharmacyExistProduct  داروخانه</span>
+                                                </div>
+                                            </div>
+                                            <div class="add_to_cart">
+                                                @if (item.MinimumPrice != null)
+                                                {
+                                                    <a href="/Products/Details/@item.Id" title="مشاهده داروخانه‌ها">مشاهده داروخانه‌ها</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" title="موجود شد خبرم کن!">ناموجود</a>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                    </figure>
+                                </article>
+                            </div>
+                        }
+                    }
+
+                    else
+                    {
+                        <span style="color:red; padding:10px">در دسته بندی انتخاب شده محصولی یافت نشد</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

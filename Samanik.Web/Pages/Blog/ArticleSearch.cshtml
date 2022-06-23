@@ -1,0 +1,321 @@
+﻿@page
+@model Samanik.Web.Pages.Blog.ArticleSearchModel
+@{
+    //Seo tags
+    ViewData["Title"] = "جستجوی بانو هلث";
+    ViewData["Description"] = "";
+    ViewData["Keywords"] = "";
+    int counter = 0;
+}
+
+
+@if (ViewBag.SelectedArticle == "true")
+{
+    <!--breadcrumbs area start-->
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="~/Index">خانه</a></li>
+                            <li>بلاگ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs area end-->
+
+    <div class="blog_bg_area">
+        <div class="container">
+            <!--blog area start-->
+            <div class="blog_page_section">
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+                        <div class="blog_wrapper mb-60">
+                            <div class="blog_header">
+                                <h1>بلاگ</h1>
+                            </div>
+                            <div class="blog_wrapper_inner">
+                                @if (Model.listArticle.Count() == 0 || Model.listArticle == null)
+                                {
+                                    <article class="single_blog single_blog_gallery">
+                                        <figure>
+                                            <figcaption class="blog_content">
+                                                <h4 class="post_title" style="color:red"><a>مقاله ای با عبارت وارد شده یافت نشد</a></h4>
+
+                                            </figcaption>
+                                        </figure>
+                                    </article>
+                                }
+                                @foreach (var item in Model.listArticle)
+                                {
+                                    <article class="single_blog single_blog_gallery">
+                                        <figure>
+                                            <div class="blog_thumb">
+                                                <div class="single_blog_thumb">
+                                                    <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt"></a>
+                                                </div>
+                                            </div>
+                                            <figcaption class="blog_content">
+                                                <h4 class="post_title"><a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Title</a></h4>
+                                                <div class="blog_meta">
+                                                    <span class="author">ارسال توسط : <a href="#">دکتر علیرضا ولی‌زاده</a> / </span>
+                                                    <span class="meta_date">ارسال شده در :  <a href="#">@item.RegisterDate</a></span>
+                                                </div>
+                                                <div class="blog_desc">
+                                                    <p>@item.Description</p>
+                                                </div>
+                                                <footer class="btn_more">
+                                                    <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"> بیشتر بخوانید</a>
+                                                </footer>
+                                            </figcaption>
+                                        </figure>
+                                    </article>
+                                }
+                            </div>
+                        </div>
+                        <!--blog pagination area start-->
+                        <div class="blog_pagination">
+                            <div class="pagination">
+                                <ul>
+                                    <li class="current">1</li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li class="next"><a href="#">بعدی</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--blog pagination area end-->
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="blog_sidebar_widget">
+                            <div class="widget_list comments">
+                                <div class="widget_title">
+                                    <h3>آخرین دیدگاه‌ها</h3>
+                                </div>
+                                @foreach (var item in Model.commentDto.Comments.OrderByDescending(a => a.RegisterDate).Where(a => a.Status == 1))
+                                {
+                                    counter++;
+                                    <div class="post_wrapper">
+                                        <div class="post_info">
+                                            <span> <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Name</a> می‌گوید:</span>
+                                            <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Message</a>
+                                        </div>
+                                    </div>
+                                    if (counter == 5)
+                                    {
+                                        counter = 0;
+                                        break;
+
+                                    }
+
+                                }
+
+                            </div>
+                            <div class="widget_list widget_post">
+                                <div class="widget_title">
+                                    <h3>مطالب اخیر</h3>
+                                </div>
+                                @foreach (var item in Model.listArticle2.Articles.OrderByDescending(a => a.RegisterDate).Where(a => a.IsDelete == false))
+                                {
+                                    counter++;
+                                    <div class="post_wrapper">
+                                        <div class="post_thumb">
+                                            <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"><img style="max-height:60px; max-width:60px;" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.Title"></a>
+                                        </div>
+                                        <div class="post_info">
+                                            <h4><a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug">@item.Title</a></h4>
+                                            <span>@item.RegisterDate </span>
+                                        </div>
+                                    </div>
+                                    if (counter == 5)
+                                    {
+                                        counter = 0;
+                                        break;
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--blog area end-->
+
+
+        </div>
+    </div>
+}
+
+@if (ViewBag.SelectedProduct == "true")
+{
+    <div class="breadcrumbs_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb_content">
+                        <ul>
+                            <li><a href="index.html">خانه</a></li>
+                            <li>فروشگاه</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shop_area shop_reverse">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-12">
+                    <!--sidebar widget start-->
+                    <aside class="sidebar_widget">
+                        <div class="widget_list widget_categories">
+                            <h3>دسته‌های محصولات</h3>
+                            <ul>
+                                @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null && p.IsDelete == false))
+                                {
+                                    <li>
+                                        <a class="category-level-2" href="/Shopping/ProductCategory/@item.Id/@item.Slug">@item.Title</a>
+                                        <ul>
+                                            @foreach (var itemsub in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == item.Id))
+                                            {
+
+                                                <li>
+                                                    <a href="/Shopping/ProductCategory/@itemsub.Id/@itemsub.Slug" class="category-level-2">@itemsub.Title</a>
+                                                    <ul>
+
+                                                        @foreach (var itemsub2 in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == itemsub.Id))
+                                                        {
+
+                                                            <li>
+                                                                <a href="/Shopping/ProductCategory/@itemsub2.Id/@itemsub2.Slug" class="category-level-3">@itemsub2.Title</a>
+                                                                <ul>
+
+                                                                    @foreach (var itemsub3 in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == itemsub2.Id))
+                                                                    {
+
+                                                                        <li><a href="/Shopping/ProductCategory/@itemsub3.Id/@itemsub3.Slug" class="category-level-3">@itemsub3.Title</a></li>
+
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </li>
+
+                                            }
+                                        </ul>
+
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+
+                    </aside>
+                    <!--sidebar widget end-->
+                </div>
+                <div class="col-lg-9 col-md-12">
+                    <!--shop banner area start-->
+                    <div class="shop_banner_area mb-10">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="shop_banner_thumb">
+
+                                    <img src="~/ProductPicture/b1.jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--shop toolbar start-->
+                    <div class="shop_toolbar_wrapper">
+                        <div class="shop_toolbar_btn">
+                            <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
+
+                        </div>
+                        <div class="niceselect_container">
+                            <form action="#">
+                                <label>ترتیب:</label>
+                                <select class="select_option" name="orderby" id="short">
+                                    <option selected value="1">امتیاز متوسط</option>
+                                    <option value="2">محبوبیت</option>
+                                    <option value="3">تاریخ ارسال</option>
+                                    <option value="4">قیمت صعودی</option>
+                                    <option value="5">قیمت نزولی</option>
+                                    <option value="6">نام محصول</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="page_amount">
+                            <p>@Model.listProduct.Count() محصول</p>
+                        </div>
+                    </div>
+                    <!--shop toolbar end-->
+                    <!--shop wrapper start-->
+                    <div class="row no-gutters shop_wrapper">
+                        @if (Model.listProduct.Count() == 0 || Model.listProduct == null)
+                        {
+                            <div class="col-lg-3 col-md-4 col-12 ">
+                                <article class="single_product">
+                                    <figure>
+                                        <div class="product_content grid_content">
+                                            <div class="product_content_inner">
+                                                <h4 class="product_name" style="color:red">محصولی با عبارت وارد شده یافت نشد</h4>
+                                            </div>
+                                        </div>
+
+                                    </figure>
+                                </article>
+                            </div>
+                        }
+                        @foreach (var item in Model.listProduct)
+                        {
+                            <div class="col-lg-3 col-md-4 col-12 ">
+                                <article class="single_product">
+                                    <figure>
+                                        <div class="product_thumb">
+
+                                            <a class="primary_img" href="/ProductDetails/Details/@item.Id/@item.Slug">
+                                                <img width="250" height="250" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="@item.AvatarAlt1" title="@item.AvatarTitle1">
+                                            </a>
+
+
+
+                                            <div class="label_product">
+                                                <span class="label_sale">فروش</span>
+                                            </div>
+                                            @*<div class="action_links">
+                                                    <ul>
+                                                        <li class="wishlist"><a href="#" title="افزودن به علاقه‌مندی‌ها"><i class="ion-android-favorite-outline"></i></a></li>
+                                                        <li class="compare"><a href="#" title="افزودن به مقایسه"><i class="ion-ios-settings-strong"></i></a></li>
+                                                        <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="مشاهده سریع"><i class="ion-ios-search-strong"></i></a></li>
+                                                    </ul>
+                                                </div>*@
+                                        </div>
+
+                                        <div class="product_content grid_content">
+                                            <div class="product_content_inner">
+
+                                                <h4 class="product_name"><a href="/ProductDetails/Details/@item.Id/@item.Slug">@item.Title</a></h4>
+                                                <span class="current_price">@item.Description</span>
+                                            </div>
+                                            <div class="add_to_cart">
+                                                <a href="/ProductDetails/@item.Id/@item.Slug" title="مشاهده محصول">مشاهده محصول</a>
+                                            </div>
+                                        </div>
+
+                                    </figure>
+                                </article>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

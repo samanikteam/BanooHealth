@@ -1,0 +1,259 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Pharmacy.Product.IndexModel
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<div class="container-fluid">
+    <div class="layout-specing">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">داروخانه‌ها</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="/Index">سمانیک</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">مدیریت داروخانه‌ها</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="mt-4 mt-sm-0">
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCategory">افزودن داروخانه جدید</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="table-responsive shadow rounded">
+                    <table class="table table-center bg-white mb-0" >
+                        <thead>
+                            <tr>
+                                <th class="border-bottom py-3">نام محصول</th>
+                                <th class="border-bottom py-3">نام داروخانه</th>
+                                <th class="border-bottom py-3">قیمت</th>
+                                <th class="border-bottom py-3">تعداد</th>
+                                <th class="border-bottom py-3">تخفیف</th>
+
+                                <th class="border-bottom py-3" style="min-width: 100px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listPharmacyProductDto.PharmacyProducts)
+                            {
+                                <tr>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.PharmacyName</td>
+                                    <td>@item.Price</td>
+                                    <td>@item.Inventory</td>
+                                    <td>@item.Discount</td>
+
+
+                                    <td class="text-start">
+                                        <a href="/Administration/Pharmacy/Product/EditProduct/@item.Id" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal"><i class="uil uil-pen"></i></a>
+                                        <a href="@item.LinkAddress" class="btn btn-icon btn-pills btn-soft-warning" data-bs-toggle="modal"><i class="uil uil-eye"></i></a>
+
+                                        @if (item.IsDelete)
+                                        {
+                                            <form method="post" asp-page-handler="Confirm" class="float-left">
+                                                <button class="btn btn-icon btn-pills btn-soft-primary uil uil-refresh"></button>
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form method="post" asp-page-handler="Cancel" class="float-left">
+                                                <button class="btn btn-icon btn-pills btn-soft-danger uil uil-trash"></button>
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                            </form>
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--end row-->
+
+        <div class="row text-center">
+            <div class="col-12 mt-4">
+                <ul class="pagination justify-content-end mb-0 list-unstyled">
+                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
+                    <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
+                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
+                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
+                </ul><!--end pagination-->
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+
+
+</div><!--end container-->
+<!-- Start Modal -->
+<div class="modal fade" id="newCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">افزودن محصول داروخانه</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-3 pt-4">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="dto.RegisterUserId" value="admin" />
+                    <div class="row">
+                        <div class="col-md-16 mt-4 mt-sm-0">
+                            <div class="me-md-4">
+
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label"> نام داروخانه: <span class="text-danger">*</span></label>
+                                            <select asp-for="dto.PharmacyId" asp-items="ViewBag.PharmaciesList" class="form-control" required>
+                                                <option value="" disabled selected>لطفا نام داروخانه را مشخص نمایید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label"> نام محصول: <span class="text-danger">*</span></label>
+                                            <select asp-for="dto.productId" asp-items="ViewBag.Products" class="form-control" required>
+                                                <option value="" disabled selected>لطفا نام محصول را مشخص نمایید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label"> قیمت: <span class="text-danger">*</span></label>
+                                            <input asp-for="dto.Price" type="number" class="form-control" placeholder="Price : " required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label"> تعداد: <span class="text-danger">*</span></label>
+                                            <input asp-for="dto.Inventory" type="number" class="form-control" placeholder="Inventory : " required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label"> تخفیف: <span class="text-danger">*</span></label>
+                                            <input asp-for="dto.Discount" type="number" class="form-control" placeholder="Dicsount : " required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label"> لینک: <span class="text-danger">*</span></label>
+                                            <input asp-for="dto.LinkAddress" type="text" class="form-control" placeholder="Link : " required>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-lg-4">
+            <div class="mb-3">
+                <label class="form-label"> تعداد: <span class="text-danger">*</span></label>
+                <input asp-for="dto.Inventory" type="number" class="form-control" placeholder="Inventory : " required>
+            </div>
+        </div>*@
+
+                                    <br />
+                                    <br />
+                                    <div class="col-lg-12 text-end">
+                                        <button type="submit" class="btn btn-primary">افزودن محصول داروخانه</button>
+                                    </div><!--end col-->
+                                </div>
+
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End modal -->
+@section Scripts
+        {
+    <script>
+        const handleChange = () => {
+            const fileUploader = document.querySelector('#input-file');
+            const getFile = fileUploader.files
+            if (getFile.length !== 0) {
+                const uploadedFile = getFile[0];
+                readFile(uploadedFile);
+            }
+        }
+
+        const readFile = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('.preview-box');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+    </script>
+
+    <script>
+        document.getElementById("Title").addEventListener("input", function () {
+            let theSlug = string_to_slug(this.value);
+            document.getElementById("Slug").value = theSlug;
+        });
+
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ""); // trim
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaeeeeiiiioooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9-آ-ی-]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            //.replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+            //.replace(/\s+/g, "-") // collapse whitespace and replace by -
+            //.replace(/-+/g, "-"); // collapse dashes
+
+            return str;
+        }
+
+    </script>
+
+    <script>
+        document.getElementById("Title").addEventListener("input", function () {
+            let theSlug = string_to_slug(this.value);
+            document.getElementById("Slug").value = theSlug;
+        });
+
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ""); // trim
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaeeeeiiiioooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9-آ-ی-]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            //.replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+            //.replace(/\s+/g, "-") // collapse whitespace and replace by -
+            //.replace(/-+/g, "-"); // collapse dashes
+
+            return str;
+        }
+
+    </script>
+}
+

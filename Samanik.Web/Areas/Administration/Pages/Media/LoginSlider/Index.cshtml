@@ -1,0 +1,216 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Media.LoginSlider.IndexModel
+@{
+    Layout = "_AdminLayout";
+}
+
+
+<!--Start container-->
+<div class="container-fluid">
+    <div class="layout-specing">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">اسلایدر</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="">سمانیک</a></li>
+                        <li class="breadcrumb-item"><a href="">مدیریت رسانه</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">اسلایدر لاگین</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="mt-4 mt-sm-0">
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newblogadd">افزودن اسلایدر</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="table-responsive shadow rounded">
+                    <table class="table table-center bg-white mb-0">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom py-3">عنوان بنر</th>
+                                <th class="border-bottom py-3">متن جایگزین</th>
+                                <th class="border-bottom py-3">ترتیب</th>
+                                <th class="border-bottom py-3">وضعیت</th>
+                                <th class="border-bottom py-3" style="min-width: 100px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ListSlider.LoginSliders)
+                            {
+                            <tr>
+                                <td class="py-3">
+                                    <a href="#" class="text-dark">
+                                        <div class="d-flex align-items-center">
+                                            <img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" class="avatar avatar-md-sm rounded-circle shadow" alt="@item.AvatarAlt" title="@item.Title">
+                                            <span class="me-2">@item.Title</span>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td>@item.AvatarAlt</td>
+                                <td><span>@item.Sort</span></td>
+                                @if (item.Status == true)
+                                {
+                                    <td><span class="badge bg-soft-success">فعال</span></td>
+                                    <td class="text-start">
+                                        <form method="post" asp-page-handler="Disable" class="float-left">
+                                            <button class="btn btn-icon btn-pills btn-danger uil uil-trash"></button>
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                        </form>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td><span class="badge bg-soft-danger">غیرفعال</span></td>
+                                    <td class="text-start">
+
+                                        <form method="post" asp-page-handler="Enable" class="float-left">
+                                            <button class="btn btn-icon btn-pills btn-success uil uil-refresh"></button>
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                        </form>
+                                    </td>
+                                }
+
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-12 mt-4">
+                <ul class="pagination justify-content-end mb-0 list-unstyled">
+                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
+                    <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
+                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
+                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
+                </ul><!--end pagination-->
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div>
+<!--end container-->
+<!-- Start Modal -->
+<div class="modal fade" id="newblogadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">افزودن اسلایدر</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-3 pt-4">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="d-grid">
+                                <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
+                                <div class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
+                                <input name="Image" type="file" id="input-file" accept="image/*" onchange={handleChange()} hidden />
+                                <label class="btn-upload btn btn-primary mt-4" for="input-file">بارگذاری تصویر</label>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-md-7 mt-4 mt-sm-0">
+                            <div class="me-md-4">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
+                                            <input asp-for="dto.Title" id="Title" type="text" class="form-control" placeholder="Banner Title :">
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">متن جایگزین: <span class="text-danger">*</span></label>
+                                            <input asp-for="dto.AvatarAlt" id="Slug" type="text" class="form-control" placeholder="Alt :">
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input asp-for="dto.Status" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">وضعیت بنر</label>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <br />
+                                    <br />
+                                    <div class="col-lg-12 text-end">
+                                        <button type="submit" class="btn btn-primary">افزودن اسلایدر</button>
+                                    </div><!--end col-->
+                                </div>
+
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- End modal -->
+@section Scripts
+        {
+    <script>
+        const handleChange = () => {
+            const fileUploader = document.querySelector('#input-file');
+            const getFile = fileUploader.files
+            if (getFile.length !== 0) {
+                const uploadedFile = getFile[0];
+                readFile(uploadedFile);
+            }
+        }
+
+        const readFile = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('.preview-box');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+    </script>
+    <script>
+        document.getElementById("Title").addEventListener("input", function () {
+            let theSlug = string_to_slug(this.value);
+            document.getElementById("Slug").value = theSlug;
+        });
+
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ""); // trim
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaeeeeiiiioooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9-آ-ی-]/gi, ' ').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            //.replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+            //.replace(/\s+/g, "-") // collapse whitespace and replace by -
+            //.replace(/-+/g, "-"); // collapse dashes
+
+            return str;
+        }
+
+    </script>
+
+}

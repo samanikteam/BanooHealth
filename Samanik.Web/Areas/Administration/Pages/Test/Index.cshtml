@@ -1,0 +1,236 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Test.IndexModel
+@{
+    Layout = "_AdminLayout";
+
+}
+
+<!--Start container-->
+<div class="container-fluid">
+  
+    <div class="layout-specing">
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">فروشگاه</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="index.html">سمانیک</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">فروشگاه</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="mt-4 mt-sm-0">
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-product">افزودن محصول</a>
+            </div>
+        </div>
+
+        <h6 class="mt-4 mb-0"> محصولات </h6>
+
+    </div>
+      <div class="mb-3">
+        <label class="form-label">مجلات: <span class="text-danger">*</span></label>
+        <!--<select class="form-control select2-example" id="largeSelect"
+            asp-items="ViewBag.ProductCategories" multiple >-->
+        @*<option disabled value="0">مبلغ وام را انتخاب نمایید</option>*@
+
+        <!--</select>-->
+
+        <select id="ddlCustomers" class="form-control select2-example" asp-items="ViewBag.ProductCategories">
+            <option value="0">مجله را انتخاب کنید</option>
+        </select>
+
+    </div>
+</div><!--end container-->
+<!--End page-content" -->
+<!-- page-wrapper -->
+<!-- Start Modal -->
+<div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom p-3">
+                <h5 class="modal-title" id="exampleModalLabel">افزودن محصول جدید</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-3 pt-4">
+
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-grid">
+                                <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
+                                <div class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
+                                <input type="file" id="input-file" name="Image" accept="image/*" onchange={handleChange()} hidden required />
+                                <label class="btn-upload btn btn-primary mt-4" for="input-file">بارگذاری تصویر <span class="text-danger">*</span></label>
+                                <br />
+                                <div class="mb-3">
+                                    <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
+                                    <input asp-for="dto.AvatarTitle1" id="name" type="text" class="form-control" placeholder="Image Tilte :" required>
+                                </div>
+                                <br />
+                                <div class="mb-3">
+                                    <label class="form-label">متن جایگذین تصویر: <span class="text-danger">*</span></label>
+                                    <input asp-for="dto.AvatarAlt1" id="name" type="text" class="form-control" placeholder="Image Alt :" required>
+                                </div>
+                            </div>
+                        </div><!--end col-->
+
+                        <div class="col-md-9 mt-4 mt-sm-0">
+                            <div class="me-md-4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام محصول<span class="text-danger">*</span></label>
+                                            <input id="Title" type="text" class="form-control" asp-for="dto.Title" placeholder="نام محصول :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label"> دسته بندی: <span class="text-danger">*</span></label>
+                                            <select asp-items="ViewBag.ProductCategories"  class="form-control" required>
+                                                <option disabled selected>لطفا دسته بندی های محصول را مشخص نمایید</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">مجلات: <span class="text-danger">*</span></label>
+                                            <!--<select class="form-control select2-example" id="largeSelect"
+                                                asp-items="ViewBag.ProductCategories" multiple >-->
+                                            @*<option disabled value="0">مبلغ وام را انتخاب نمایید</option>*@
+
+                                            <!--</select>-->
+
+                                            <select id="ddlCustomers" class="form-control select2-example" asp-items="ViewBag.ProductCategories" multiple>
+                                                <option value="0">مجله را انتخاب کنید</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+
+                                    @*  *@
+
+                                    <!--<div class="col-12 mt-4">
+                                        <div class="card component-wrapper border-0 rounded shadow">
+                                            <div class="p-4 border-bottom">
+                                                <h5 class="mb-0"> سلکت </h5>
+                                            </div>
+
+                                            <div class="p-4">
+                                                <select class="form-select form-control" id="inputGroupSelect01">
+                                                    <option selected>انتخاب...</option>
+                                                    <option value="1">یک</option>
+                                                    <option value="2">دو</option>
+                                                    <option value="3">سه</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <!--end col-->
+                                    @*  *@
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">اسلاگ: <span class="text-danger">*</span></label>
+                                            <input id="Slug" type="text" class="form-control" asp-for="dto.Slug" placeholder="Slug :" readonly>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام کشور <span class="text-danger">*</span></label>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.Country" placeholder="نام کشور سازنده :">
+                                        </div>
+                                    </div><!--end col-->
+
+
+
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.KeyWords" placeholder="key words :" required>
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-lg-12 text-end">
+                                        <button type="submit" class="btn btn-primary">افزودن محصول</button>
+                                    </div><!--end col-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div><!--end col-->
+        </div><!--end row-->
+    </div>
+</div>
+
+<!-- End modal -->
+
+@section Scripts
+{
+
+    <script>
+
+        const handleChange = () => {
+            const fileUploader = document.querySelector('#input-file');
+            const getFile = fileUploader.files
+            if (getFile.length !== 0) {
+                const uploadedFile = getFile[0];
+                readFile(uploadedFile);
+            }
+        }
+
+        const readFile = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('.preview-box');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+
+        document.getElementById("Title").addEventListener("input", function () {
+            let theSlug = string_to_slug(this.value);
+            document.getElementById("Slug").value = theSlug;
+        });
+
+        function string_to_slug(str) {
+            str = str.replace(/^\s+|\s+$/g, ""); // trim
+
+            // remove accents, swap ñ for n, etc
+            var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+            var to = "aaaaeeeeiiiioooouuuunc------";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+            }
+
+            str = str.replace(/[^a-z0-9-آ-ی-]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+            //.replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+            //.replace(/\s+/g, "-") // collapse whitespace and replace by -
+            //.replace(/-+/g, "-"); // collapse dashes
+
+            return str;
+        }
+
+        //select two
+        $('.select2-example').select2({
+            placeholder: 'مبلغ وام را انتخاب نمایید'
+        });
+
+        $(function () {
+            $("#ddlCustomers").select2();
+        });
+
+    </script>
+
+}
