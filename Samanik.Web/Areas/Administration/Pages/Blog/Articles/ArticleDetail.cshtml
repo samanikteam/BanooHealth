@@ -2,6 +2,7 @@
 @model Samanik.Web.Areas.Administration.Pages.Blog.Articles.ArticleDetailModel
 @{
     Layout = "_AdminLayout";
+    ViewData["Title"] = Model.articleDto.Title;
     int counter = 0;
 }
 <div class="container-fluid">

@@ -28,10 +28,11 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         public ProductFilterDto dto { get; set; }
         public ListProductFilterDto listProductFilterDto { get; set; }
 
+        public int pi = 0;
+
         public void OnGet(int id)
         {
             listProductFilterDto = _productFilterRepository.GetListProductFilters(id);
-            //ViewData["ProductList"] = new SelectList(_productRepository.GetProducts(), "Id", "Title");
             ViewData["FilterList"] = new SelectList(_FilterRepository.Getfilters(), "Id", "Title");
             ViewData["ProductId"] = id;
         }
@@ -39,20 +40,21 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         {
             if (!ModelState.IsValid)
                 return Page();
+
             await _productFilterRepository.AddProductFilter(dto, cancellationToken);
-            return Redirect("/Administration/Product/AssignFilter/"+dto.ProductId);
+            return Redirect("/Administration/Product/AssignFilter/" + dto.ProductId);
         }
 
-        public async Task<IActionResult> OnPostConfirm(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> OnPostActive(int id,int Productid, CancellationToken cancellationToken)
         {
             await _productFilterRepository.Active(id, cancellationToken);
-            return Redirect("/Administration/Product/AssignFilter");
+            return Redirect("/Administration/Product/AssignFilter/" + Productid);
         }
 
-        public async Task<IActionResult> OnPostCancel(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> OnPostDeactive(int id,int Productid, CancellationToken cancellationToken)
         {
             await _productFilterRepository.Deactive(id, cancellationToken);
-            return Redirect("/Administration/Product/AssignFilter");
+            return Redirect("/Administration/Product/AssignFilter/" + Productid);
         }
     }
 }

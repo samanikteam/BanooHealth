@@ -3,6 +3,7 @@
 @{
     Layout = "_AdminLayout";
     int pId = ViewBag.ProductId;
+    ViewData["Title"] = "افزودن فیلتر به محصولات";
 }
 
 <div class="container-fluid">
@@ -50,6 +51,7 @@
                                             <form method="post" asp-page-handler="Deactive" class="float-left">
                                                 <button class="btn btn-icon btn-pills btn-danger uil uil-trash"></button>
                                                 <input type="hidden" name="id" value="@item.Id" />
+                                                <input type="hidden" name="Productid" value="@item.ProductId" />
                                             </form>
                                         </td>
 
@@ -61,6 +63,7 @@
                                             <form method="post" asp-page-handler="Active" class="float-left">
                                                 <button class="btn btn-icon btn-pills btn-success uil uil-refresh"></button>
                                                 <input type="hidden" name="id" value="@item.Id" />
+                                                <input type="hidden" name="Productid" value="@item.ProductId" />  
                                             </form>
                                         </td>
                                     }
@@ -72,20 +75,7 @@
                 </div>
             </div>
         </div><!--end row-->
-
-        <div class="row text-center">
-            <div class="col-12 mt-4">
-                <ul class="pagination justify-content-end mb-0 list-unstyled">
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
-                    <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
-                </ul><!--end pagination-->
-            </div><!--end col-->
-        </div><!--end row-->
     </div>
-
-
 </div><!--end container-->
 
 <div class="modal fade" id="appointmentform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
