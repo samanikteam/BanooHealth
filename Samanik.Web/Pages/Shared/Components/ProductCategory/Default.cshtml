@@ -8,22 +8,22 @@
     </a>
     <div class="mega_menu">
         <ul class="mega_menu_inner">
-            @foreach (var item in Model.ProductCategories.Where(p => p.ParentId == null && p.IsDelete==false))
+            @foreach (var item in Model.ProductCategories.Where(p => p.ParentId == null && p.IsDelete == false))
             {
                 <li>
-                    <a  href="/Shopping/ProductCategory/@item.Id/@item.Slug"  class="category-level-2">@item.Title</a>
+                    <a href="/Shopping/ProductCategory/@item.Id/@item.Slug" class="category-level-2">@item.Title</a>
                     @foreach (var itemsub in Model.ProductCategories.Where(p => p.ParentId == item.Id))
                     {
-                            <a  href="/Shopping/ProductCategory/@itemsub.Id/@itemsub.Slug" class="category-level-2">@itemsub.Title</a>
-                            <ul>
+                        <a href="/Shopping/ProductCategory/@itemsub.Id/@itemsub.Slug" class="category-level-2">@itemsub.Title</a>
+                        <ul>
 
-                                @foreach (var itemsub2 in Model.ProductCategories.Where(p => p.ParentId == itemsub.Id))
-                                {
-                                    <li>
-                                        <a  href="/Shopping/ProductCategory/@itemsub2.Id/@itemsub2.Slug" class="category-level-3">@itemsub2.Title</a>
-                                    </li>
-                                }
-                            </ul>
+                            @foreach (var itemsub2 in Model.ProductCategories.Where(p => p.ParentId == itemsub.Id))
+                            {
+                                <li>
+                                    <a href="/Shopping/ProductCategory/@itemsub2.Id/@itemsub2.Slug" class="category-level-3">@itemsub2.Title</a>
+                                </li>
+                            }
+                        </ul>
                     }
                 </li>
             }

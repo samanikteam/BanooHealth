@@ -1,0 +1,50 @@
+﻿@model Data.Models.ListArticleCategoryDto
+@{ 
+    int counter = 0;
+    bool MotherCategory = false;
+}
+<ul>
+    @foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null))
+    {
+        counter++;
+        if (counter <= 11)
+        {
+            foreach (var item2 in Model.articleCategories.Where(a => a.ParentId == item.Id))
+            {
+                MotherCategory = true;
+                break;
+            }
+            if (MotherCategory)
+            {
+                <li class="menu_item_children">
+                    <a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title <i class="fa fa-angle-left"></i></a>
+                    <ul class="categories_mega_menu">
+                        @foreach (var item2 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item.Id))
+                        {
+                            <li class="menu_item_children">
+                                <a href="/Blog/ArticleByArticleCategory/@item2.Id/@item2.Slug">@item2.Title</a>
+                                <ul class="categorie_sub_menu">
+                                    @foreach (var item3 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item2.Id))
+                                    {
+                                        <li><a href="/Blog/ArticleByArticleCategory/@item3.Id/@item3.Slug">@item3.Title</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                MotherCategory = false;
+            }
+            else
+            {
+                <li class="menu_item_children">
+                    <a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a>
+                </li>
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+</ul>
