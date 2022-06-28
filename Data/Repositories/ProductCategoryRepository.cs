@@ -82,6 +82,7 @@ namespace Data.Repositories
                 RegisterDate = t.RegisterDate,
                 IsDelete = t.IsDelete,
                 Slug=t.Slug,
+                RegisterDateFa=t.RegisterDate.ToShamsi()
             }).ToList();
 
             return list;

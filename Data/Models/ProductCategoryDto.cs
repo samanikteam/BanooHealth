@@ -42,6 +42,7 @@ namespace Data.Models
 
         [Display(Name = "تاریخ ایجاد")]
         public DateTime RegisterDate { get; set; }
+        public string RegisterDateFa { get; set; }
 
         [Required]
         public bool IsDelete { get; set; }

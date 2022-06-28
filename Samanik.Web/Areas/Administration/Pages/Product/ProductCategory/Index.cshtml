@@ -22,6 +22,7 @@
 
             <div class="mt-4 mt-sm-0">
                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCategory">افزودن دسته‌بندی جدید</a>
+                <a href="/Administration/Product/ProductManagement" class="btn btn-warning" data-bs-toggle="modal">بازگشت</a>
             </div>
         </div>
         <div class="row">
@@ -60,7 +61,7 @@
                                         <td>@item.ParentId</td>
                                     }
 
-                                    <td>@item.RegisterDate</td>
+                                    <td>@item.RegisterDateFa</td>
                                     <td>@item.Description</td>
                                     <td class="text-start">
                                         @*<a href="#" class="btn btn-icon btn-pills btn-soft-warning" onclick="getIdCategoryAndPassItToModal(@item.Id)" data-bs-toggle="modal" data-bs-target="#addPropertyCategory">

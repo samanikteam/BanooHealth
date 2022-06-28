@@ -8,7 +8,6 @@
 
 <!--Start container-->
 <div class="container-fluid">
-
     <div class="layout-specing">
         <div class="d-md-flex justify-content-between">
             <div>
@@ -28,37 +27,61 @@
         </div>
         <div asp-validation-summary="ModelOnly" class="alert alert-danger text-dark" role="alert"></div>
         <h6 class="mt-4 mb-0"> محصولات </h6>
+        <div class="row">
+            <div class="col-12 mt-4">
+                <div class="table-responsive shadow rounded">
+                    <table class="table table-center bg-white mb-0">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom py-3">تصویر</th>
+                                <th class="border-bottom py-3">عنوان</th>
+                                <th class="border-bottom py-3">تاریخ ایجاد</th>
+                                <th class="border-bottom py-3">ایجاد کننده</th>
+                                <th class="border-bottom py-3">وضعیت</th>
+                                <th class="border-bottom py-3" style="min-width: 180px;">توضیحات کوتاه</th>
+                                <th class="border-bottom py-3" style="min-width: 100px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listProductDto.Products)
+                            {
+                            <tr>
+                                <td class="py-3">
+                                    <a href="#" class="text-dark">
+                                        <div class="d-flex align-items-center">
+                                            <img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" class="avatar avatar-md-sm rounded-circle shadow" title="@item.AvatarTitle1" alt="@item.AvatarAlt1">
+                                        </div>
+                                    </a>
+                                </td>
+                                <td>@item.Title</td>
+                                <td>@item.RegisterDateFa</td>
+                                <td>@item.RegisterUserId</td>
+                                @if (item.IsDelete)
+                                {
+                                    <td>غیرفعال</td>
+                                }
+                                else
+                                {
+                                    <td>فعال</td>
+                                }
 
-        <div class="row row-cols-xl-5">
-            @foreach (var item in Model.listProductDto.Products)
-            {
-                <div class="col-xl col-lg-3 col-md-6 col-12 mt-4" style="max-height:300px; max-width:300px;">
-                    <div class="card shop-list border-0 overflow-hidden rounded shadow">
-                        <ul class="label list-unstyled mb-0">
-                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">@item.RegisterDateFa</a></li>
-                            <li><a href="javascript:void(0)" class="badge badge-pill badge-success">@item.RegisterUserId</a></li>
-                        </ul>
-                        <div class="shop-image position-relative overflow-hidden">
-                            <a asp-page="ProductDetail" asp-route-id="@item.Id">
-                                <img style="max-height:300px; max-width:300px;" src="data:ProductPicture;base64,@Convert.ToBase64String(item.Avatar1)">
-                            </a>
-                        </div>
-                        <div class="card-body content p-4 border-top">
-                            <a asp-page="ProductDetail" asp-route-id="@item.Id" class="text-dark product-name h6">@item.Title</a>
-                            <span> @Html.Raw(item.Description)</span>
-                        </div>
-                    </div>
+                                <td>@item.Description</td>
+                                <td class="text-start">
+                                    <a asp-page="ProductDetail" asp-route-id="@item.Id" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal">
+                                        <i class="uil uil-eye"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            }
-            <!--end col-->
 
-
-        </div><!--end row-->
-
+            </div>
+        </div>
     </div>
 </div><!--end container-->
 <!--End page-content" -->
-<!-- page-wrapper -->
 <!-- Start Modal -->
 <div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-centered">
