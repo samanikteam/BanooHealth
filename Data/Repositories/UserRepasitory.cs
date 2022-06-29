@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Data.Repositories
@@ -47,6 +48,8 @@ namespace Data.Repositories
             return false;
         }
 
+
+
         public List<ListUserDto> GetAllUserInfo()
         {
             var result = _context.Users.ToList();
@@ -57,7 +60,8 @@ namespace Data.Repositories
                 LastName = _.LastName,
                 NationalCode = _.NationalCode,
                 Tel = _.Tel,
-            }).ToList();
+                IsDeleted = _.IsDeleted,
+            }).OrderByDescending(x=>x.Id).ToList();
         }
 
         public IEnumerable GetRoles()
@@ -90,6 +94,20 @@ namespace Data.Repositories
             };
             _context.Users.Update(result);
         }
-      
+
+
+        public void Deactive(string id, CancellationToken cancellationToken)
+        {
+            var user = _context.Users.Find(id);
+            user.IsDeleted = true;
+             _context.SaveChanges();
+        }
+
+        public void Active(string id, CancellationToken cancellationToken)
+        {
+            var user = _context.Users.Find(id);
+            user.IsDeleted = false;
+            _context.SaveChanges();
+        }
     }
 }

@@ -25,5 +25,6 @@ namespace Entities.Users
         [Display(Name = "کد تایید")]
         [MaxLength(6, ErrorMessage = "{0} نمی تواند بیشتر از {1} باشد")]
         public string ConfirmCode { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Data.Contracts
@@ -18,5 +19,9 @@ namespace Data.Contracts
         IEnumerable GetRoles();
         void Addusers(CreateUserDto createDto);
         bool CheckCode(string confirmCode, string userName);
+
+        void Deactive(string id, CancellationToken cancellationToken);
+        void Active(string id, CancellationToken cancellationToken);
+
     }
 }

@@ -26,5 +26,7 @@ namespace Data.Models
         [Required(ErrorMessage = "{0} را وارد کنید")]
         [MaxLength(11, ErrorMessage = "{0} نمی تواند بیشتر از {1} باشد")]
         public string Tel { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

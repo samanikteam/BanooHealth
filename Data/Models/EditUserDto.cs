@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class EditUserDto
+    public class EditUserDto:CreateUserDto
     {
+
+
     }
 }

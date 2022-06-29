@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Samanik.Web.Areas.Administration.Pages.Users
@@ -36,6 +37,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
         public List<ListUserDto> dto { get; set; }
         [BindProperty]
         public CreateUserDto createDto { get; set; }
+        public EditUserDto editDto { get; set; }
         public void OnGet()
         {
             dto = _repasitory.GetAllUserInfo();
@@ -44,6 +46,8 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
         
         public async Task<IActionResult> OnPost(List<string> RoleId)
         {
+            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+
             if (ModelState.IsValid)
             {
                 //_repasitory.Addusers(createDto);
@@ -88,9 +92,38 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
             return Page();
         }
         
-        public void OnPostDeleteUser(string Userid)
+        public IActionResult OnPostDeleteUser(string userId ,  CancellationToken cancellationToken)
         {
+            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+             _repasitory.Deactive(userId, cancellationToken);
 
+            return Redirect("/Administration/Users/Index");
+        }
+
+        public IActionResult OnPostEnableUser(string userId, CancellationToken cancellationToken)
+        {
+            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+
+            _repasitory.Active(userId, cancellationToken);
+
+            return Redirect("/Administration/Users/Index");
+        }
+
+        public JsonResult OnGetGetUser(string userId)
+        {
+            editDto = new EditUserDto();
+           editDto = _repasitory.GetUserInfoById(userId);
+
+            return new JsonResult(editDto);
+        }
+
+        public IActionResult OnPostEditUser(string userId, CancellationToken cancellationToken)
+        {
+            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+
+            _repasitory.UpdateUser(userId , createDto);
+
+            return Redirect("/Administration/Users/Index");
         }
 
     }
