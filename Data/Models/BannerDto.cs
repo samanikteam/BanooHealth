@@ -124,6 +124,18 @@ namespace Data.Models
         [Display(Name = "لینک بنر")]
         public string Link9 { get; set; }
 
+        [Required]
+        [MaxLength(150)]
+        [Display(Name = "نام مجله")]
+        public string Title10 { get; set; }
+
+        [Display(Name = "تصویر بنر")]
+        public IFormFile Avatar10 { get; set; }
+        [Required]
+        [Display(Name = "لینک بنر")]
+        public string Link10 { get; set; }
+
+
         public string AvatarShow1 { get; set; }
         public string AvatarShow2 { get; set; }
         public string AvatarShow3 { get; set; }
@@ -133,6 +145,7 @@ namespace Data.Models
         public string AvatarShow7 { get; set; }
         public string AvatarShow8 { get; set; }
         public string AvatarShow9 { get; set; }
+        public string AvatarShow10 { get; set; }
     }
 
     public class ListBannerDto

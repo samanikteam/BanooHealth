@@ -35,6 +35,7 @@ namespace Data.Repositories
                     Title7 = banner.Title7,
                     Title8 = banner.Title8,
                     Title9 = banner.Title9,
+                    Title10 = banner.Title10,
                     Link1 = banner.Link1,
                     Link2 = banner.Link2,
                     Link3 = banner.Link3,
@@ -44,6 +45,7 @@ namespace Data.Repositories
                     Link7 = banner.Link7,
                     Link8 = banner.Link8,
                     Link9 = banner.Link9,
+                    Link10 = banner.Link10,
                     AvatarShow1 = banner.Avatar1,
                     AvatarShow2 = banner.Avatar2,
                     AvatarShow3 = banner.Avatar3,
@@ -53,6 +55,7 @@ namespace Data.Repositories
                     AvatarShow7 = banner.Avatar7,
                     AvatarShow8 = banner.Avatar8,
                     AvatarShow9 = banner.Avatar9,
+                    AvatarShow10 = banner.Avatar10,
                 };
                 return res;
             }
@@ -72,6 +75,7 @@ namespace Data.Repositories
             banner.Title7 = dto.Title7;
             banner.Title8 = dto.Title8;
             banner.Title9 = dto.Title9;
+            banner.Title10 = dto.Title10;
 
 
             banner.Link1 = dto.Link1;
@@ -83,6 +87,7 @@ namespace Data.Repositories
             banner.Link7 = dto.Link7;
             banner.Link8 = dto.Link8;
             banner.Link9 = dto.Link9;
+            banner.Link10 = dto.Link10;
 
 
             if (dto.Avatar1 != null)
@@ -177,6 +182,18 @@ namespace Data.Repositories
                     dto.Avatar9.CopyTo(stream);
                 }
             }
+
+            if (dto.Avatar10 != null)
+            {
+                string imagePath = "";
+                banner.Avatar10 = NameGenerator.GenerateUniqCode() + Path.GetExtension(dto.Avatar10.FileName);
+                imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Them/assets/img/bg", banner.Avatar10);
+                using (var stream = new FileStream(imagePath, FileMode.Create))
+                {
+                    dto.Avatar10.CopyTo(stream);
+                }
+            }
+
             await base.UpdateAsync(banner, cancellationToken);
         }
     }

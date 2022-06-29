@@ -12,7 +12,7 @@
             <div class="col-12">
                 <div class="breadcrumb_content">
                     <ul>
-                        <li><a href="index.html">خانه</a></li>
+                        <li><a href="/Index">خانه</a></li>
                         <li>فروشگاه</li>
                     </ul>
                 </div>
@@ -20,19 +20,19 @@
         </div>
     </div>
 </div>
+
 <div class="shop_area shop_reverse">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-12">
-                <!--sidebar widget start-->
                 <aside class="sidebar_widget">
                     <div class="widget_list widget_categories">
                         <h3>دسته‌های محصولات</h3>
                         <ul>
-                            @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null && p.IsDelete==false))
+                            @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null))
                             {
                                 <li>
-                                    <a class="category-level-2" href="/Shopping/ProductCategory/@item.Id/@item.Slug">@item.Title</a>
+                                    <a href="/Shopping/ProductCategory/@item.Id/@item.Slug" class="category-level-2">@item.Title</a>
                                     <ul>
                                         @foreach (var itemsub in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == item.Id))
                                         {
@@ -40,35 +40,28 @@
                                             <li>
                                                 <a href="/Shopping/ProductCategory/@itemsub.Id/@itemsub.Slug" class="category-level-2">@itemsub.Title</a>
                                                 <ul>
-
                                                     @foreach (var itemsub2 in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == itemsub.Id))
                                                     {
 
                                                         <li>
                                                             <a href="/Shopping/ProductCategory/@itemsub2.Id/@itemsub2.Slug" class="category-level-3">@itemsub2.Title</a>
                                                             <ul>
-
                                                                 @foreach (var itemsub3 in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == itemsub2.Id))
                                                                 {
-
                                                                     <li><a href="/Shopping/ProductCategory/@itemsub3.Id/@itemsub3.Slug" class="category-level-3">@itemsub3.Title</a></li>
-
                                                                 }
                                                             </ul>
                                                         </li>
                                                     }
                                                 </ul>
                                             </li>
-
                                         }
                                     </ul>
-
                                 </li>
                             }
                         </ul>
                     </div>
                 </aside>
-                <!--sidebar widget end-->
             </div>
             <div class="col-lg-9 col-md-12">
                 <!--shop banner area start-->
@@ -76,8 +69,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="shop_banner_thumb">
-
-                                <img src="~/ProductPicture/b1.jpg" />
+                                <a href="@Model.bannerDto.Link10"><img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow10" alt="@Model.bannerDto.Title10" title="@Model.bannerDto.Title10"></a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +78,6 @@
                 <div class="shop_toolbar_wrapper">
                     <div class="shop_toolbar_btn">
                         <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
-                        <button data-role="grid_list" type="button" class="btn-list" data-toggle="tooltip" title="List"></button>
                     </div>
                     <div class="niceselect_container">
                         <form action="#">
@@ -147,7 +138,7 @@
                                         <div class="add_to_cart">
                                             @if (item.MinimumPrice != null)
                                             {
-                                                <a href="/Products/Details/@item.Id/@item.Slug" title="افزودن به سبد">افزودن به سبد</a>
+                                            <a href="/Products/Details/@item.Id/@item.Slug" title="مشاهده داروخانه‌ها">مشاهده داروخانه‌ها</a>
                                             }
                                             else
                                             {

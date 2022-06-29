@@ -119,5 +119,18 @@ namespace Entities.Media
         [Required]
         [Display(Name = "لینک بنر")]
         public string Link9 { get; set; }
+
+
+
+        [Required]
+        [MaxLength(150)]
+        [Display(Name = "نام مجله")]
+        public string Title10 { get; set; }
+
+        [Display(Name = "تصویر بنر")]
+        public string Avatar10 { get; set; }
+        [Required]
+        [Display(Name = "لینک بنر")]
+        public string Link10 { get; set; }
     }
 }

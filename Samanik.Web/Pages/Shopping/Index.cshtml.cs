@@ -14,41 +14,26 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
 {
     public class ProductShopModel : PageModel
     {
-        private readonly IArticleRepasitory _Repasitory;
         private readonly IProductRepository _productRepository;
-        private readonly IArticelCategoryRepasitory _CRepasitory;
-        private readonly ICommentRepository _CommentRepository;
-        private readonly IProductArticleRepository _ProductArticleRepository;
         private readonly IProductCategoryRepository _ProductCategoryRepository;
+        private readonly IBannerRepository _bannerRepository;
 
-        public ProductShopModel(IArticleRepasitory repasitory, IArticelCategoryRepasitory cRepasitory,
-            ICommentRepository commentRepository, IProductArticleRepository productArticleRepository ,
-            IProductRepository productRepository , IProductCategoryRepository ProductCategoryRepository)
+        public ProductShopModel(IProductRepository productRepository, IProductCategoryRepository productCategoryRepository, IBannerRepository bannerRepository)
         {
-            _Repasitory = repasitory;
             _productRepository = productRepository;
-            _ProductArticleRepository = productArticleRepository;
-            _CRepasitory = cRepasitory;
-            _CommentRepository = commentRepository;
-            _ProductCategoryRepository = ProductCategoryRepository;
+            _ProductCategoryRepository = productCategoryRepository;
+            _bannerRepository = bannerRepository;
         }
 
         [BindProperty]
-        public CommentDto Commentdto { get; set; }
-        public ArticleDto articleDto { get; set; }
-        public ListArticleDto listArticleDto { get; set; }
-        public ListProCategoryDto listProCategoryDtoMother { get; set; }
         public ListProCategoryDto listProCategoryDtoChild { get; set; }
-        public ListCommentDto listArticleCommentsDto { get; set; }
-        public ListCommentDto SidebarComments { get; set; }
-
+        public BannerDto bannerDto { get; set; }
         public ListProductDto listProductDto { get; set; }
-        public List<Category> listArticleCategoryDto { get; set; }
 
         public ListProductCategoryDto listProductCategoryDto { get; set; }
         public void OnGet( string ProductCatPath = null)
         {
-
+            bannerDto = _bannerRepository.GetBanner();
             listProductDto = _productRepository.GetListProduct();
             listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
         }
