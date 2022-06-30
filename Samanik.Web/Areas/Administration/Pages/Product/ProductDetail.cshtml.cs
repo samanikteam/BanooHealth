@@ -40,30 +40,41 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
 
         public void OnGet(int id)
         {
+            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+
             var productId = id;
             ViewData["productId"] = productId;
             dto = _productRepasitory.GetProductByProductId(productId);
             listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);
 
-            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
-            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+
         }
 
 
         public async Task<IActionResult> OnPostActive(int id, CancellationToken cancellationToken)
         {
+            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+
             await _productRepasitory.Active(id, cancellationToken);
             return Redirect("/Administration/Product/ProductDetail/"+id);
         }
 
         public async Task<IActionResult> OnPostDeactive(int id, CancellationToken cancellationToken)
         {
+            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+
             await _productRepasitory.Deactive(id, cancellationToken);
             return Redirect("/Administration/Product/ProductDetail/" + id);
         }
 
         public async Task<IActionResult> OnPostActivate(int id,int productId, CancellationToken cancellationToken)
         {
+            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+
             await _proGalleryRepository.Activate(id, cancellationToken);
             return Redirect("/Administration/Product/ProductDetail/" + productId);
         }
@@ -74,6 +85,8 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
 
             if (!ModelState.IsValid)
                 return Page();
+            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
 
             proGalleryDto = new ProGalleryDto();
             var RegisterUserId = "Admin";
@@ -88,6 +101,9 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         {
             if (!ModelState.IsValid)
                 return Page();
+
+            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
 
             var RegisterUserId = "Admin";
             var productId = await _productRepasitory.UpdateAsync(dto, RegisterUserId, Image, cancellationToken);

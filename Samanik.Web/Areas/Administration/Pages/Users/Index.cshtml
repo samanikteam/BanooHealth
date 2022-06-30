@@ -44,7 +44,7 @@
                                             @*<td>@item.RolesName</td>*@
                                             <td style="text-align:center">
 
-                                                <a  onclick="editUser(@item.Id)" data-bs-toggle="modal" data-bs-target="#EditNewUser"
+                                                <a  asp-page="/Users/EditUser" asp-route-id="@item.Id"
                                                class="btn btn-icon btn-pills btn-soft-success">
                                                     <i class="uil uil-pen"></i>
                                                 </a>
@@ -182,114 +182,7 @@
     </div>
 </div>
 
-<!-- Start Modal Edit User -->
-<div class="modal fade" id="EditNewUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-bottom p-3">
-                <h5 class="modal-title" id="exampleModalLabel">ویرایش کاربر جدید</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
 
-            <div class="modal-body p-3 pt-4">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="row">
-
-                        <div class="col-md-12 mt-4 mt-sm-0">
-                            <div class="me-md-4">
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">شماره موبایل جهت ورود به سامانه: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.UserName" type="text" class="form-control" minlength="11" maxlength="11" placeholder="شماره موبایل را وارد کنید"
-                                                   pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-                                                   required oninvalid="setCustomValidity('لطفاً شماره موبایل   را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="col-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">نام: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.FirstName" type="text" class="form-control" placeholder="نام کاربر را وارد کنید"
-                                                   required oninvalid="setCustomValidity('لطفاً نام   را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="col-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">نام خانوادگی: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.LastName" type="text" class="form-control" placeholder="نام خانوادگی کاربر را وارد کنید"
-                                                   required oninvalid="setCustomValidity('لطفاً نام خانوادگی  را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">کد ملی: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.NationalCode" type="tel" class="form-control" placeholder="کد ملی را وارد کنید"
-                                                   required oninvalid="setCustomValidity('لطفاً کد ملی را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">شماره تماس: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.Tel" type="text" class="form-control" placeholder="شماره تماس کاربر را وارد کنید"
-                                                   pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-                                                   required oninvalid="setCustomValidity('لطفاً شماره تماس  را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">نقش کاربر: <span class="text-danger">*</span></label>
-                                            <select asp-items="ViewBag.Roles" name="RoleId" class="form-control doctor-name select2input" multiple
-                                                    required oninvalid="setCustomValidity('لطفاً نقش  را وارد کنید')"
-                                                    oninput="setCustomValidity('')">
-                                                <option value="" disabled>نقش کاربر را مشخص کنید</option>
-                                            </select>
-                                        </div>
-                                    </div><!--end col-->
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">رمز عبور: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.Password" type="password" class="form-control" placeholder="رمز عبور را وارد کنید"
-                                                   required oninvalid="setCustomValidity('لطفاً رمز عبور  را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                        <small style="color:red"> کلمه عبور باید حداقل شش کاراکتر و شامل حروف کوچک و بزرگ باشد</small>
-                                    </div><!--end col-->
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">تکرار رمز عبور: <span class="text-danger">*</span></label>
-                                            <input asp-for="editDto.ConfirmPassword" type="password" class="form-control" placeholder="مجددا رمز عبور را وارد کنید"
-                                                   required oninvalid="setCustomValidity('لطفاً تکرار رمز عبور  را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
-                                    <br>
-                                    <div class="col-lg-12 text-end">
-                                        <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>
-                                    </div><!--end col-->
-                                </div>
-
-                            </div>
-                        </div><!--end col-->
-                    </div><!--end row-->
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 
 
@@ -320,19 +213,19 @@
         });
 
 
-        function editUser(id) {
+        //function editUser(id) {
 
-            $.getJSON(`?handler=GetUser&userId=${id}`, (data) => {
-                $("#userName").text(data.userName);
-                $("#firstName").text(data.firstName);
-                $("#lastName").text(data.lastName);
-                $("#nationalCode").text(data.nationalCode);
-                $("#tel").text(data.tel);
-                $("#roleId").text(data.roleId);
+        //    $.getJSON(`?handler=GetUser&userId=${id}`, (data) => {
+        //        $("#userName").text(data.userName);
+        //        $("#firstName").text(data.firstName);
+        //        $("#lastName").text(data.lastName);
+        //        $("#nationalCode").text(data.nationalCode);
+        //        $("#tel").text(data.tel);
+        //        $("#roleId").text(data.roleId);
 
-            });
+        //    });
 
-        }
+        //}
 
     </script>
     <!-- End Datatable -->

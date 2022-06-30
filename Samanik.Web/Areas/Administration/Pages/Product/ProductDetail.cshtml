@@ -184,12 +184,16 @@
                                 <br />
                                 <div class="mb-3">
                                     <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
-                                    <input asp-for="dto.AvatarTitle1" id="name" type="text" class="form-control" placeholder="Image Tilte :" required>
+                                    <input asp-for="dto.AvatarTitle1" id="name" type="text" class="form-control" placeholder="Image Tilte :" 
+                                                                               required oninvalid="setCustomValidity('لطفا عنوان را وارد کنید')"
+                                           oninput="setCustomValidity('')" />
                                 </div>
                                 <br />
                                 <div class="mb-3">
                                     <label class="form-label">متن جایگذین تصویر: <span class="text-danger">*</span></label>
-                                    <input asp-for="dto.AvatarAlt1" id="name" type="text" class="form-control" placeholder="Image Alt :" required>
+                                    <input asp-for="dto.AvatarAlt1" id="name" type="text" class="form-control" placeholder="Image Alt :"
+                                      required oninvalid="setCustomValidity('لطفا متن جایگزین را وارد کنید')"
+                                           oninput="setCustomValidity('')" />
                                 </div>
                             </div>
                         </div><!--end col-->
@@ -200,7 +204,9 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">نام محصول<span class="text-danger">*</span></label>
-                                            <input id="Title" type="text" class="form-control" asp-for="dto.Title" placeholder="نام محصول :" required>
+                                            <input id="Title" type="text" class="form-control" asp-for="dto.Title" placeholder="نام محصول :" 
+                                             required oninvalid="setCustomValidity('لطفا نام محصول را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
 
@@ -214,7 +220,9 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">دسته‌بندی: <span class="text-danger">*</span></label>
-                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ProductCategory" name="productCategoryId" multiple>
+                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ProductCategory" name="productCategoryId" asp-for="dto.CategoryId" multiple
+                                            required oninvalid="setCustomValidity('لطفا دسته بندی را وارد کنید')"
+                                                    oninput="setCustomValidity('')">
                                                 <option disabled>دسته‌بندی را انتخاب کنید</option>
                                             </select>
                                         </div>
@@ -224,7 +232,9 @@
                                         <div class="mb-3">
                                             <label class="form-label">مجلات: <span class="text-danger">*</span></label>
 
-                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleList" name="articleListId" multiple>
+                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleList" name="articleListId" asp-for="dto.ListArticleId" multiple
+                                            required oninvalid="setCustomValidity('لطفا مجلات را وارد کنید')"
+                                                    oninput="setCustomValidity('')">
                                                 <option disabled>مجله را انتخاب کنید</option>
                                             </select>
 
@@ -250,21 +260,25 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
-                                            <input id="name" type="text" class="form-control" asp-for="dto.KeyWords" placeholder="key words :" required>
+                                            <input id="name" type="text" class="form-control" asp-for="dto.KeyWords" placeholder="key words :"
+                                              required oninvalid="setCustomValidity('لطفا کلمات کلیدی را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
 
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">نام برند: <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" asp-for="dto.BrandName" placeholder="Brand Name :" required>
+                                            <input type="text" class="form-control" asp-for="dto.BrandName" placeholder="Brand Name :"
+                                              required oninvalid="setCustomValidity('لطفا نام برند را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
 
 
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <label class="form-label">توضیحات جامع مجله: <span class="text-danger">*</span></label>
+                                            <label class="form-label">توضیحات جامع : <span class="text-danger">*</span></label>
                                             <textarea asp-for="dto.Text" id="myeditor" class="form-control" placeholder="Text :"></textarea>
                                             <script src="~/lib/ckeditor/ckeditor.js"></script>
                                             <script>

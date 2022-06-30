@@ -15,7 +15,7 @@ namespace Data.Contracts
     {
         EditUserDto GetUserInfoById(string Id);
         List<ListUserDto> GetAllUserInfo();
-        void UpdateUser(string userId, CreateUserDto createDto);
+        void UpdateUser(string userId, EditUserDto editDto);
         IEnumerable GetRoles();
         void Addusers(CreateUserDto createDto);
         bool CheckCode(string confirmCode, string userName);

@@ -47,7 +47,7 @@ namespace Data.Models
 
         [Required]
         [Display(Name = "شناسه دسته بندی مجله")]
-        public int ArticleCategoryId { get; set; }
+        public List<int> ArticleCategoryId { get; set; }
         public string ArticleCategoryTitle { get; set; }
 
         [Display(Name = "تاریخ ایجاد")]
@@ -57,6 +57,7 @@ namespace Data.Models
 
         [Required]
         public bool IsDelete { get; set; }
+
 
 
         //لیست مجلات مرتبط

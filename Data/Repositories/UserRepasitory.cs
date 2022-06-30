@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using VisitorManagment.Core.Security;
 
 namespace Data.Repositories
 {
@@ -74,25 +75,36 @@ namespace Data.Repositories
             var roles = _context.UserRoles.Where(t => t.UserId == Id).Select(t => t.RoleId).ToList();
             return _context.Users.Where(t => t.Id == Id).Select(t => new EditUserDto()
             {
-                //UserId = t.Id,
-                //FullName = t.NormalizedUserName,
-                //UserName = t.UserName,
-                //UserRoles = roles,
+                Id = t.Id,
+                UserName = t.NormalizedUserName,
+                FirstName = t.FirstName,
+                LastName = t.LastName,
+                Tel = t.Tel,
+                NationalCode = t.NationalCode,
+                RoleId = roles,
             }).SingleOrDefault();
         }
 
-        public void UpdateUser(string userId, CreateUserDto createDto)
+        public  void UpdateUser(string userId, EditUserDto editDto)
         {
             var findUser = _context.Users.Where(_ => _.Id == userId);
-            var result = new ApplicationUser()
-            {
-                Id = userId,
-                FirstName = createDto.FirstName,
-                LastName = createDto.LastName,
-                NationalCode = createDto.NationalCode,
-                Tel = createDto.Tel,
-            };
+
+
+
+            var result = new ApplicationUser();
+            result.Id = editDto.Id;
+            result.FirstName = editDto.FirstName;
+            result.UserName = editDto.UserName;
+            result.LastName = editDto.LastName;
+            result.NationalCode = editDto.NationalCode;
+            result.Tel = editDto.Tel;
+            if (!string.IsNullOrEmpty(editDto.Password))
+                editDto.Password = PasswordHelper.EncodePasswordMd5(editDto.Password);
+
+               
+        
             _context.Users.Update(result);
+             _context.SaveChanges();
         }
 
 

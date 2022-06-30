@@ -31,7 +31,7 @@ namespace Data.Repositories
             Article article = new Article()
             {
                 Title = ArticleDto.Title,
-                ArticleCategoryId = ArticleDto.ArticleCategoryId,
+               // ArticleCategoryId = ArticleDto.ArticleCategoryId,
                 Description = ArticleDto.Description,
                 KeyWords = ArticleDto.KeyWords,
                 Slug = ArticleDto.Slug,
@@ -119,10 +119,11 @@ namespace Data.Repositories
         public async Task<int> UpdateAsync(ArticleDto ArticleDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken)
         {
             var article = await base.GetByIdAsync(cancellationToken, ArticleDto.Id);
+            var listArticleCategoryId = _articleCategoryAssignRepository.GetListArticleCategoryIdWithArticleId(article.Id);
 
             article.Title = ArticleDto.Title;
             article.Description = ArticleDto.Description;
-            article.ArticleCategoryId = ArticleDto.ArticleCategoryId;
+            //article.ArticleCategoryId = listArticleCategoryId;
             article.KeyWords = ArticleDto.KeyWords;
             article.Slug = ArticleDto.Slug;
             article.Text = ArticleDto.Text;
@@ -155,7 +156,7 @@ namespace Data.Repositories
         public ArticleDto GetArticleById(int id)
         {
             var article = GetById(id);
-
+            var listArticleCategoryId = _articleCategoryAssignRepository.GetListArticleCategoryIdWithArticleId(article.Id);
 
             var res = new ArticleDto()
             {
@@ -169,8 +170,9 @@ namespace Data.Repositories
                 Slug = article.Slug,
                 KeyWords = article.KeyWords,
                 RegisterDate = article.RegisterDate.ToShamsi(),
-                ArticleCategoryId = article.ArticleCategoryId,
+                ArticleCategoryId = listArticleCategoryId,
                 Visit=article.Visit
+                
             };
 
             return res;
@@ -246,7 +248,7 @@ namespace Data.Repositories
         public ArticleDto GetArticleBySlug(string slug)
         {
             var article = Table.Where(a=>a.Slug==slug).SingleOrDefault();
-
+            var listArticleCategoryId = _articleCategoryAssignRepository.GetListArticleCategoryIdWithArticleId(article.Id);
 
             var res = new ArticleDto()
             {
@@ -260,7 +262,7 @@ namespace Data.Repositories
                 Slug = article.Slug,
                 KeyWords = article.KeyWords,
                 RegisterDate = article.RegisterDate.ToShamsi(),
-                ArticleCategoryId = article.ArticleCategoryId,
+                ArticleCategoryId = listArticleCategoryId,
                 Visit = article.Visit
             };
 

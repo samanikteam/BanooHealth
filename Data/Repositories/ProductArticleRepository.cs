@@ -29,15 +29,28 @@ namespace Data.Repositories
                     ArticleId = item
                 };
 
-               await base.AddAsync(productArticle , cancellationToken);
+                await base.AddAsync(productArticle, cancellationToken);
             }
         }
+
+
         //متد زیر فعلا بلا استفاده س
         public List<ProductArticle> GetListProductArticleByProductId(int productId)
         {
             var result = Table.Where(x => x.ProductId == productId).ToList();
 
-            return  result;
+            return result;
+        }
+
+
+        public List<int> GetListArticleByProductId(int productId)
+        {
+
+            var result = Table.Where(x => x.ProductId == productId).Select(x => x.ArticleId).ToList();
+
+            return result;
+
         }
     }
 }
+

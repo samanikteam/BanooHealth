@@ -13,6 +13,7 @@ namespace Data.Contracts
     {
         Task AddAssign(List<int> categoryId, int articleId, CancellationToken cancellationToken);
         List<int> GetListArticleIdWithArticleCategoryId(int articleCategoryId);
+        List<int> GetListArticleCategoryIdWithArticleId(int articleId);
 
     }
 }

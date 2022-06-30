@@ -38,7 +38,7 @@
                     <div class="p-4">
                         @Html.Raw(Model.articleDto.Text)
 
-                       
+
                     </div>
                 </div>
             </div><!--end col-->
@@ -110,7 +110,6 @@
         </div><!--end row-->
     </div>
 </div><!--end container-->
-
 <!-- Start Modal -->
 <div class="modal fade" id="newblogadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -127,18 +126,25 @@
                             <div class="d-grid">
                                 <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
                                 <div class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
-                                <input type="file" id="input-file" name="Image" accept="image/*" onchange={handleChange()} hidden />
+                              @*  <img id="avatar" width="100%" height="300px" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(@Model.articleDto.Avatar)">*@
+                                <input type="file" id="input-file" name="Image" accept="image/*" asp-for="articleDto.Avatar"  onchange={handleChange()} hidden
+                                       required oninvalid="setCustomValidity('لطفاً تصویر  را بارگزاری کنید')"
+                                       oninput="setCustomValidity('')" />
                                 <label class="btn-upload btn btn-primary mt-4" for="input-file">بارگذاری تصویر</label>
                                 <br />
                                 <input type="hidden" asp-for="articleDto.Id" />
                                 <div class="mb-3">
                                     <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
-                                    <input asp-for="articleDto.AvatarTitle" id="name" type="text" class="form-control" placeholder="Image Tilte :">
+                                    <input asp-for="articleDto.AvatarTitle" id="name" type="text" class="form-control" placeholder="Image Tilte :"
+                                           required oninvalid="setCustomValidity('لطفاً  عنوان تصویر  را وارد کنید')"
+                                           oninput="setCustomValidity('')" />
                                 </div>
                                 <br />
                                 <div class="mb-3">
                                     <label class="form-label">متن جایگذین تصویر: <span class="text-danger">*</span></label>
-                                    <input asp-for="articleDto.AvatarAlt" id="name" type="text" class="form-control" placeholder="Image Alt :">
+                                    <input asp-for="articleDto.AvatarAlt" id="name" type="text" class="form-control" placeholder="Image Alt :"
+                                           required oninvalid="setCustomValidity('لطفاً  متن جایگزین تصویر  را وارد کنید')"
+                                           oninput="setCustomValidity('')" />
                                 </div>
                             </div>
                         </div><!--end col-->
@@ -150,7 +156,9 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">عنوان بلاگ: <span class="text-danger">*</span></label>
-                                            <input asp-for="articleDto.Title" id="Title" type="text" class="form-control" placeholder="Blog Title :">
+                                            <input asp-for="articleDto.Title" id="Title" type="text" class="form-control" placeholder="Blog Title :"
+                                                   required oninvalid="setCustomValidity('لطفاً  عنوان بلاگ  را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
 
@@ -158,7 +166,9 @@
                                         <div class="mb-3">
                                             <label class="form-label">دسته‌بندی: <span class="text-danger">*</span></label>
 
-                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleCategories" name="ListCategoryId" multiple>
+                                            <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleCategories" name="ListCategoryId" asp-for="articleDto.ArticleCategoryId" multiple
+                                                    required oninvalid="setCustomValidity('لطفاً دسته بندی  را وارد کنید')"
+                                                    oninput="setCustomValidity('')">
                                                 <option disabled>دسته‌بندی را انتخاب کنید</option>
                                             </select>
 
@@ -175,7 +185,10 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">توضیحات جامع مجله: <span class="text-danger">*</span></label>
-                                            <textarea asp-for="articleDto.Text" id="myeditor" class="form-control" placeholder="Description :"></textarea>
+                                            <textarea asp-for="articleDto.Text" id="myeditor" class="form-control" placeholder="Description :"
+                                                      required oninvalid="setCustomValidity('لطفاً توضیحات مجله را وارد کنید')"
+                                                      oninput="setCustomValidity('')">
+                                                  </textarea>
                                             <script src="~/lib/ckeditor/ckeditor.js"></script>
                                             <script>
                                                 CKEDITOR.replace("myeditor");
@@ -186,20 +199,24 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">توضیحات متا: <span class="text-danger">*</span></label>
-                                            <input asp-for="articleDto.Description" id="name" type="text" class="form-control" placeholder="MetaDescription :">
+                                            <input asp-for="articleDto.Description" id="name" type="text" class="form-control" placeholder="MetaDescription :"
+                                                                                               required oninvalid="setCustomValidity('لطفاً  توضیحات متا  را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
 
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
-                                            <input asp-for="articleDto.KeyWords" id="name" type="text" class="form-control" placeholder="key words :">
+                                            <input asp-for="articleDto.KeyWords" id="name" type="text" class="form-control" placeholder="key words :"
+                                             required oninvalid="setCustomValidity('لطفاً کلمات کلیدی  را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">تعداد نمایش: <span class="text-danger">*</span></label>
-                                            <input asp-for="articleDto.Visit"  type="number" class="form-control" placeholder="Visit :">
+                                            <input asp-for="articleDto.Visit" type="number" class="form-control" placeholder="Visit :">
                                         </div>
                                     </div><!--end col-->
 

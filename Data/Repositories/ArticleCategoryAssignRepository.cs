@@ -34,11 +34,19 @@ namespace Data.Repositories
             }
         }
 
+
+
         public List<int> GetListArticleIdWithArticleCategoryId(int articleCategoryId)
         {
             var result = Table.Where(x => x.CategoryId == articleCategoryId)
                              .Select(x => x.ArticleId).ToList();
 
+            return result;
+        }
+
+        public List<int> GetListArticleCategoryIdWithArticleId(int articleId)
+        {
+            var result = Table.Where(x => x.ArticleId == articleId).Select(x=>x.Id).ToList();
             return result;
         }
     }

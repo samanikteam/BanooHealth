@@ -24,18 +24,28 @@ namespace Data.Repositories
                 var productCategory = new ProCategory
                 {
                     ProductId = productId,
-                    ProductCategoryId = item, 
-                    SortNum=0
+                    ProductCategoryId = item,
+                    SortNum = 0
                 };
 
                 await base.AddAsync(productCategory, cancellationToken);
             }
         }
 
+
+
         public List<int> GetListProductIdWithProductCategoryId(int productCategoryId)
         {
             var result = Table.Where(x => x.ProductCategoryId == productCategoryId)
                 .Select(x => x.ProductId).ToList();
+
+            return result;
+        }
+
+        public List<int> GetListCategoryWithProductId(int productId)
+        {
+            var result = Table.Where(x => x.ProductId == productId)
+                                .Select(x => x.ProductCategoryId).ToList();
 
             return result;
         }

@@ -20,13 +20,16 @@ namespace Data.Repositories
     {
 
         private readonly IArticleRepasitory _articleRepository;
+        private readonly IArticleCategoryAssignRepository _articleCategoryAssignRepository;
         private readonly IProductArticleRepository _productArticleRepository;
         private readonly IPharmacyProduct _pharmacyProductRepository;
         private readonly IPharmacyRepository _pharmacyRepository;
         private readonly IProCategoriesRepository _proCategoryRepository;
-        public ProductRepository(ApplicationDbContext dbContext, IProCategoriesRepository proCategoryRepository) : base(dbContext)
+        public ProductRepository(ApplicationDbContext dbContext, IProCategoriesRepository proCategoryRepository, IArticleCategoryAssignRepository articleCategoryAssignRepository , IProductArticleRepository productArticleRepository) : base(dbContext)
         {
             _proCategoryRepository = proCategoryRepository;
+            _articleCategoryAssignRepository = articleCategoryAssignRepository;
+            _productArticleRepository = productArticleRepository;
         }
         public async Task<int> AddAsync(ProductDto productDto, string RegisterUserId, List<IFormFile> Image1, CancellationToken cancellationToken)
         {
@@ -43,8 +46,8 @@ namespace Data.Repositories
                 RegisterDate = DateTime.Now,
                 RegisterUserId = RegisterUserId,
                 IsDelete = false,
-                BrandName=productDto.BrandName,
-                popular=productDto.popular
+                BrandName = productDto.BrandName,
+                popular = productDto.popular
             };
 
             #region Add Avatar(FileStream) in Model
@@ -94,8 +97,8 @@ namespace Data.Repositories
                 MinimumPrice = t.PharmacyProducts.Where(x => x.productId == t.Id).Select(x => x.Price).Min().ToString(),
                 //Table.Where(x=>x.productId==productId && x.Inventory!=0).Include(x=>x.Pharmacy).ToList();
                 CountPharmacyExistProduct = t.PharmacyProducts.Where(x => x.productId == t.Id && x.Inventory != 0).Count(),
-                BrandName=t.BrandName,
-                popular=t.popular
+                BrandName = t.BrandName,
+                popular = t.popular
             }).ToList();
 
             return list;
@@ -114,11 +117,17 @@ namespace Data.Repositories
                 .Include(x => x.ProductArticles).ThenInclude(x => x.Product)
                 .SingleOrDefault();
 
+            var listCategoryId = _proCategoryRepository.GetListCategoryWithProductId(id);
+
+            var listArticleId = _productArticleRepository.GetListArticleByProductId(id);
+
 
             var product = new ProductDto
             {
                 Id = result.Id,
                 Title = result.Title,
+                CategoryId = listCategoryId,
+                ListArticleId = listArticleId,
                 Description = result.Description,
                 Text = result.Text,
                 Avatar1 = result.Avatar1,
@@ -131,8 +140,8 @@ namespace Data.Repositories
                 ListArticleLinked = result.ProductArticles.Select(x => x.Article).ToList(),
                 ListProductLinked = result.ProductArticles.Select(x => x.Product).ToList(),
                 IsDelete = result.IsDelete,
-                BrandName=result.BrandName,
-                popular=result.popular
+                BrandName = result.BrandName,
+                popular = result.popular
                 //Price = result.PharmacyProducts.Select(x => x.Price).SingleOrDefault().ToString(),
                 //MinimumPrice = result.PharmacyProducts.Select(x => x.Price).Min().ToString(),
 
@@ -185,7 +194,7 @@ namespace Data.Repositories
             product.IsDelete = false;
             product.BrandName = productDto.BrandName;
             product.popular = productDto.popular;
-           
+
             foreach (var item in Image)
             {
                 if (item.Length > 0)
@@ -232,7 +241,7 @@ namespace Data.Repositories
                 RegisterDate = t.RegisterDate,
                 RegisterUserId = t.RegisterUserId,
                 IsDelete = t.IsDelete,
-                popular=t.popular
+                popular = t.popular
             }).ToList();
 
             return list;

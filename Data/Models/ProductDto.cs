@@ -17,8 +17,9 @@ namespace Data.Models
         public string Description { get; set; }
         public string Text { get; set; }
 
-        //public int CategoryId { get; set; }
-        //public string CategoryTitle { get; set; }
+        public List<int> CategoryId { get; set; }
+        public List<int> ListArticleId { get; set; }
+
         public List<int> ProductArticles { get; set; }
 
         public byte[] Avatar1 { get; set; }

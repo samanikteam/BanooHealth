@@ -61,7 +61,6 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
                 };
                 var resultUser = await _userManager.CreateAsync(user, createDto.Password);
                 var userId = await _userManager.GetUserIdAsync(user);
-                //_repasitory.UpdateUser(userId ,createDto);
                 if (resultUser.Succeeded)
                 {
                     #region Add Roles in Table UserRoles
@@ -109,22 +108,22 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
             return Redirect("/Administration/Users/Index");
         }
 
-        public JsonResult OnGetGetUser(string userId)
-        {
-            editDto = new EditUserDto();
-           editDto = _repasitory.GetUserInfoById(userId);
+        //public JsonResult OnGetGetUser(string userId)
+        //{
+        //    editDto = new EditUserDto();
+        //   editDto = _repasitory.GetUserInfoById(userId);
 
-            return new JsonResult(editDto);
-        }
+        //    return new JsonResult(editDto);
+        //}
 
-        public IActionResult OnPostEditUser(string userId, CancellationToken cancellationToken)
-        {
-            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+        //public IActionResult OnPostEditUser(string userId, CancellationToken cancellationToken)
+        //{
+        //    ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
 
-            _repasitory.UpdateUser(userId , createDto);
+        //    _repasitory.UpdateUser(userId , createDto);
 
-            return Redirect("/Administration/Users/Index");
-        }
+        //    return Redirect("/Administration/Users/Index");
+        //}
 
     }
 }
