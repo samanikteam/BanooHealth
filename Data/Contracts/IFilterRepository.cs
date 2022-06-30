@@ -17,5 +17,6 @@ namespace Data.Contracts
         List<Filter> Getfilters();
         Task Active(int id, CancellationToken cancellationToken);
         Task Deactive(int id, CancellationToken cancellationToken);
+        void Edit(Entities.Products.Filter filter);
     }
 }

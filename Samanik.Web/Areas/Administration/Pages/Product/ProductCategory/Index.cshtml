@@ -125,21 +125,27 @@
                             <div class="d-grid">
                                 <p class="text-muted">آپلود آیکون دسته‌بندی، برای آپلود آیکون لطفا بر روی "بارگذاری تصویر" کلیک نمایید.</p>
                                 <div class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
-                                <input type="file" id="input-file" name="Image" accept="image/*" onchange={handleChange()} hidden />
+                                <input type="file" id="input-file" name="Image" accept="image/*" onchange={handleChange()} hidden 
+                                 required oninvalid="setCustomValidity('لطفاً  تصویر  را انتخاب کنید')"
+                                           oninput="setCustomValidity('')"/>
                                 <label class="btn-upload btn btn-primary mt-4" for="input-file">بارگذاری تصویر</label>
                             </div>
                             <br />
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label class="form-label">عنوان تصویر <span class="text-danger">*</span></label>
-                                    <input asp-for="dto.AvatarTitle" id="AvatarTitle" type="text" class="form-control" placeholder="Image Title :">
+                                    <input asp-for="dto.AvatarTitle" id="AvatarTitle" type="text" class="form-control" placeholder="Image Title :"
+                                     required oninvalid="setCustomValidity('لطفاً  عنوان تصویر  را وارد کنید')"
+                                           oninput="setCustomValidity('')">
                                 </div>
                             </div><!--end col-->
 
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label class="form-label">متن جایگزین <span class="text-danger">*</span></label>
-                                    <input asp-for="dto.AvatarAlt" id="AvatarAlt" type="text" class="form-control" placeholder="Image Alt :">
+                                    <input asp-for="dto.AvatarAlt" id="AvatarAlt" type="text" class="form-control" placeholder="Image Alt :"
+                                     required oninvalid="setCustomValidity('لطفاً متن جایگزین  را وارد کنید')"
+                                           oninput="setCustomValidity('')">
                                 </div>
                             </div><!--end col-->
 
@@ -152,7 +158,9 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">عنوان <span class="text-danger">*</span></label>
-                                            <input asp-for="dto.Title" id="Title" type="text" class="form-control" placeholder="Title :">
+                                            <input asp-for="dto.Title" id="Title" type="text" class="form-control" placeholder="Title :"
+                                             required oninvalid="setCustomValidity('لطفاً  عنوان  را وارد کنید')"
+                                           oninput="setCustomValidity('')">
                                         </div>
                                     </div><!--end col-->
 
@@ -166,7 +174,8 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">دسته مادر</label>
-                                            <select asp-items="ViewBag.ProductCategories" asp-for="dto.ParentId" class="form-control">
+                                            <select asp-items="ViewBag.ProductCategories" asp-for="dto.ParentId" class="form-control"
+>
                                                 <option value="" selected>دسته اصلی</option>
                                             </select>
                                         </div>
@@ -175,7 +184,9 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label class="form-label">توضیحات <span class="text-danger">*</span></label>
-                                            <textarea asp-for="dto.Description" id="comments" rows="4" class="form-control" placeholder="Meta Description :"></textarea>
+                                            <textarea asp-for="dto.Description" id="comments" rows="4" class="form-control" placeholder="Meta Description :"
+                                             required oninvalid="setCustomValidity('لطفاً توضیحات را وارد کنید')"
+                                           oninput="setCustomValidity('')"></textarea>
                                         </div>
                                     </div><!--end col-->
 

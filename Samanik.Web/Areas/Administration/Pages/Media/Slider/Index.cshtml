@@ -133,14 +133,16 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">عنوان تصویر: <span class="text-danger">*</span></label>
-                                            <input asp-for="dto.Title" id="Title" type="text" class="form-control" placeholder="Banner Title :">
+                                            <input asp-for="dto.Title" id="Title" type="text" class="form-control" placeholder="Banner Title :"
+                                            required oninvalid="setCustomValidity('لطفاً عنوان تصویر  را وارد کنید')"
+                                           oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">متن جایگزین: <span class="text-danger">*</span></label>
-                                            <input asp-for="dto.AvatarAlt" id="Slug" type="text" class="form-control" placeholder="Alt :">
+                                            <input asp-for="dto.AvatarAlt" id="Slug" type="text" class="form-control" placeholder="Alt :" />
                                         </div>
                                     </div><!--end col-->
 
@@ -148,7 +150,10 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">لینک: <span class="text-danger">*</span></label>
-                                            <input asp-for="dto.Link" type="text" class="form-control" placeholder="Link :">
+                                            <input asp-for="dto.Link" type="text" class="form-control" placeholder="Link :"
+                                            required oninvalid="setCustomValidity('لطفاً لینک تصویر  را وارد کنید')"
+                                           oninput="setCustomValidity('')" />
+
                                         </div>
                                     </div><!--end col-->
 

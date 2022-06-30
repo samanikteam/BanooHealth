@@ -43,30 +43,37 @@
                         <tbody>
                             @foreach (var item in Model.Listdto.filters)
                             {
-                            <tr>
-                                <th>@item.Title</th>
-                                @if (item.Status == true)
-                                {
-                                    <td><span class="badge bg-soft-success">فعال</span></td>
-                                    <td>
-                                        <form method="post" asp-page-handler="Deactive" class="float-left">
-                                            <button class="btn btn-icon btn-pills btn-danger uil uil-trash"></button>
-                                            <input type="hidden" name="id" value="@item.Id" />
-                                        </form>
-                                    </td>
+                                <tr>
+                                    <th>@item.Title</th>
+                                    @if (item.Status == true)
+                                    {
+                                        <td><span class="badge bg-soft-success">فعال</span></td>
+                                        <td>
+                                            <form method="post" asp-page-handler="Deactive" class="float-left">
+                                                <button class="btn btn-icon btn-pills btn-danger uil uil-trash"></button>
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                            </form>
+                                        </td>
 
-                                }
-                                else
-                                {
-                                    <td><span class="badge bg-soft-danger">غیرفعال</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge bg-soft-danger">غیرفعال</span></td>
+                                        <td>
+                                            <form method="post" asp-page-handler="Active" class="float-left">
+                                                <button class="btn btn-icon btn-pills btn-success uil uil-refresh"></button>
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                            </form>
+                                        </td>
+                                    }
+
                                     <td>
-                                        <form method="post" asp-page-handler="Active" class="float-left">
-                                            <button class="btn btn-icon btn-pills btn-success uil uil-refresh"></button>
-                                            <input type="hidden" name="id" value="@item.Id" />
-                                        </form>
+                                        <a asp-page="/Product/Filter/Edit" asp-route-id="@item.Id"
+                                       class="btn btn-icon btn-pills btn-soft-success">
+                                            <i class="uil uil-pen"></i>
+                                        </a>
                                     </td>
-                                }
-                            </tr>
+                                </tr>
                             }
 
                         </tbody>

@@ -61,5 +61,14 @@ namespace Data.Repositories
             var result = Table.ToList();
             return result;
         }
+
+        public void Edit(Filter filter)
+        {
+            var filter1 = Table.Where(x => x.Id == filter.Id).FirstOrDefault();
+            filter1.Title = filter.Title;
+            filter1.Status = true;
+            DbContext.Update(filter1);
+            DbContext.SaveChanges();
+        }
     }
 }
