@@ -31,29 +31,31 @@
                         <!--product details start-->
                         <div class="product_details">
                             <div class="row">
-                                  <div class="col-lg-5 col-md-6">
-                                <div class="product-details-tab">
-                                    <div id="img-1" class="zoomWrapper single-zoom">
-                                        <a href="#">
-                                            <img height="250px" id="zoom1" src="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)" data-zoom-image="/ProductPicture/@Model.productDto.Avatar1" alt="big-1">
-                                        </a>
-                                    </div>
-                                    <div class="single-zoom-thumb">
-                                        <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-
-                                            @foreach (var item in Model.listProGalleryDto.ProGallery)
-                                            {
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="product-details-tab">
+                                        <div id="img-1" class="zoomWrapper single-zoom">
+                                            <a href="#">
+                                                <img id="zoom1" src="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)" data-zoom-image="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)" alt="@Model.productDto.AvatarAlt1" title="@Model.productDto.AvatarTitle1">
+                                            </a>
+                                        </div>
+                                        <div class="single-zoom-thumb">
+                                            <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
                                                 <li>
-                                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="/ProductPicture/@item.Avatar" data-zoom-image="/ProductPicture/@item.Avatar">
-                                                        <img src="data:/ProductPicture;base64,@Convert.ToBase64String(@item.Avatar)" alt="zo-th-1">
+                                                    <a href="#" class="elevatezoom-gallery active" data-update="" data-image="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)" data-zoom-image="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)">
+                                                        <img src="data:/ProductPicture;base64,@Convert.ToBase64String(Model.productDto.Avatar1)" alt="@Model.productDto.AvatarAlt1" title="@Model.productDto.AvatarTitle1">
                                                     </a>
-
                                                 </li>
-                                            }
-
-                                        </ul>
+                                                @foreach (var item in Model.listProGalleryDto.ProGallery.Where(a => a.IsDelete == false))
+                                                {
+                                                    <li>
+                                                        <a href="#" class="elevatezoom-gallery active" data-update="" data-image="data:/ProductPicture;base64,@Convert.ToBase64String(item.Avatar)" data-zoom-image="data:/ProductPicture;base64,@Convert.ToBase64String(item.Avatar)">
+                                                            <img src="data:/ProductPicture;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.AvatarTitle">
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
                                 </div>
                                 <div class="col-lg-7 col-md-6">
                                     <div class="product_d_right">
@@ -186,7 +188,7 @@
                                 <div class="post_header">
                                     <div class="blog_meta">
                                         <span class="fw-bolder">توضیحات تکمیلی</span>
-                                      
+
                                     </div>
                                     <div class="blog_content">
                                         @Html.Raw(Model.productDto.Text)
