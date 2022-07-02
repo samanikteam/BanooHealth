@@ -48,6 +48,9 @@ namespace Data.Models
         public bool IsDelete { get; set; }
 
         public string Mothername { get; set; }
+
+        [Display(Name = "کلمات کلیدی")]
+        public string Keywords { get; set; }
     }
 
     public class ListProductCategoryDto

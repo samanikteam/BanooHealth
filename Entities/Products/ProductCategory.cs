@@ -35,6 +35,9 @@ namespace Entities.Products
         [Display(Name = "اسلاگ")]
         public string Slug { get; set; }
 
+        [Display(Name = "کلمات کلیدی")]
+        public string Keywords { get; set; }
+
         [Display(Name = "شناسه والد")]
         public int? ParentId { get; set; }
 

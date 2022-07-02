@@ -1,9 +1,9 @@
 ﻿@page "{articleCategoryId}/{slug?}"
 @model Samanik.Web.Pages.Blog.ArticleByArticleCategoryModel
 @{
-    ViewData["Title"] = "مجله سمانیک";
-    ViewData["Description"] = "";
-    ViewData["Keywords"] = "";
+    ViewData["Title"] = Model.ArticleCategorydto.Title;
+    ViewData["Description"] = Model.ArticleCategorydto.Description;
+    ViewData["Keywords"] = Model.ArticleCategorydto.keywords;
     int counter = 0;
 }
 
@@ -33,7 +33,7 @@
                 <div class="col-lg-9 col-md-12">
                     <div class="blog_wrapper mb-60">
                         <div class="blog_header">
-                            <h1>بلاگ</h1>
+                            <h1>مقالات مرتبط با دسته بندی @Model.ArticleCategorydto.Title</h1>
                         </div>
                         <div class="blog_wrapper_inner">
 
@@ -144,7 +144,7 @@
                             <ul>
                                 @foreach (var item in Model.listArticleCategoryDto.Where(a => a.IsDelete == false && a.ParentId == null))
                                 {
-                                    <li><a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a></li>
+                                    <li><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></li>
                                 }
                             </ul>
                         </div>

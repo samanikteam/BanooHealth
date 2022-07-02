@@ -29,6 +29,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public List<Entities.Products.Product> products { get; set; }
         public List<Category> listArticleCategoryDto { get; set; }
         public BannerDto bannerDto { get; set; }
+        public ProductCategoryDto productCategoryDto { get; set; }
 
         public ListProductCategoryDto listProductCategoryDto { get; set; }
         public void OnGet(int productCategoryId,string slug)
@@ -36,6 +37,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
             bannerDto = _bannerRepository.GetBanner();
             listProductDto = _productRepository.GetListProductsByProductCategoryId(productCategoryId);
             listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
+            productCategoryDto = _ProductCategoryRepository.GetProductCategorybyId(productCategoryId);
         }
     }
 }

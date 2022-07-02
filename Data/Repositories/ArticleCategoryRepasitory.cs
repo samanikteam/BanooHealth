@@ -33,7 +33,8 @@ namespace Data.Repositories
                 ParentId = ArticleCategoryDto.ParentId,
                 RegisterDate = DateTime.Now,
                 RegisterUserId = RegisterUserId,
-                IsDelete = false
+                IsDelete = false,
+                Keywords=ArticleCategoryDto.keywords
             };
 
             #region Add Avatar(FileStream) in Model
@@ -73,7 +74,8 @@ namespace Data.Repositories
                 Avatar = t.Avatar,
                 RegisterDate = t.RegisterDate.ToShamsi(),
                 IsDelete = t.IsDelete,
-                Slug=t.Slug
+                Slug=t.Slug,
+                keywords=t.Keywords
             }).ToList();
 
             return list;
@@ -113,7 +115,8 @@ namespace Data.Repositories
                 Title = result.Title,
                 Avatar = result.Avatar,
                 ParentId = result.ParentId,
-                Id = result.Id
+                Id = result.Id,
+                keywords=result.Keywords
             };
             return articlecategory;
         }
@@ -131,6 +134,7 @@ namespace Data.Repositories
             articleCategory.LastUpdateDate = DateTime.Now;
             articleCategory.LastUpdateUserId = RegisterUserId;
             articleCategory.IsDelete = articlecategoryDto.IsDelete;
+            articleCategory.Keywords = articlecategoryDto.keywords;
 
 
             #region Add Avatar(FileStream) in Model

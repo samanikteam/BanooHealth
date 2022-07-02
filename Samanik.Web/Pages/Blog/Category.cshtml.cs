@@ -27,6 +27,7 @@ namespace Samanik.Web.Pages.Blog
 
         [BindProperty]
         public ArticleDto dto { get; set; }
+        public ArticleCategoryDto ArticleCategorydto { get; set; }
         public ListArticleDto listArticleDto { get; set; }
         public List<Category> listArticleCategoryDto { get; set; }
         public ListCommentDto commentDto { get; set; }
@@ -36,7 +37,7 @@ namespace Samanik.Web.Pages.Blog
             listArticleCategoryDto = _articleCategoryRepository.GetArticleCategories();
             listArticleDto = _Repasitory.GetListArticle();
             commentDto = _commnetRepository.GetListComments();
-
+            ArticleCategorydto = _articleCategoryRepository.GetarticleCategorybyId(articleCategoryId);
             listArticleDto = _Repasitory.GetListArticlesByArticleCategoryId(articleCategoryId);
             listArticleCategoryDto = _articleCategoryRepository.GetArticleCategories();
         }

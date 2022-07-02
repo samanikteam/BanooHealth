@@ -3,9 +3,9 @@
 @using VisitorManagment.Core.Convertors;
 
 @{
-    ViewData["Title"] = "جستجو";
-    ViewData["Description"] = "";
-    ViewData["Keywords"] = "";
+    ViewData["Title"] = Model.productCategoryDto.Title;
+    ViewData["Description"] = Model.productCategoryDto.Description;
+    ViewData["Keywords"] = Model.productCategoryDto.Keywords;
 }
 
 <!--breadcrumbs area start-->

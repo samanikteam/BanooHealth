@@ -39,7 +39,8 @@ namespace Data.Repositories
                 Slug = ProductCategoryDto.Slug,
                 ParentId = ProductCategoryDto.ParentId,
                 RegisterDate = DateTime.Now,
-                IsDelete = false
+                IsDelete = false,
+                Keywords=ProductCategoryDto.Keywords
             };
 
             #region Add Avatar(FileStream) in Model
@@ -82,7 +83,8 @@ namespace Data.Repositories
                 RegisterDate = t.RegisterDate,
                 IsDelete = t.IsDelete,
                 Slug=t.Slug,
-                RegisterDateFa=t.RegisterDate.ToShamsi()
+                RegisterDateFa=t.RegisterDate.ToShamsi(),
+                Keywords=t.Keywords
             }).ToList();
 
             return list;
@@ -113,7 +115,8 @@ namespace Data.Repositories
                 ParentId = t.ParentId,
                 Avatar = t.Avatar,
                 RegisterDate = t.RegisterDate,
-                IsDelete = t.IsDelete
+                IsDelete = t.IsDelete,
+                Keywords=t.Keywords
             }).ToList();
 
             return list;
@@ -133,7 +136,8 @@ namespace Data.Repositories
                 Title = result.Title,
                 Avatar = result.Avatar,
                 ParentId = result.ParentId,
-                Id = result.Id
+                Id = result.Id,
+                Keywords=result.Keywords
             };
             return Productcategory;
         }
@@ -149,7 +153,7 @@ namespace Data.Repositories
             ProductCategory.Slug = Dto.Slug;
             ProductCategory.ParentId = Dto.ParentId;
             ProductCategory.IsDelete = Dto.IsDelete;
-
+            ProductCategory.Keywords = Dto.Keywords;
 
             #region Add Avatar(FileStream) in Model
             foreach (var item in Image)

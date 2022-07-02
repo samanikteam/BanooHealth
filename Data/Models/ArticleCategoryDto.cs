@@ -44,6 +44,10 @@ namespace Data.Models
 
         [Required]
         public bool IsDelete { get; set; }
+
+        [Required]
+        [Display(Name = "کلمات کلیدی")]
+        public string keywords { get; set; }
     }
 
     public class ListArticleCategoryDto

@@ -170,7 +170,7 @@
                             <ul>
                                 @foreach (var item in Model.listArticleCategoryDto.Where(a => a.IsDelete == false && a.ParentId == null))
                                 {
-                                    <li><a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a></li>
+                                    <li><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></li>
                                 }
                             </ul>
                         </div>
