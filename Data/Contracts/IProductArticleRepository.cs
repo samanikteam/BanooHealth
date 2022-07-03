@@ -17,6 +17,7 @@ namespace Data.Contracts
 
         //متد زیر فعلا بلا استفاده س
         List<ProductArticle> GetListProductArticleByProductId(int productId);
+        ProductArticleDto GetListArticleAndProductByProductId(int productId);
         List<int> GetListArticleByProductId(int productId);
     }
 }

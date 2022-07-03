@@ -198,6 +198,11 @@ namespace Data.Repositories
             return result;
         }
 
+        /// <summary>
+        /// محصولات مرتبط با بلاگ
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ProductDto GetListProductByArticleId(int id)
         {
             var result1 = Table.Where(x => x.Id == id).Include(x => x.Category).Include(x => x.ProductArticles)
@@ -311,5 +316,31 @@ namespace Data.Repositories
             article.IsDelete = true;
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
+
+        //public ArticleDto GetListBlogByProductId(int id)
+        //{
+        //    var result1 = Table.Where(x => x.Id == id).Include(x => x.Category).Include(x => x.ProductArticles)
+        //    .ThenInclude(x => x.Article)
+        //    .Include(x => x.ProductArticles).ThenInclude(x => x.Article).SingleOrDefault();
+
+
+        //    var result = Table.Where(x => x.Id == id).Include(x => x.ProductArticles).ThenInclude(x => x.Product).SingleOrDefault();
+
+        //    var product = new ProductDto
+        //    {
+        //        Id = result.Id,
+        //        Title = result.Title,
+        //        Description = result.Description,
+        //        Avatar1 = result.Avatar,
+        //        AvatarTitle1 = result.AvatarTitle,
+        //        AvatarAlt1 = result.AvatarAlt,
+        //        Slug = result.Slug,
+        //        KeyWords = result.KeyWords,
+        //        RegisterDate = result.RegisterDate,
+        //        ListArticleLinked = result.ProductArticles.Select(x => x.Article).ToList(),
+        //        ListProductLinked = result.ProductArticles.Select(x => x.Product).ToList()
+        //    };
+        //    return product;
+        //}
     }
 }

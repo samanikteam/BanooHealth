@@ -52,6 +52,7 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
         public ListPharmacyWithProductDto listPharmacyWithProductDto { get; set; }
         public ListProductDetailWithPharmacyDto listProductDetailWithPharmacyDto { get; set; }
         public ListProductFilterDto listProductFilterDto { get; set; }
+        public ProductArticleDto productArticleDto { get; set; }
 
 
         public void OnGet(int id,string slug)
@@ -60,8 +61,8 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
             productDto = _productRepository.GetProductByProductId(id);
             listProCommentsDto = _proCommentRepository.GetListProComment(id);
             listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);
-            //listProductDetailWithPharmacyDto = _productRepository.GetListProductsWithPharmacyByProductId(id);
             listPharmacyWithProductDto = _pharmacyProductRepository.FindListPharmacyProductWhenExistProduct(id);
+            productArticleDto = _ProductArticleRepository.GetListArticleAndProductByProductId(id);
 
         }
         public IActionResult OnPost(CancellationToken cancellationToken)

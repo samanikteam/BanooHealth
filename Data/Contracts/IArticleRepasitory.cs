@@ -31,7 +31,19 @@ namespace Data.Contracts
 
         List<Article> GetListArticleFromTableProductArticleByArticleId(List<int> articleId);
 
+        /// <summary>
+        /// محصولات مرتبط با بلاگ
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         ProductDto GetListProductByArticleId(int id);
+
+        /// <summary>
+        /// بلاگ مرتبط با محصولات
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        //ArticleDto GetListBlogByProductId(int id);
 
         List<Article> SearchArticleMainPage(string title);
 

@@ -35,6 +35,7 @@ namespace Samanik.Web.Pages.Blog
         public ListCommentDto SidebarComments { get; set; }
         public ProductDto productDto { get; set; }
 
+
         public List<Category> listArticleCategoryDto { get; set; }
         public void OnGet(int id, CancellationToken cancellationToken)
         {
@@ -45,6 +46,7 @@ namespace Samanik.Web.Pages.Blog
             SidebarComments = _CommentRepository.GetListComments();
             productDto = _Repasitory.GetListProductByArticleId(id);
             _Repasitory.Visited(id, cancellationToken);
+
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {

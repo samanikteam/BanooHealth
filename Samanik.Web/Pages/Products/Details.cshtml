@@ -197,6 +197,109 @@
                             </figure>
                         </article>
                     </div>
+
+
+                    <br>
+                    <div class="blog_wrapper blog_details">
+                        <div class="related_posts">
+                            <h3>محصولات مرتبط</h3>
+                            <div class="row">
+                                @if (Model.productArticleDto.ListProduct.Count() != 0)
+                                {
+                                    @foreach (var item in Model.productArticleDto.ListProduct)
+                                    {
+                                        <div class="col-lg-4 col-md-6">
+                                            <article class="single_related">
+                                                <figure>
+                                                    <div class="related_thumb">
+                                                        <img src="data:/ProductPicture;base64,@Convert.ToBase64String(item.Avatar1)" alt="">
+                                                    </div>
+                                                    <figcaption class="related_content">
+                                                        <h4><a href="#"></a></h4>
+                                                        <div class="blog_meta">
+                                                            <span class="author"><a href="/Products/Details/@item.Id">@item.Title</a> / </span>
+                                                            <span class="meta_date"> @item.RegisterDate</span>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="col-lg-4 col-md-6">
+                                        <article class="single_related">
+                                            <figure>
+
+                                                <figcaption class="related_content">
+                                                    <h4><a href="#"></a></h4>
+                                                    <div class="blog_meta">
+                                                        <span class="meta_date" style="color:red; font-size:18px"> محصول مرتبطی یافت نشد</span>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </article>
+                                    </div>
+                                }
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="blog_wrapper blog_details">
+                        <div class="related_posts">
+                            <h3>مجلات مرتبط</h3>
+                            <div class="row">
+                                @if (Model.productArticleDto.ListArticle.Count() != 0)
+                                {
+                                    @foreach (var item in Model.productArticleDto.ListArticle)
+                                    {
+                                        <div class="col-lg-4 col-md-6">
+                                            <article class="single_related">
+                                                <figure>
+                                                    <div class="related_thumb">
+                                                        <img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt">
+                                                    </div>
+                                                    <figcaption class="related_content">
+                                                        <h4><a href="#"></a></h4>
+                                                        <div class="blog_meta">
+                                                            <span class="author"><a href="/blog/articledetails/@item.Id">@item.Title</a> / </span>
+                                                            <span class="meta_date"> @item.RegisterDate</span>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </article>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="col-lg-4 col-md-6">
+                                        <article class="single_related">
+                                            <figure>
+
+                                                <figcaption class="related_content">
+                                                    <h4><a href="#"></a></h4>
+                                                    <div class="blog_meta">
+                                                        <span class="meta_date" style="color:red; font-size:18px"> مجله مرتبطی یافت نشد</span>
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </article>
+                                    </div>
+                                }
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <div class="blog_sidebar_widget">
