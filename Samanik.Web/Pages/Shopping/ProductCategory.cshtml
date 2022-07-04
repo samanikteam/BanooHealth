@@ -114,7 +114,7 @@
                                 <article class="single_product">
                                     <figure>
                                         <div class="product_thumb">
-                                            <a class="primary_img" href="/Products/Details/@item.Id/@item.Slug">
+                                            <a class="primary_img" href="/Products/@item.Id/@item.Slug">
                                                 <img width="250" height="250" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="">
                                             </a>
                                             <div class="label_product">
@@ -132,7 +132,7 @@
                                         <div class="product_content grid_content">
                                             <div class="product_content_inner">
 
-                                                <h4 class="product_name"><a href="/Products/Details/@item.Id/@item.Slug" >@item.Title</a></h4>
+                                                <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug" >@item.Title</a></h4>
                                                 <div class="price_box">
 
                                                     @if (item.MinimumPrice != null)
@@ -151,7 +151,7 @@
                                             <div class="add_to_cart">
                                                 @if (item.MinimumPrice != null)
                                                 {
-                                                    <a href="/Products/Details/@item.Id" title="مشاهده داروخانه‌ها">مشاهده داروخانه‌ها</a>
+                                                    <a href="/Products/@item.Id" title="مشاهده داروخانه‌ها">مشاهده داروخانه‌ها</a>
                                                 }
                                                 else
                                                 {

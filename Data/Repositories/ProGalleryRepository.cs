@@ -14,7 +14,7 @@ namespace Data.Repositories
 {
     public class ProGalleryRepository : Repository<ProGallery>, IProGalleryRepository
     {
-        private readonly IProductRepository _productRepository;
+        //private readonly IProductRepository _productRepository;
         public ProGalleryRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
             

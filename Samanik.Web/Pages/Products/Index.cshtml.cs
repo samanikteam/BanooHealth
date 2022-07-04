@@ -44,7 +44,7 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
         public ListProductDto listProductDto { get; set; }
         public ListProCommentDto listProCommentsDto { get; set; }
         public ListProCommentDto SidebarComments { get; set; }
-
+        public ProductArticleDto productArticleDto { get; set; }
         public ListProCategoryDto listProductCategoryDto { get; set; }
         public ListProGalleryDto listProGalleryDto { get; set; }
         public ListPharmacyDto listPharmacyDto { get; set; }
@@ -61,14 +61,15 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
             listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);
             //listProductDetailWithPharmacyDto = _productRepository.GetListProductsWithPharmacyByProductId(id);
             listPharmacyWithProductDto = _pharmacyProductRepository.FindListPharmacyProductWhenExistProduct(id);
+            productArticleDto = _ProductArticleRepository.GetListArticleAndProductByProductId(id);
+
 
         }
         public IActionResult OnPost(CancellationToken cancellationToken)
         {
             var x = ProCommentDto;
             _proCommentRepository.AddProComment(ProCommentDto, cancellationToken);
-
-            return Redirect("/Products/Details/" + ProCommentDto.ProductId);
+            return Redirect("/Products/" + ProCommentDto.ProductId);
         }
     }
 }

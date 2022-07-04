@@ -412,7 +412,7 @@
                                             </div>
                                             <div class="price_box">
                                                 قیمت از
-                                                <span class="current_price">@item.MinimumPrice<span>
+                                                <span class="current_price">@item.MinimumPrice</span>
 
                                             </div>
                                             <div class="product_cart_button">
@@ -442,7 +442,7 @@
                                                 </div>
                                                 <div class="price_box">
                                                     قیمت از
-                                                    <span class="current_price">@item.MinimumPrice<span>
+                                                    <span class="current_price">@item.MinimumPrice</span>
                                                 </div>
                                                 <div class="product_cart_button">
                                                     <a href="/Products/@item.Id/@item.Slug" title="مشاهده"><i class="fa fa-eye"></i></a>
@@ -480,7 +480,7 @@
                                                 </div>
                                                 <div class="price_box">
                                                     قیمت از
-                                                    <span class="current_price">@item.MinimumPrice<span>
+                                                    <span class="current_price">@item.MinimumPrice</span>
                                                 </div>
                                                 <div class="product_cart_button">
                                                     <a href="/Products/@item.Id/@item.Slug" title="مشاهده"><i class="fa fa-eye"></i></a>
@@ -510,143 +510,8 @@
         </div>
     </div>
     <!--home section bg area end-->
-    <footer class="footer_widgets">
-        <!--newsletter area start-->
-        <div class="newsletter_area">
-            <div class="container">
-                <div class="newsletter_inner">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-5">
-                            <div class="newsletter_sing_up">
-                                <h3>عضویت در خبرنامه</h3>
-                                <p>با عضویت از <span>30% تخفیف</span> بهره مند شوید</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-7">
-                            <div class="subscribe_content">
-                                <p><strong>به 226,000+ مشترک ما</strong> بپیوندید و از تخفیف های ویژه هفتگی مخصوص مشترکین خبرنامه بهره مند شوید.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-5 col-md-12">
-                            <div class="subscribe_form">
-                                <form class="mc-form footer-newsletter" method="post" asp-page-handler="News">
-                                    <input asp-for="newsDto.Email" type="email" autocomplete="off" placeholder="... آدرس ایمیل شما" dir="ltr">
-                                    <button type="submit">اشتراک</button>
-                                </form>
-                                <!-- mailchimp-alerts Start -->
-                                <div class="mailchimp-alerts text-centre">
-                                    <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                    <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                    <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                                </div><!-- mailchimp-alerts end -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-        <!--newsletter area end-->
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-5 col-sm-7">
-                        <div class="widgets_container contact_us">
-                            <h3>درباره ما</h3>
-                            <div class="aff_content">
-                                <p>شرکت "سمانیک سلامت گستر" به اختصار "سمانیک" با هدف تهیه، تولید و عرضه محصولات سلامت محور با تمرکز بر فراورده های دارویی، مکمل و فراورده های طبیعی و گیاهی از سال 1395شروع به کار نموده است. هدف اصلی سمانیک ایفای نقش در تامین سلامت و آرامش جامعه با تاکید بر ارائه محصولات اثر بخش باکیفیت با قیمت مناسب می باشد..</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-5">
-                        <div class="widgets_container widget_menu">
-                            <h3>دسته‌بندی مقالات</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    @foreach (var item in Model.ArticleCategoryDto.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null))
-                                    {
-                                        <li><a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a></li>
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="widgets_container widget_menu">
-                            <h3>پربازدیدترین مقالات</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit))
-                                    {
-                                        articlecounter++;
-                                        <li><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></li>
-                                        if (articlecounter == 10)
-                                        {
-                                            articlecounter = 0;
-                                            break;
-                                        }
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-5 col-sm-6">
-                        <div class="widgets_container widget_menu">
-                            <h3>خدمات ما</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    <li><a href="#">ارائه مقالات علمی معتبر</a></li>
-                                    <li><a href="#">معرفی محصولات مرتبط با مقالات</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-7 col-sm-12">
-                        <div class="widgets_container">
-                            <h3>اطلاعات تماس</h3>
-                            <div class="footer_contact">
-                                <div class="footer_contact_inner">
-                                    <div class="contact_icone">
-                                        <img src="~/Them/assets/img/icon/icon-phone.png" alt="">
-                                    </div>
-                                    <div class="contact_text">
-                                        <p>تلفن تماس 24 ساعته: <br> <strong class="ltr-text">(+98) 021-88395400</strong></p>
-                                    </div>
-                                </div>
-                                <p>تهران ، بلوار کشاورز - خیابان نادری - پلاک 2 واحد 506</p>
-                            </div>
-
-                            <div class="footer_social">
-                                <ul>
-                                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a class="instagram" href=""><i class="fa fa-instagram"></i></a></li>
-                                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer_bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="copyright_area">
-                            <p>تمام حقوق برای <a href="#" target="_blank">‌@Model.settingDto.Title </a> محفوظ است</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- modal area start-->
-    <!-- modal area end-->
-    <!-- JS
-    ============================================ -->
+    @await Component.InvokeAsync("Footer")
     <partial name="_Script" />
 </body>
 

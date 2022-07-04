@@ -19,16 +19,12 @@ namespace Data.Repositories
     public class ProductRepository : Repository<Product>, IProductRepository
     {
 
-        private readonly IArticleRepasitory _articleRepository;
-        private readonly IArticleCategoryAssignRepository _articleCategoryAssignRepository;
         private readonly IProductArticleRepository _productArticleRepository;
-        private readonly IPharmacyProduct _pharmacyProductRepository;
-        private readonly IPharmacyRepository _pharmacyRepository;
+
         private readonly IProCategoriesRepository _proCategoryRepository;
-        public ProductRepository(ApplicationDbContext dbContext, IProCategoriesRepository proCategoryRepository, IArticleCategoryAssignRepository articleCategoryAssignRepository , IProductArticleRepository productArticleRepository) : base(dbContext)
+        public ProductRepository(ApplicationDbContext dbContext, IProCategoriesRepository proCategoryRepository, IProductArticleRepository productArticleRepository) : base(dbContext)
         {
             _proCategoryRepository = proCategoryRepository;
-            _articleCategoryAssignRepository = articleCategoryAssignRepository;
             _productArticleRepository = productArticleRepository;
         }
         public async Task<int> AddAsync(ProductDto productDto, string RegisterUserId, List<IFormFile> Image1, CancellationToken cancellationToken)

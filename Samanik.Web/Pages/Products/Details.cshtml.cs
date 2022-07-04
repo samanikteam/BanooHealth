@@ -70,7 +70,7 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
             var x = ProCommentDto;
             _proCommentRepository.AddProComment(ProCommentDto, cancellationToken);
 
-            return Redirect("/ProductDetails/Details/" + ProCommentDto.ProductId);
+            return Redirect("/Products/" + ProCommentDto.ProductId);
         }
     }
 }

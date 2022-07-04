@@ -23,17 +23,16 @@ namespace Samanik.Web.ViewComponents
             _siteSettingRepository = siteSettingRepository;
         }
 
-        public ListArticleDto ArticleDto { get; set; }
-        public ListArticleCategoryDto ArticleCategoryDto { get; set; }
-        public SiteSettingDto settingDto { get; set; }
         public NewsDto newsDto { get; set; }
 
         public IViewComponentResult Invoke()
         {
-            //ArticleDto = _articleRepasitory.GetListArticle();
-            ArticleCategoryDto = _articelCategoryRepasitory.GetListArticleCategory();
-            //settingDto = _siteSettingRepository.GetSetting();
-            return View(ArticleCategoryDto);
+            FooterViewModel mymodel = new FooterViewModel();
+            mymodel.ListArticle = _articleRepasitory.GetListArticle();
+            mymodel.listArticleCategory = _articelCategoryRepasitory.GetListArticleCategory();
+            mymodel.settingDto = _siteSettingRepository.GetSetting();
+
+            return View(mymodel);
         }
     }
 }

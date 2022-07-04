@@ -13,7 +13,7 @@ namespace Data.Repositories
 {
     public class ProductArticleRepository : Repository<ProductArticle>, IProductArticleRepository
     {
-        private readonly IArticleRepasitory _articleRepository;
+        //private readonly IArticleRepasitory _articleRepository;
         public ProductArticleRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }

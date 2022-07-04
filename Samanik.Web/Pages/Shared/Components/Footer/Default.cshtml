@@ -1,7 +1,7 @@
-﻿@model Data.Models.ListArticleCategoryDto
+﻿@model Data.Models.FooterViewModel;
 
 @{ 
-
+    int articlecounter = 0;
 }
 <footer class="footer_widgets">
     <!--newsletter area start-->
@@ -56,9 +56,9 @@
                         <h3>دسته‌بندی مقالات</h3>
                         <div class="footer_menu">
                             <ul>
-                                @foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null))
+                                @foreach (var item in Model.listArticleCategory.articleCategories.OrderByDescending(a=>a.RegisterDate))
                                 {
-                                    <li><a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a></li>
+                                    <li><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></li>
                                 }
                             </ul>
                         </div>
@@ -68,7 +68,18 @@
                     <div class="widgets_container widget_menu">
                         <h3>پربازدیدترین مقالات</h3>
                         <div class="footer_menu">
-              
+                            <ul>
+                                @foreach (var item in Model.ListArticle.Articles.OrderByDescending(a => a.Visit))
+                                {
+                                    articlecounter++;
+                                    <li><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></li>
+                                    if (articlecounter == 10)
+                                    {
+                                        articlecounter = 0;
+                                        break;
+                                    }
+                                }
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -117,6 +128,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright_area">
+                        <p>تمام حقوق برای <a href="#" target="_blank">‌@Model.settingDto.Title </a> محفوظ است</p>
                     </div>
                 </div>
 
