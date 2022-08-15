@@ -126,9 +126,9 @@
                             <div class="d-grid">
                                 <p class="text-muted">لطفا با زدن دکمه بارگزاری تصویر ،عکس مورد نظرتان را برای مجله انتخاب کنید.</p>
                                 <div class="preview-box d-block justify-content-center rounded shadow overflow-hidden bg-light p-1"></div>
-                              @*  <img id="avatar" width="100%" height="300px" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(@Model.articleDto.Avatar)">*@
+                                <img id="avatar" width="100%" height="300px" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(@Model.articleDto.Avatar)">
                                 <input type="file" id="input-file" name="Image" accept="image/*" asp-for="articleDto.Avatar"  onchange={handleChange()} hidden
-                                       required oninvalid="setCustomValidity('لطفاً تصویر  را بارگزاری کنید')"
+                                       oninvalid="setCustomValidity('لطفاً تصویر  را بارگزاری کنید')"
                                        oninput="setCustomValidity('')" />
                                 <label class="btn-upload btn btn-primary mt-4" for="input-file">بارگذاری تصویر</label>
                                 <br />
@@ -167,7 +167,7 @@
                                             <label class="form-label">دسته‌بندی: <span class="text-danger">*</span></label>
 
                                             <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleCategories" name="ListCategoryId" asp-for="articleDto.ArticleCategoryId" multiple
-                                                    required oninvalid="setCustomValidity('لطفاً دسته بندی  را وارد کنید')"
+                                                     oninvalid="setCustomValidity('لطفاً دسته بندی  را وارد کنید')"
                                                     oninput="setCustomValidity('')">
                                                 <option disabled>دسته‌بندی را انتخاب کنید</option>
                                             </select>

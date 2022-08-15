@@ -40,8 +40,8 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken, List<int> ListCategoryId,List<IFormFile> Image)
         {
-            if (!ModelState.IsValid)
-                return Page();
+            //if (!ModelState.IsValid)
+            //    return Page();
 
             var RegisterUserId = "admin";
             var ArticleId = await _Repasitory.UpdateAsync(articleDto, RegisterUserId, Image, cancellationToken);
