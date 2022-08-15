@@ -51,5 +51,9 @@ namespace Data.Models
     public class ListPharmacyProductDto
     {
         public List<PharmacyProductDto> PharmacyProducts { get; set; }
+        public int count { get; set; }
+        public int skip { get; set; }
+        public int CurrentPage { get; set; }
+        public int PageCount { get; set; }
     }
 }

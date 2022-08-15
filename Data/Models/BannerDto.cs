@@ -146,6 +146,9 @@ namespace Data.Models
         public string AvatarShow8 { get; set; }
         public string AvatarShow9 { get; set; }
         public string AvatarShow10 { get; set; }
+        public int PageCount { get; set; }
+        public int count { get; set; }
+        public int skip { get; set; }
     }
 
     public class ListBannerDto
@@ -153,5 +156,7 @@ namespace Data.Models
         public List<BannerDto> banners { get; set; }
         public int CurrentPage { get; set; }
         public int PageCount { get; set; }
+        public int count { get; set; }
+        public int skip { get; set; }
     }
 }

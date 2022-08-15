@@ -76,12 +76,18 @@ namespace Data.Repositories
             return await TableNoTracking.AnyAsync(p => p.Title == title);
         }
 
-
-        public ListArticleDto GetListArticle()
+      
+       
+        public ListArticleDto GetListArticle(int PageNum = 1)
         {
             var article = Table.OrderByDescending(a => a.RegisterDate);
+            var take = 8;
+            var skip = (PageNum - 1) * take;
             var list = new ListArticleDto() { };
-
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = article.Count();
+            list.PageCount = (int)Math.Ceiling(article.Count() / (double)take);
             list.Articles = article.Select(t => new ArticleDto()
             {
                 Id = t.Id,
@@ -95,7 +101,7 @@ namespace Data.Repositories
                 Slug=t.Slug,
                 IsDelete=t.IsDelete
 
-            }).ToList();
+            }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
             return list;
         }

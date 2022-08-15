@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -26,11 +27,32 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Categories
         [BindProperty]
         public ArticleCategoryDto dto { get; set; }
         public ListArticleCategoryDto ListArticleCategoryDto { get; set; }
-
-        public void OnGet()
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_Repository.GetArticleCategories(), "Id", "Title");
-            ListArticleCategoryDto = _Repository.GetListArticleCategory();
+            ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum);
+
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Blog/Categories/Index?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (ListArticleCategoryDto.articleCategories.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = ListArticleCategoryDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
 
         public async Task<IActionResult> OnPost(List<IFormFile> Image, CancellationToken cancellationToken)

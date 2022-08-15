@@ -21,6 +21,8 @@ namespace Data.Repositories
         public BannerDto GetBanner()
         {
             var banner = Table.SingleOrDefault();
+
+      
             if (banner != null)
             {
                 var res = new BannerDto()

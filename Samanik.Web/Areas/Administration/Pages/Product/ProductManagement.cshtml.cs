@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -33,15 +34,36 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         public ProductDto dto { get; set; }
         public ListProductDto listProductDto { get; set; }
         public ListProductCategoryDto listProductCategoryDto { get; set; }
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
 
-        public void OnGet()
+        public void OnGet(int PageNum = 1)
         {
             #region Product Category
             listProductCategoryDto = _productCategoryRepasitory.GetListProductCategory();
             ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
             #endregion
             ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
-            listProductDto = _productRepasitory.GetListProduct();
+            listProductDto = _productRepasitory.GetListProduct(PageNum);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Product/ProductManagement?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (listProductDto.Products.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = listProductDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
 
         public async Task<IActionResult> OnPost(List<IFormFile> Image1, CancellationToken cancellationToken, List<int> articleListId, List<int> productCategoryId)

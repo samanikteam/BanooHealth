@@ -17,7 +17,7 @@ namespace Data.Contracts
         Task<int> UpdateAsync(ArticleDto ArticleDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken);
         Task<bool> IsExistArticle(string title);
 
-        ListArticleDto GetListArticle();
+        ListArticleDto GetListArticle(int PageNum = 1);
 
         Task<Article> GetByIdAsync(CancellationToken cancellationToken, int id);
         ArticleDto GetArticleById(int id);

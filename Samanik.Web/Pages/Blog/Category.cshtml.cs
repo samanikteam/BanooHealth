@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
@@ -31,15 +32,36 @@ namespace Samanik.Web.Pages.Blog
         public ListArticleDto listArticleDto { get; set; }
         public List<Category> listArticleCategoryDto { get; set; }
         public ListCommentDto commentDto { get; set; }
-        public void OnGet(int articleCategoryId,string slug)
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int articleCategoryId , string slug, int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_articleCategoryRepository.GetArticleCategories(), "Id", "Title");
             listArticleCategoryDto = _articleCategoryRepository.GetArticleCategories();
             listArticleDto = _Repasitory.GetListArticle();
-            commentDto = _commnetRepository.GetListComments();
+            commentDto = _commnetRepository.GetListComments(PageNum);
             ArticleCategorydto = _articleCategoryRepository.GetarticleCategorybyId(articleCategoryId);
             listArticleDto = _Repasitory.GetListArticlesByArticleCategoryId(articleCategoryId);
             listArticleCategoryDto = _articleCategoryRepository.GetArticleCategories();
+
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Blog/Category/"+ articleCategoryId +" ?PageNum=-");
+
+            }
+            if (commentDto.Comments.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = commentDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
     }
 }

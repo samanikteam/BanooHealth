@@ -16,7 +16,7 @@ namespace Data.Contracts
 
         List<Slider> GetSliders();
 
-        ListSliderDto GetListSliderDto();
+        ListSliderDto GetListSliderDto(int PageNum = 1);
 
         Task Enable(int id, CancellationToken cancellationToken);
         Task Disable(int id, CancellationToken cancellationToken);

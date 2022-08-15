@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -21,10 +22,11 @@ namespace Samanik.Web.Areas.Administration.Pages.Media.Banner
 
         [BindProperty]
         public BannerDto Dto { get; set; }
-
+       
         public void OnGet()
         {
             Dto = _bannerRepository.GetBanner();
+          
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {

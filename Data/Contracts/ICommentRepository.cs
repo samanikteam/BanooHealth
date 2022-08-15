@@ -16,7 +16,7 @@ namespace Data.Contracts
 
         List<Comment> GetComments();
 
-        ListCommentDto GetListComments();
+        ListCommentDto GetListComments(int PageNum = 1);
 
         Task Confirm(int id, CancellationToken cancellationToken);
         Task Cancel(int id, CancellationToken cancellationToken);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -23,10 +24,30 @@ namespace Samanik.Web.Areas.Administration.Pages.Media.LoginSlider
         [BindProperty]
         public LoginSliderDto dto { get; set; }
         public ListLoginSliderDto ListSlider { get; set; }
-
-        public void OnGet()
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int PageNum = 1)
         {
-            ListSlider = _loginSlider.GetListLoginSliderDto();
+            ListSlider = _loginSlider.GetListLoginSliderDto(PageNum);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Media/LoginSlider/Index?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (ListSlider.LoginSliders.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = ListSlider.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
         public async Task<IActionResult> OnPost(List<IFormFile> Image, CancellationToken cancellationToken)
         {

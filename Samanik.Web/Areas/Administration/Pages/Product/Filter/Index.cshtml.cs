@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -22,10 +23,30 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.Filter
         [BindProperty]
         public FilterDto dto{ get; set; }
         public ListFilterDto Listdto{ get; set; }
-
-        public void OnGet()
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int PageNum = 1)
         {
-            Listdto = _filterRepository.GetListFilter();
+            Listdto = _filterRepository.GetListFilter(PageNum);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Product/Filter/Index?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (Listdto.filters.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = Listdto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)

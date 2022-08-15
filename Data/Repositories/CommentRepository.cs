@@ -70,10 +70,16 @@ namespace Data.Repositories
             return list;
         }
 
-        public ListCommentDto GetListComments()
+        public ListCommentDto GetListComments(int PageNum = 1)
         {
             var comments = Table.Include(_=>_.Article).OrderByDescending(a => a.RegisterDate);
+            var take = 8;
+            var skip = (PageNum - 1) * take;
             var list = new ListCommentDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = comments.Count();
+            list.PageCount = (int)Math.Ceiling(comments.Count() / (double)take);
 
             list.Comments = comments.Select(t => new CommentDto()
             {
@@ -85,7 +91,7 @@ namespace Data.Repositories
                 Status = t.Status,
                 ArticleId = t.ArticleId,
                 ArticleTitle = t.Article.Title,
-            }).ToList();
+            }).OrderBy(u => u.Name).Skip(skip).Take(take).ToList();
 
             return list;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -30,11 +31,31 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
         [BindProperty]
         public ArticleDto dto { get; set; }
         public ListArticleDto listArticleDto { get; set; }
-        public void OnGet()
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 8;
+        public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories().Where(a=>a.IsDelete==false), "Id", "Title");
-            listArticleDto = _Repasitory.GetListArticle();
-
+            listArticleDto = _Repasitory.GetListArticle(PageNum);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Blog/Articles/Index?PageNum=-");
+               //Administration / Blog / Articles / Index
+            }
+            if (listArticleDto.Articles.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = listArticleDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
 
         }
 

@@ -31,6 +31,7 @@
                     <table class="table table-center bg-white mb-0">
                         <thead>
                             <tr>
+                                <th class="border-bottom py-3">ردیف</th>
                                 <th class="border-bottom py-3">عنوان</th>
                                 <th class="border-bottom py-3">نام مادر</th>
                                 <th class="border-bottom py-3">تاریخ ایجاد</th>
@@ -42,6 +43,7 @@
                             @foreach (var item in Model.ListArticleCategoryDto.articleCategories)
                             {
                                 <tr>
+                                    <td>@(++Model.ListArticleCategoryDto.skip)</td>
                                     <td class="py-3">
                                         <a href="#" class="text-dark">
                                             <div class="d-flex align-items-center">
@@ -55,8 +57,8 @@
                                     <td>@item.Description</td>
                                     <td class="text-start">
                                         @*<a href="#" class="btn btn-icon btn-pills btn-soft-warning" onclick="getIdCategoryAndPassItToModal(@item.Id)" data-bs-toggle="modal" data-bs-target="#addPropertyCategory">
-                                            <i class="uil uil-plus" title="افزودن ویژگی"></i>
-                                        </a>*@
+                                    <i class="uil uil-plus" title="افزودن ویژگی"></i>
+                                    </a>*@
                                         <a href="/Administration/Blog/Categories/Edit/@item.Id" class="btn btn-icon btn-pills btn-soft-success">
                                             <i class="uil uil-pen"></i>
                                         </a>
@@ -84,17 +86,16 @@
                 </div>
             </div>
         </div><!--end row-->
-
-        <div class="row text-center">
-            <div class="col-12 mt-4">
-                <ul class="pagination justify-content-end mb-0 list-unstyled">
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
-                    <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
-                </ul><!--end pagination-->
-            </div><!--end col-->
-        </div><!--end row-->
+        @*<div class="row text-center">
+        <div class="col-12 mt-4">
+        <ul class="pagination justify-content-end mb-0 list-unstyled">
+        <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
+        <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
+        <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
+        <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
+        </ul><!--end pagination-->
+        </div><!--end col-->
+        </div>*@<!--end row-->
     </div>
 
 
@@ -201,7 +202,7 @@
 
             <div class="modal-body p-3 pt-4">
                 <form method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="categoryId" id="categoryId"  />
+                    <input type="hidden" name="categoryId" id="categoryId" />
                     <div class="row">
 
                         <div class="col-md-8 mt-4 mt-sm-0">
@@ -211,7 +212,7 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <label class="form-label">نام ویژگی <span class="text-danger">*</span></label>
-                                            <input  id="nameProperty" name="nameProperty" type="text" class="form-control" placeholder="Name Property :">
+                                            <input id="nameProperty" name="nameProperty" type="text" class="form-control" placeholder="Name Property :">
                                         </div>
                                     </div><!--end col-->
 
@@ -234,12 +235,18 @@
                     </div><!--end row-->
                 </form>
             </div>
+
         </div>
+
     </div>
+
+</div>
+<div paging-model="@Model.PagingData" page-class="btn border mt-3"
+     page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
 </div>
 <!-- End modal -->
 @section Scripts
-        {
+    {
     <script>
         const handleChange = () => {
             const fileUploader = document.querySelector('#input-file');
@@ -264,7 +271,7 @@
     </script>
 
     <script>
-        document.getElementById("Title").addEventListener("input", function () {
+        document.getElementById("Title").addEventListener("input", function() {
             let theSlug = string_to_slug(this.value);
             document.getElementById("Slug").value = theSlug;
         });
@@ -292,7 +299,7 @@
     </script>
 
     <script>
-        document.getElementById("Title").addEventListener("input", function () {
+        document.getElementById("Title").addEventListener("input", function() {
             let theSlug = string_to_slug(this.value);
             document.getElementById("Slug").value = theSlug;
         });

@@ -108,7 +108,7 @@
                 <!--shop wrapper start-->
                 <div class="row no-gutters shop_wrapper">
 
-                    @foreach (var item in Model.listProductDto.Products.Where(a=>a.popular==true))
+                    @foreach (var item in Model.listProductDto.Products.Where(a => a.popular == true))
                     {
                         <div class="col-lg-3 col-md-4 col-12 ">
                             <article class="single_product">
@@ -159,8 +159,11 @@
                     }
 
                 </div>
-
+                <div paging-model="@Model.PagingData" page-class="btn border mt-3"
+                     page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+                </div>
             </div>
+
         </div>
     </div>
 
