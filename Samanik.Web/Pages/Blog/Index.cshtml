@@ -32,7 +32,7 @@
                             <h1>مجله علمی بانو هلث</h1>
                         </div>
                         <div class="blog_wrapper_inner">
-                            @foreach (var item in Model.listArticleDto.Articles)
+                            @foreach (var item in Model.listArticleDto.Articles.OrderByDescending(a=>a.RegisterDate).Where(a=>a.IsDelete==false))
                             {
                                 <article class="single_blog single_blog_gallery">
                                     <figure>
@@ -104,7 +104,7 @@
                             <div class="widget_title">
                                 <h3>مطالب اخیر</h3>
                             </div>
-                            @foreach (var item in Model.listArticleDto.Articles.OrderByDescending(a => a.RegisterDate))
+                            @foreach (var item in Model.listArticleDto.Articles.OrderByDescending(a => a.RegisterDate).Where(a=>a.IsDelete==false))
                             {
                                 counter++;
                                 <div class="post_wrapper">

@@ -222,7 +222,7 @@
                         <h2>آخرین مطالب @Model.settingDto.Title</h2>
                     </div>
                     <div class="blog_container blog_column4 owl-carousel">
-                        @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate))
+                        @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate).Where(a=>a.IsDelete==false))
                         {
                             <article class="single_blog">
                                 <figure>
@@ -302,7 +302,7 @@
                             <h2>پربازدیدترین مطالب @Model.settingDto.Title</h2>
                         </div>
                         <div class="blog_container blog_column4 owl-carousel">
-                            @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit))
+                            @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit).Where(a=>a.IsDelete==false))
                             {
                                 articlecounter++;
                                 <article class="single_blog">

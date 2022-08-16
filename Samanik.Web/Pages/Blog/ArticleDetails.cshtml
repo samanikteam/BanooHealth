@@ -146,7 +146,7 @@
                             <div class="widget_title">
                                 <h3>مطالب اخیر</h3>
                             </div>
-                            @foreach (var item in Model.listArticleDto.Articles)
+                            @foreach (var item in Model.listArticleDto.Articles.Where(a=>a.IsDelete==false))
                             {
                                 counter++;
                                 <div class="post_wrapper">
