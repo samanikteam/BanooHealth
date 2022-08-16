@@ -1,0 +1,75 @@
+﻿@page
+@model Samanik.Web.Areas.Administration.Pages.Setting.ContactUsModel
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "تنظیمات فرم تماس با ما";
+}
+
+<div class="container-fluid">
+    <div class="layout-specing">
+
+        <div class="d-md-flex justify-content-between">
+            <div>
+                <h5 class="mb-0">فرم تماس با ما</h5>
+
+                <nav aria-label="breadcrumb" class="d-inline-block mt-1">
+                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="/Index">سمانیک</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">تنظیمات فرم تماس با ما</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-16 mt-4">
+                <div class="card border-0 p-4 rounded shadow">
+                    <form class="mt-4" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Dto.Id" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">توضیحات</label>
+                                    <textarea asp-for="Dto.Description" type="text" class="form-control" placeholder="Description: "></textarea>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">آدرس</label>
+                                    <textarea asp-for="Dto.Address" type="text" class="form-control" placeholder="Address: "></textarea>
+                                </div>
+                            </div><!--end col-->
+
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">ایمیل</label>
+                                    <input asp-for="Dto.Email" type="email" class="form-control" placeholder="Email: ">
+                                </div>
+                            </div><!--end col-->
+
+
+                            <div class="col-md-4">
+                                <div class="mb-2">
+                                    <label class="form-label">شماره تماس</label>
+                                    <input asp-for="Dto.Phone" type="text" class="form-control" placeholder="Tel: ">
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <br />
+
+                        <button type="submit" class="btn btn-primary">ذخیره</button>
+                    </form>
+                </div>
+            </div><!--end col-->
+
+        </div><!--end row-->
+    </div>
+</div>
+
+
+
+

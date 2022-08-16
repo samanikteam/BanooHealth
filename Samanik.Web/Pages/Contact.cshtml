@@ -36,36 +36,36 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="contact_message content">
                             <h3>تماس با ما</h3>
-                            <p>در حال حاضر بیش از 20 محصول در زمینه بیماری های دیابت، کبد، کنترل وزن، تامین املاح، بیماریهای زنان و تقویت سیستم ایمنی در سبد محصول ما ارائه می شود.  محصولاتی از جنسینگ کره ای، 2 محصول جدید برای مدیریت و درمان دیابت نوع 2، فراورده های آنتی اکسیدان و محصولبرای بهبود واریکوزیس و مشکلات عروق از این محصولات می باشند.</p>
+                            <p>@Model.dto.Description</p>
                             <ul>
-                                <li><i class="fa fa-fw fa-fax"></i> تهران ، بلوار کشاورز - خیابان نادری - پلاک 2 واحد 506</li>
-                                <li><i class="fa fa-fw fa-phone"></i> <span class="ltr-text">(+98) 021-88395400</span></li>
-                                <li><i class="fa fa-fw fa-envelope-o"></i> <a href="#">Info@example.com</a></li>
+                                <li><i class="fa fa-fw fa-fax"></i>@Model.dto.Address</li>
+                                <li><i class="fa fa-fw fa-phone"></i> <span class="ltr-text">@Model.dto.Phone</span></li>
+                                <li><i class="fa fa-fw fa-envelope-o"></i> <a href="#">@Model.dto.Email</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="contact_message form">
                             <h3>با ما در میان بگذارید</h3>
-                            <form id="contact-form" method="POST" action="assets/php/mail.php">
+                            <form id="contact-form" method="POST" >
                                 <p>
                                     <label> نام شما (الزامی)</label>
-                                    <input name="name" placeholder="نام *" type="text" required>
+                                    <input asp-for="@Model.callDto.Name" placeholder="نام *" type="text" required>
                                 </p>
                                 <p>
                                     <label> ایمیل شما (الزامی)</label>
-                                    <input name="email" placeholder="* ایمیل" type="email" dir="ltr" required>
+                                    <input asp-for="@Model.callDto.Email" placeholder="* ایمیل" type="email" dir="ltr" required>
                                 </p>
                                 <p>
                                     <label> موضوع</label>
-                                    <input name="subject" placeholder="موضوع" type="text">
+                                    <input asp-for="@Model.callDto.Title" placeholder="موضوع" type="text">
                                 </p>
                                 <div class="contact_textarea">
                                     <label> پیام شما</label>
-                                    <textarea name="message" placeholder="پیام *" class="form-control2" required></textarea>
+                                    <textarea asp-for="@Model.callDto.Message" placeholder="پیام *" class="form-control2" required></textarea>
                                 </div>
                                 <button type="submit">ارسال</button>
-                                <p class="form-messege"></p>
+                                <p class="form-messege">ارسال </p>
                             </form>
 
                         </div>
