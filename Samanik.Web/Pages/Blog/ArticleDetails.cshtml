@@ -97,7 +97,9 @@
                         <div class="comments_form">
                             <h3>یک پاسخ ارسال کنید </h3>
                             <p>ایمیل شما منتشر نخواهد شد. فیلد های الزامی با * مشخص شده اند</p>
-                            <form method="post">
+                            <p class="form-messege" style="color:green;"></p>
+
+                            <form id="contact-form" method="post">
                                 <div class="row">
                                     <input type="hidden" asp-for="Commentdto.ArticleId" value="@Model.articleDto.Id" />
                                     <div class="col-12">
