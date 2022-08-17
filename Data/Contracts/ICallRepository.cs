@@ -13,5 +13,9 @@ namespace Data.Contracts
     public interface ICallRepository : IRepository<Call>
     {
         Task AddAsync(CallDto Dto, CancellationToken cancellationToken);
+
+        ListCallDto GetListCall();
+
+        Task Confirm(int id,CancellationToken cancellationToken);
     }
 }

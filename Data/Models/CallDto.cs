@@ -9,6 +9,7 @@ namespace Data.Models
 {
     public class CallDto
     {
+        public int Id { get; set; }
         [Required]
         [MaxLength(100)]
         [Display(Name = "نام")]
@@ -29,11 +30,14 @@ namespace Data.Models
         [Display(Name = "ایمیل")]
         public string Email { get; set; }
 
-        [Required]
         [Display(Name = "وضعیت")]
         public bool Status { get; set; }
 
-        [Required]
-        public DateTime date { get; set; }
+        public string date { get; set; }
+    }
+
+    public class ListCallDto
+    {
+        public List<CallDto> calls { get; set; }
     }
 }

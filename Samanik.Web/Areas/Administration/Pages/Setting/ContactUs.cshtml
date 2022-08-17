@@ -67,6 +67,62 @@
             </div><!--end col-->
 
         </div><!--end row-->
+
+
+        <div class="row">
+            <div class="col-lg-16 mt-4">
+                <div class="card border-0 p-4 rounded shadow">
+                    <table class="table table-center bg-white mb-0">
+                        <thead>
+                            <tr>
+                                <th class="border-bottom py-3">نام</th>
+                                <th class="border-bottom py-3">ایمیل</th>
+                                <th class="border-bottom py-3">عنوان</th>
+                                <th class="border-bottom py-3" style="min-width: 200px;">پیام</th>
+                                <th class="border-bottom py-3">تاریخ</th>
+                                <th class="border-bottom py-3">وضعیت</th>
+                                <th class="border-bottom py-3" style="min-width: 100px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.listCallDto.calls)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Message</td>
+                                    <td>@item.date</td>
+
+                                    @if (item.Status)
+                                    {
+                                        <td>
+                                            <span class="badge bg-soft-success">خوانده شده</span>
+                                        </td>
+                                        <td class="text-start">
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <span class="badge bg-soft-danger">خوانده نشده</span>
+                                        </td>
+                                        <td class="text-start">
+                                            <form method="post" asp-page-handler="Confirm" class="float-left">
+                                                <button class="btn btn-icon btn-pills btn-success uil uil-check"></button>
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                            </form>
+                                        </td>
+                                    }
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
