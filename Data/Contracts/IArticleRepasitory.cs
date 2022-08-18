@@ -17,7 +17,7 @@ namespace Data.Contracts
         Task<int> UpdateAsync(ArticleDto ArticleDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken);
         Task<bool> IsExistArticle(string title);
 
-        ListArticleDto GetListArticle();
+        ListArticleDto GetListArticle(int PageNum = 1);
 
         Task<Article> GetByIdAsync(CancellationToken cancellationToken, int id);
         ArticleDto GetArticleById(int id);
@@ -53,7 +53,7 @@ namespace Data.Contracts
 
         Task Visited(int id, CancellationToken cancellationToken);
 
-        ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId);
+        ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId , int PageNum = 1);
 
         Task Active(int id, CancellationToken cancellationToken);
         Task Deactive(int id, CancellationToken cancellationToken);

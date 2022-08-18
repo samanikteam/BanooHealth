@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -22,10 +23,31 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         [BindProperty]
         public PharmacyDto dto { get; set; }
         public ListPharmacyDto listPharmacy { get; set; }
-
-        public void OnGet()
+       
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int PageNum = 1)
         {
-            listPharmacy = _pharmacyRepository.GetListPharmacy();
+            listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Pharmacy/Index?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (listPharmacy.pharmacies.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = listPharmacy.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {

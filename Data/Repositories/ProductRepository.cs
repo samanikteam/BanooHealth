@@ -67,11 +67,16 @@ namespace Data.Repositories
             return product.Id;
         }
 
-        public ListProductDto GetListProduct()
+        public ListProductDto GetListProduct(int PageNum = 1)
         {
             var product = Table.Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
-
+            var take = 8;
+            var skip = (PageNum - 1) * take;
             var list = new ListProductDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = product.Count();
+            list.PageCount = (int)Math.Ceiling(product.Count() / (double)take);
 
             list.Products = product.Select(t => new ProductDto()
             {
@@ -95,7 +100,7 @@ namespace Data.Repositories
                 CountPharmacyExistProduct = t.PharmacyProducts.Where(x => x.productId == t.Id && x.Inventory != 0).Count(),
                 BrandName = t.BrandName,
                 popular = t.popular
-            }).ToList();
+            }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
             return list;
         }

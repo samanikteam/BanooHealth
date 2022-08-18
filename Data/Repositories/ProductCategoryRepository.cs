@@ -68,10 +68,16 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListProductCategoryDto GetListProductCategory()
+        public ListProductCategoryDto GetListProductCategory(int PageNum = 1)
         {
             var productCategory = Table;
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListProductCategoryDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = productCategory.Count();
+            list.PageCount = (int)Math.Ceiling(productCategory.Count() / (double)take);
 
             list.ProductCategories = productCategory.Select(t => new ProductCategoryDto()
             {
@@ -85,7 +91,7 @@ namespace Data.Repositories
                 Slug=t.Slug,
                 RegisterDateFa=t.RegisterDate.ToShamsi(),
                 Keywords=t.Keywords
-            }).ToList();
+            }).OrderBy(c => c.Title).Skip(skip).Take(take).ToList();
 
             return list;
         }

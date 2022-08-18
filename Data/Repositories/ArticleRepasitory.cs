@@ -76,12 +76,18 @@ namespace Data.Repositories
             return await TableNoTracking.AnyAsync(p => p.Title == title);
         }
 
-
-        public ListArticleDto GetListArticle()
+      
+       
+        public ListArticleDto GetListArticle(int PageNum = 1)
         {
             var article = Table.OrderByDescending(a => a.RegisterDate);
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListArticleDto() { };
-
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = article.Count();
+            list.PageCount = (int)Math.Ceiling(article.Count() / (double)take);
             list.Articles = article.Select(t => new ArticleDto()
             {
                 Id = t.Id,
@@ -95,7 +101,7 @@ namespace Data.Repositories
                 Slug=t.Slug,
                 IsDelete=t.IsDelete
 
-            }).ToList();
+            }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
             return list;
         }
@@ -273,7 +279,7 @@ namespace Data.Repositories
 
             return res;
         }
-        public ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId)
+        public ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId , int PageNum = 1)
         {
             var listarticleId = _articleCategoryAssignRepository.GetListArticleIdWithArticleCategoryId(articleCategoryId);
 
@@ -286,8 +292,13 @@ namespace Data.Repositories
                 articles.Add(product);
             }
 
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListArticleDto();
-
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = articles.Count();
+            list.PageCount = (int)Math.Ceiling(articles.Count() / (double)take);
             list.Articles = articles.Select(t => new ArticleDto()
             {
                 Id = t.Id,
@@ -298,8 +309,8 @@ namespace Data.Repositories
                 KeyWords = t.KeyWords,
                 RegisterDate = t.RegisterDate.ToShamsi(),
                 Visit = t.Visit
-            }).OrderByDescending(x => x.RegisterDate).ToList();
-
+            }).OrderByDescending(x => x.RegisterDate).Skip(skip).Take(take).ToList();
+           // OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
             return list;
         }
 

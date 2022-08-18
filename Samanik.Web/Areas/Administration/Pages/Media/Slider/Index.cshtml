@@ -33,6 +33,7 @@
                     <table class="table table-center bg-white mb-0">
                         <thead>
                             <tr>
+                                <th class="border-bottom py-3">ردیف</th>
                                 <th class="border-bottom py-3">عنوان بنر</th>
                                 <th class="border-bottom py-3">متن جایگزین</th>
                                 <th class="border-bottom py-3">لینک</th>
@@ -45,6 +46,7 @@
                             @foreach (var item in Model.ListSlider.Sliders)
                             {
                                 <tr>
+                                     <td>@(++Model.ListSlider.skip)</td>
                                     <td class="py-3">
                                         <a href="#" class="text-dark">
                                             <div class="d-flex align-items-center">
@@ -91,8 +93,10 @@
                 </div>
             </div>
         </div><!--end row-->
-
-        <div class="row">
+           <div paging-model="@Model.PagingData" page-class="btn border mt-3"
+             page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+        </div>
+        @*<div class="row">
             <div class="col-12 mt-4">
                 <ul class="pagination justify-content-end mb-0 list-unstyled">
                     <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
@@ -101,7 +105,7 @@
                     <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
                 </ul><!--end pagination-->
             </div><!--end col-->
-        </div><!--end row-->
+        </div>*@<!--end row-->
     </div>
 </div>
 <!--end container-->

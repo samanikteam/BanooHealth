@@ -72,5 +72,7 @@ namespace Data.Models
         public List<ArticleDto> Articles { get; set; }
         public int CurrentPage { get; set; }
         public int PageCount { get; set; }
+        public int count { get; set; }
+        public int skip { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,14 +31,35 @@ namespace Samanik.Web.Pages.Blog
         public ListArticleDto listArticleDto { get; set; }
         public List<Category> listArticleCategoryDto { get; set; }
         public ListCommentDto commentDto { get; set; }
-
-
-        public void OnGet()
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories(), "Id", "Title");
             listArticleCategoryDto = _CRepasitory.GetArticleCategories();
-            listArticleDto = _Repasitory.GetListArticle();
-            commentDto = _commnetRepository.GetListComments();
+            listArticleDto = _Repasitory.GetListArticle(PageNum);
+            commentDto = _commnetRepository.GetListComments(PageNum);
+
+
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Blog/Index?PageNum=-");
+
+            }
+            if ( listArticleDto.Articles.Count>=0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    //TotalRecords = commentDto.count,
+                    TotalRecords = listArticleDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 6
+                };
+            }
 
 
         }

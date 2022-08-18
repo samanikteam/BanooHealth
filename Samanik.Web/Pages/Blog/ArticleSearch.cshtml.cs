@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
@@ -34,21 +35,43 @@ namespace Samanik.Web.Pages.Blog
         public ListProductCategoryDto listProductCategoryDto { get; set; }
         public List<Entities.Products.Product> listProduct { get; set; }
         public ListCommentDto commentDto { get; set; }
-        public void OnGet(int categoryId , string title="")
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
+        public void OnGet(int categoryId, string title = "", int PageNum = 1)
         {
-            commentDto = _commnetRepository.GetListComments();
-            listArticle2 = _Repasitory.GetListArticle();
-            if (categoryId==1)
+            commentDto = _commnetRepository.GetListComments(PageNum);
+            listArticle2 = _Repasitory.GetListArticle(PageNum);
+            if (categoryId == 1)
             {
                 ViewData["SelectedArticle"] = "true";
                 listArticle = _Repasitory.searchArticle(title);
             }
-            if (categoryId==2)
+            if (categoryId == 2)
             {
                 ViewData["SelectedProduct"] = "true";
                 //دسته بندی محصولات
                 listProduct = _productRepasitory.searchProduct(title);
                 listProductCategoryDto = _productCategoryRepository.GetListProductCategory();
+            }
+
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Blog/ArticleSearch.cshtml/" + categoryId + " ?PageNum=-");
+
+            }
+            if ( listArticle2.Articles.Count>= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    //TotalRecords = commentDto.count,
+                    TotalRecords = listArticle2.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 6
+                };
             }
         }
     }

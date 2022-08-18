@@ -41,17 +41,23 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListFilterDto GetListFilter()
+        public ListFilterDto GetListFilter(int PageNum = 1)
         {
             var filters = Table;
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListFilterDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = filters.Count();
+            list.PageCount = (int)Math.Ceiling(filters.Count() / (double)take);
 
             list.filters = filters.Select(t => new FilterDto()
             {
                 Id=t.Id,
                 Title = t.Title,
                 Status = t.Status,
-            }).ToList();
+            }).OrderBy(t => t.Title).Skip(skip).Take(take).ToList(); 
 
             return list;
         }

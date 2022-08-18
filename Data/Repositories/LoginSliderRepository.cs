@@ -59,10 +59,17 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListLoginSliderDto GetListLoginSliderDto()
+        public ListLoginSliderDto GetListLoginSliderDto(int PageNum = 1)
         {
             var Loginslider = Table.OrderByDescending(a => a.Id);
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListLoginSliderDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = Loginslider.Count();
+            list.PageCount = (int)Math.Ceiling(Loginslider.Count() / (double)take);
+
 
             list.LoginSliders = Loginslider.Select(t => new LoginSliderDto()
             {
@@ -73,7 +80,7 @@ namespace Data.Repositories
                 AvatarAlt = t.AvatarAlt,
                 Avatar=t.Avatar
                 
-            }).ToList();
+            }).OrderBy(a => a.Title).Skip(skip).Take(take).ToList();    
 
             return list;
         }

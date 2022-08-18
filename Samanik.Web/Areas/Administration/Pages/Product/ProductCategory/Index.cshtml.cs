@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -24,12 +25,32 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
         [BindProperty]
         public ProductCategoryDto dto { get; set; }
         public ListProductCategoryDto ListProductCategoryDto { get; set; }
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 15;
 
-
-        public void OnGet()
+        public void OnGet(int PageNum = 1)
         {
             ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
-            ListProductCategoryDto = _Repository.GetListProductCategory();
+            ListProductCategoryDto = _Repository.GetListProductCategory(PageNum);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Product/ProductCategory?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (ListProductCategoryDto.ProductCategories.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = ListProductCategoryDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
 
         public async Task<IActionResult> OnPost(List<IFormFile> Image, CancellationToken cancellationToken)

@@ -29,6 +29,7 @@
                     <table class="table table-center bg-white mb-0">
                         <thead>
                             <tr>
+                                <th class="border-bottom py-3">ردیف</th>
                                 <th class="border-bottom py-3">نام داروخانه</th>
                                 <th class="border-bottom py-3">نام دکترداروساز</th>
                                 <th class="border-bottom py-3">استان</th>
@@ -42,6 +43,7 @@
                             @foreach (var item in Model.listPharmacy.pharmacies)
                                 {
                             <tr>
+                                <td>@(++Model.listPharmacy.skip)</td>
                                 <td>@item.Name</td>
                                 <td>@item.DrName</td>
                                 <td>@item.Province</td>
@@ -76,8 +78,10 @@
                 </div>
             </div>
         </div><!--end row-->
-
-        <div class="row text-center">
+         <div paging-model="@Model.PagingData" page-class="btn border mt-3"
+             page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+        </div>
+        @*<div class="row text-center">
             <div class="col-12 mt-4">
                 <ul class="pagination justify-content-end mb-0 list-unstyled">
                     <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
@@ -86,7 +90,7 @@
                     <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
                 </ul><!--end pagination-->
             </div><!--end col-->
-        </div><!--end row-->
+        </div>*@<!--end row-->
     </div>
 
 

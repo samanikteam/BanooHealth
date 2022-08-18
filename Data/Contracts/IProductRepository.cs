@@ -16,7 +16,7 @@ namespace Data.Contracts
         Task<int> AddAsync(ProductDto productDto, string RegisterUserId, List<IFormFile> Image1, CancellationToken cancellationToken);
         Task<int> UpdateAsync(ProductDto productDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken);
 
-        ListProductDto GetListProduct();
+        ListProductDto GetListProduct(int PageNum = 1);
 
         Task<bool> IsExistProduct(string title);
 

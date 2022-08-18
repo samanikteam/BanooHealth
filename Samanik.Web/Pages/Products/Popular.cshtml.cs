@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
@@ -39,16 +40,38 @@ namespace Samanik.Web.Pages.Products
         public ListProCategoryDto listProCategoryDtoChild { get; set; }
         public ListCommentDto listArticleCommentsDto { get; set; }
         public ListCommentDto SidebarComments { get; set; }
-
         public ListProductDto listProductDto { get; set; }
         public List<Category> listArticleCategoryDto { get; set; }
-
         public ListProductCategoryDto listProductCategoryDto { get; set; }
-        public void OnGet(string ProductCatPath = null , string slug=null)
+
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 8;
+        public void OnGet(string ProductCatPath = null , string slug=null, int PageNum = 1)
         {
 
-            listProductDto = _productRepository.GetListProduct();
-            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
+            listProductDto = _productRepository.GetListProduct(PageNum);
+            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
+
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Products/Popular?PageNum=-");
+
+            }
+            if (listProductCategoryDto.ProductCategories.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = listProductCategoryDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
+
         }
     }
 }

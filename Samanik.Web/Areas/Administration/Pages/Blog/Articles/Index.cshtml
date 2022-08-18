@@ -23,6 +23,7 @@
             <div class="mt-4 mt-sm-0">
                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newblogadd">افزودن بلاگ</a>
             </div>
+
         </div>
         <div class="row">
             @*<div asp-validation-summary="ModelOnly" class="alert alert-danger text-dark" role="alert">*@
@@ -91,20 +92,30 @@
             <!--end col-->
 
 
-        </div><!--end row-->
+        </div>
 
-        <div class="row">
-            <div class="col-12 mt-4">
-                <ul class="pagination justify-content-end mb-0 list-unstyled">
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
-                    <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
-                    <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
-                </ul><!--end pagination-->
-            </div><!--end col-->
-        </div><!--end row-->
+        <div paging-model="@Model.PagingData" page-class="btn border mt-3"
+             page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+        </div>
+
+        <!--end row-->
+        @*   <div class="row">
+        <div class="col-12 mt-4">
+        <ul class="pagination justify-content-end mb-0 list-unstyled">
+        <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">قبلی</a></li>
+        <li class="active"><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">1</a></li>
+        <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">2</a></li>
+        <li><a href="#" class="pe-3 ps-3 pt-2 pb-2 border">بعدی</a></li>
+        </ul><!--end pagination-->
+        </div><!--end col-->
+
+        </div>*@
+
+        <!--end row-->
     </div>
+    
 </div>
+
 <!--end container-->
 <!-- Start Modal -->
 <div class="modal fade" id="newblogadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -174,8 +185,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">اسلاگ: <span class="text-danger">*</span></label>
-                                            <input asp-for="dto.Slug" id="Slug" type="text" class="form-control" placeholder="Slug :"
-/>
+                                            <input asp-for="dto.Slug" id="Slug" type="text" class="form-control" placeholder="Slug :" />
                                         </div>
                                     </div><!--end col-->
 

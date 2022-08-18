@@ -20,7 +20,7 @@ namespace Data.Contracts
 
         List<PharmacyProducts> GetPharmacyProducts();
 
-        ListPharmacyProductDto GetListPharmacyProducts();
+        ListPharmacyProductDto GetListPharmacyProducts(int PageNum = 1);
 
         Task Confirm(int id, CancellationToken cancellationToken);
         Task Cancel(int id, CancellationToken cancellationToken);

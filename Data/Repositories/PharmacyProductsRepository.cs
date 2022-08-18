@@ -55,10 +55,17 @@ namespace Data.Repositories
 
 
 
-        public ListPharmacyProductDto GetListPharmacyProducts()
+        public ListPharmacyProductDto GetListPharmacyProducts(int PageNum = 1)
         {
             var pharmacyProduct = Table.Include(x => x.Product).Include(x => x.Pharmacy).OrderByDescending(a => a.RegisterDate);
+
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListPharmacyProductDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = pharmacyProduct.Count();
+            list.PageCount = (int)Math.Ceiling(pharmacyProduct.Count() / (double)take);
 
             list.PharmacyProducts = pharmacyProduct.Select(t => new PharmacyProductDto()
             {
@@ -77,7 +84,7 @@ namespace Data.Repositories
                 RegisterUserId = t.RegisterUserId,
                 SortId = 1,
                 LinkAddress = t.LinkAddress
-            }).ToList();
+            }).OrderBy(a=>a.PharmacyName).Skip(skip).Take(take).ToList();
 
             return list;
         }

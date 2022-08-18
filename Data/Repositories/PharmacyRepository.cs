@@ -77,11 +77,16 @@ namespace Data.Repositories
             return res;
         }
 
-        public ListPharmacyDto GetListPharmacy()
+        public ListPharmacyDto GetListPharmacy(int PageNum = 1)
         {
             var pharmacies = Table.OrderByDescending(a => a.Registerdate);
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListPharmacyDto() { };
-
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = pharmacies.Count();
+            list.PageCount = (int)Math.Ceiling(pharmacies.Count() / (double)take);
             list.pharmacies = pharmacies.Select(t => new PharmacyDto()
             {
                 Id = t.Id,
@@ -97,7 +102,7 @@ namespace Data.Repositories
                 IsActive = t.IsActive,
                 Registerdate = t.Registerdate
 
-            }).ToList();
+            }).OrderBy(p => p.Name).Skip(skip).Take(take).ToList();
 
             return list;
         }

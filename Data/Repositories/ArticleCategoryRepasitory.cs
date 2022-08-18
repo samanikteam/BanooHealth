@@ -60,11 +60,16 @@ namespace Data.Repositories
             return Table.ToList();
         }
 
-        public ListArticleCategoryDto GetListArticleCategory()
+        public ListArticleCategoryDto GetListArticleCategory(int PageNum = 1)
         {
             var articleCategory = Table;
+            var take = 15;
+            var skip = (PageNum - 1) * take;
             var list = new ListArticleCategoryDto() { };
-
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = articleCategory.Count();
+            list.PageCount = (int)Math.Ceiling(articleCategory.Count() / (double)take);
             list.articleCategories = articleCategory.Select(t => new ArticleCategoryDto()
             {
                 Id = t.Id,
@@ -76,7 +81,7 @@ namespace Data.Repositories
                 IsDelete = t.IsDelete,
                 Slug=t.Slug,
                 keywords=t.Keywords
-            }).ToList();
+            }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
             return list;
         }

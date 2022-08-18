@@ -78,7 +78,12 @@
                             </div>
                         </div>
                         <!--blog pagination area start-->
-                        <div class="blog_pagination">
+
+                        <div paging-model="@Model.PagingData" page-class="btn border mt-3"
+                         page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+                    </div>
+
+                        @*<div class="blog_pagination">
                             <div class="pagination">
                                 <ul>
                                     <li class="current">1</li>
@@ -88,7 +93,7 @@
                                     <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>*@
                         <!--blog pagination area end-->
                     </div>
                     <div class="col-lg-3 col-md-12">
