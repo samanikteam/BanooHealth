@@ -93,6 +93,7 @@ namespace Samanik.Web
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<IContactUsRepository, ContactUsRepository>();
             services.AddTransient<ICallRepository, CallRepository>();
+            services.AddTransient<IAboutRepository, AboutRepository>();
             #endregion
         }
 

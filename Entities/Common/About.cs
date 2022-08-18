@@ -14,5 +14,16 @@ namespace Entities.Common
         public byte[] Avatar { get; set; }
         [Required]
         public string Body { get; set; }
+
+
+        [Required]
+        [MaxLength(200)]
+        [Display(Name = "عنوان تصویر شاخص")]
+        public string AvatarTitle { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        [Display(Name = "آلت تصویر شاخص")]
+        public string AvatarAlt { get; set; }
     }
 }
