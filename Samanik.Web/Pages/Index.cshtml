@@ -30,7 +30,9 @@
                 <!--header top start-->
                 <div class="header_top">
                     <div class="row align-items-center">
-                        <a asp-page="/Index"> <img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow9" alt="@Model.bannerDto.Title9" title="@Model.bannerDto.Title9" /></a>
+                        <a asp-page="/Index"> 
+                            <img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow9" alt="@Model.bannerDto.Title9" 
+                            title="@Model.bannerDto.Title9" /></a>
                     </div>
                 </div>
                 <!--header top start-->
@@ -220,7 +222,7 @@
                         <h2>آخرین مطالب @Model.settingDto.Title</h2>
                     </div>
                     <div class="blog_container blog_column4 owl-carousel">
-                        @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate))
+                        @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate).Where(a=>a.IsDelete==false))
                         {
                             <article class="single_blog">
                                 <figure>
@@ -300,7 +302,7 @@
                             <h2>پربازدیدترین مطالب @Model.settingDto.Title</h2>
                         </div>
                         <div class="blog_container blog_column4 owl-carousel">
-                            @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit))
+                            @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit).Where(a=>a.IsDelete==false))
                             {
                                 articlecounter++;
                                 <article class="single_blog">

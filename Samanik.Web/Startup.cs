@@ -91,6 +91,9 @@ namespace Samanik.Web
             services.AddTransient<IProCategoriesRepository, ProCategoriesRepository>();
             services.AddTransient<IArticleCategoryAssignRepository, ArticleCategoryAssignRepository>();
             services.AddTransient<INewsRepository, NewsRepository>();
+            services.AddTransient<IContactUsRepository, ContactUsRepository>();
+            services.AddTransient<ICallRepository, CallRepository>();
+            services.AddTransient<IAboutRepository, AboutRepository>();
             #endregion
         }
 

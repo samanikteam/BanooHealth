@@ -83,6 +83,8 @@ namespace Samanik.Web.Pages.Blog
             listArticleDto = _Repasitory.GetListArticle();
             listArticleCommentsDto = _CommentRepository.GetListArticleComment(Commentdto.ArticleId);
             SidebarComments = _CommentRepository.GetListComments();
+            productDto = _Repasitory.GetListProductByArticleId(Commentdto.ArticleId);
+
 
 
             return Page();

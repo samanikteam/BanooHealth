@@ -775,9 +775,9 @@
 				// Make sure that the formMessages div has the 'success' class.
 				$(formMessages).removeClass('error');
 				$(formMessages).addClass('success');
-
+				$(formMessages).text('پیام شما با موفقیت ارسال شد. ');
 				// Set the message text.
-				$(formMessages).text(response);
+				//$(formMessages).text(response);
 
 				// Clear the form.
 				$('#contact-form input,#contact-form textarea').val('');
@@ -792,7 +792,7 @@
 				if (data.responseText !== '') {
 					$(formMessages).text(data.responseText);
 				} else {
-					$(formMessages).text('خطایی در ارسال پیام رخ داده است.');
+					$(formMessages).text('شما یک پیام ارسال نموده‌اید. برای ارسال پیام جدید لطفا صفحه را به روزرسانی نمایید.');
 				}
 			});
 		});
