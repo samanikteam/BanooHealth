@@ -71,6 +71,7 @@ namespace Data.Repositories
         public ListProductCategoryDto GetListProductCategory(int PageNum = 1)
         {
             var productCategory = Table;
+
             var take = 15;
             var skip = (PageNum - 1) * take;
             var list = new ListProductCategoryDto() { };
