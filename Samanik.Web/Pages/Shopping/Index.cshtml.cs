@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
@@ -31,11 +32,34 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public ListProductDto listProductDto { get; set; }
 
         public ListProductCategoryDto listProductCategoryDto { get; set; }
-        public void OnGet( string ProductCatPath = null)
+
+        public PagingData PagingData { get; set; }
+        public int PageSize = 8;
+
+        public void OnGet( string ProductCatPath = null , int PageNum=1)
         {
             bannerDto = _bannerRepository.GetBanner();
-            listProductDto = _productRepository.GetListProduct();
+            listProductDto = _productRepository.GetListProduct(PageNum);
             listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
+
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Shopping?PageNum=-");
+
+            }
+            if (listProductDto.Products.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = listProductDto.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
 
 
