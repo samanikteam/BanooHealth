@@ -28,7 +28,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public void OnGet(int id , int productId , string email)
         {
 
-             listComment = _CommentRepository.GetListCommentByEmailForOneArticle(id , email);
+            listComment = _CommentRepository.GetListCommentByEmailForOneArticle(id , email);
             listAnswerComment = _CommentRepository.GetListAnswerCommentByEmailForOneArticle(id , productId, email);
             ViewData["id"]=id;
             ViewData["productId"]= productId;

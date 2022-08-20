@@ -18,6 +18,10 @@
     <ProjectReference Include="..\WebFramework\WebFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Media\imageforcontent\" />
+  </ItemGroup>
+
  
 
 </Project>

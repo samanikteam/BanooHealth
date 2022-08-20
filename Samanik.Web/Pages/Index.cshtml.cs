@@ -1,5 +1,6 @@
 ﻿using Data.Contracts;
 using Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -61,6 +62,5 @@ namespace Samanik.Web.Pages
             await _newsRepository.AddEmail(newsDto, cancellationToken);
             return Page();
         }
-
     }
 }

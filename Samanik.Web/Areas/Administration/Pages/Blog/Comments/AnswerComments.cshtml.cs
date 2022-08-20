@@ -48,7 +48,6 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
                 };
             }
             #endregion
-
         }
     }
 }
