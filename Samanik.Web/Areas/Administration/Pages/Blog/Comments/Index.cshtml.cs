@@ -65,13 +65,13 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public async Task<IActionResult> OnPostConfirm(int id, CancellationToken cancellationToken)
         {
             await _CommentRepository.Confirm(id,cancellationToken);
-            return Redirect("/Administration/Blog/Comments/Index");
+            return Redirect("/Administration/Blog/Comments/answercomments?PageNum=1");
         }
 
         public async Task<IActionResult> OnPostCancel(int id, CancellationToken cancellationToken)
         {
             await _CommentRepository.Cancel(id,cancellationToken);
-            return Redirect("/Administration/Blog/Comments/Index");
+            return Redirect("/Administration/Blog/Comments/answercomments?PageNum=1");
         }
     }
 }

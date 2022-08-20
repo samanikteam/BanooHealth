@@ -10,6 +10,7 @@ namespace Data.Models
     public class CommentDto
     {
         public int Id { get; set; }
+        public int? ParentId { get; set; }
         [Required]
         [MaxLength(200)]
         [Display(Name = "نام")]
@@ -46,6 +47,8 @@ namespace Data.Models
         public int skip { get; set; }
     }
 
-  
+
+
+
 
 }
