@@ -191,7 +191,7 @@ namespace Data.Repositories
                 Status = t.Status,
                 ArticleId = t.ArticleId,
                 ArticleTitle = t.Article.Title,
-            }).OrderBy(u => u.Name).Skip(skip).Take(take).ToList();
+            }).Skip(skip).Take(take).ToList();
 
             return list;
         }

@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220820040307_mig_x1")]
+    partial class mig_x1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -721,8 +723,6 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentId");
-
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProComments");
@@ -819,6 +819,9 @@ namespace Data.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
@@ -845,6 +848,8 @@ namespace Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Products");
                 });
@@ -1380,10 +1385,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Products.ProComment", b =>
                 {
-                    b.HasOne("Entities.Products.ProComment", null)
-                        .WithMany("ProComments")
-                        .HasForeignKey("ParentId");
-
                     b.HasOne("Entities.Products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -1402,6 +1403,13 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Entities.Products.Product", b =>
+                {
+                    b.HasOne("Entities.Products.ProComment", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("Entities.Products.ProductArticle", b =>
@@ -1510,7 +1518,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Products.ProComment", b =>
                 {
-                    b.Navigation("ProComments");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Entities.Products.Product", b =>

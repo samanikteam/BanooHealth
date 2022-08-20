@@ -25,13 +25,13 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public ListCommentDto listAnswerComment { get; set; }
 
 
-        public void OnGet(int id , int articleId , string email)
+        public void OnGet(int id , int productId , string email)
         {
 
              listComment = _CommentRepository.GetListCommentByEmailForOneArticle(id , email);
-            listAnswerComment = _CommentRepository.GetListAnswerCommentByEmailForOneArticle(id , articleId , email);
+            listAnswerComment = _CommentRepository.GetListAnswerCommentByEmailForOneArticle(id , productId, email);
             ViewData["id"]=id;
-            ViewData["articleId"]=articleId;
+            ViewData["productId"]= productId;
         }
 
 
