@@ -58,7 +58,8 @@ namespace Samanik.Web.Pages
         public async Task<IActionResult> OnPostNews(string Email,CancellationToken cancellationToken)
         {
             await _newsRepository.AddEmail(Email, cancellationToken);
-            return Page();
+
+            return RedirectToPage("/Index");
         }
     }
 }

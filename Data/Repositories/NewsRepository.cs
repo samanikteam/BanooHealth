@@ -1,6 +1,7 @@
 ﻿using Data.Contracts;
 using Data.Models;
 using Entities.Common;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Data.Repositories
             News news = new News()
             {
                 Email = Email,
-                //RegisterDate = da
+                RegisterDate = DateTime.Now
             };
 
             await base.AddAsync(news, cancellationToken);

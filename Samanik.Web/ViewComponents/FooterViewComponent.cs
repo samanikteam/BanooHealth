@@ -14,13 +14,15 @@ namespace Samanik.Web.ViewComponents
         private readonly IArticelCategoryRepasitory _articelCategoryRepasitory;
         private readonly IArticleRepasitory _articleRepasitory;
         private readonly ISiteSettingRepository _siteSettingRepository;
+        private readonly IContactUsRepository _contactUsRepository;
 
-        public FooterViewComponent(INewsRepository newsRepository, IArticelCategoryRepasitory articelCategoryRepasitory, IArticleRepasitory articleRepasitory, ISiteSettingRepository siteSettingRepository)
+        public FooterViewComponent(INewsRepository newsRepository, IArticelCategoryRepasitory articelCategoryRepasitory, IArticleRepasitory articleRepasitory, ISiteSettingRepository siteSettingRepository, IContactUsRepository contactUsRepository)
         {
             _newsRepository = newsRepository;
             _articelCategoryRepasitory = articelCategoryRepasitory;
             _articleRepasitory = articleRepasitory;
             _siteSettingRepository = siteSettingRepository;
+            _contactUsRepository = contactUsRepository;
         }
 
         public NewsDto newsDto { get; set; }
@@ -31,7 +33,7 @@ namespace Samanik.Web.ViewComponents
             mymodel.ListArticle = _articleRepasitory.GetListArticle();
             mymodel.listArticleCategory = _articelCategoryRepasitory.GetListArticleCategory();
             mymodel.settingDto = _siteSettingRepository.GetSetting();
-
+            mymodel.contactusDto = _contactUsRepository.GetContactus();
             return View(mymodel);
         }
     }
