@@ -10,7 +10,7 @@ namespace Data.Models
     public class AboutDto
     {
         public int Id { get; set; }
-        [Required]
+
         [Display(Name = "تصویر شاخص")]
         public byte[] Avatar { get; set; }
         [Required]

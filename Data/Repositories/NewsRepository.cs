@@ -11,12 +11,12 @@ namespace Data.Repositories
         public NewsRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
-        public async Task AddEmail(NewsDto newsDto, CancellationToken cancellationToken)
+        public async Task AddEmail(string Email, CancellationToken cancellationToken)
         {
             News news = new News()
             {
-                Email = newsDto.Email,
-                RegisterDate = newsDto.RegisterDate
+                Email = Email,
+                //RegisterDate = da
             };
 
             await base.AddAsync(news, cancellationToken);
