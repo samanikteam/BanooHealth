@@ -1,5 +1,4 @@
-﻿
-using Common.Utilities;
+﻿using Common.Utilities;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
@@ -7,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using VisitorManagment.Core.Convertors;
@@ -153,7 +151,7 @@ namespace Data.Repositories
 
         public ListCommentDto GetListArticleComment(int id)
         {
-            var articleComments = Table.Where(x=>x.Status==Statuses.Confirm).OrderBy(x => x.RegisterDate);
+            var articleComments = Table.Where(x=>x.Status==Statuses.Confirm && x.ArticleId==id).OrderBy(x => x.RegisterDate);
             var list = new ListCommentDto() { };
 
             list.Comments = articleComments.Select(t => new CommentDto()
