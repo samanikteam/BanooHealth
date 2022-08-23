@@ -32,7 +32,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
         public void OnGet(int PageNum = 1)
         {
             ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
-            ListProductCategoryDto = _Repository.GetListProductCategory(PageNum);
+            ListProductCategoryDto = _Repository.GetListProductCategory();
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

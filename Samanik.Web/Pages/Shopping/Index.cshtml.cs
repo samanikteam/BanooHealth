@@ -40,7 +40,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         {
             bannerDto = _bannerRepository.GetBanner();
             listProductDto = _productRepository.GetListProduct(PageNum);
-            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
+            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
 
             //Add By vahid
             StringBuilder QParam = new StringBuilder();

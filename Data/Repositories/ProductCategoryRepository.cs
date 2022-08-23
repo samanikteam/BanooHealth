@@ -72,7 +72,7 @@ namespace Data.Repositories
         {
             var productCategory = Table;
 
-            var take = 15;
+            var take = 8;
             var skip = (PageNum - 1) * take;
             var list = new ListProductCategoryDto() { };
             list.CurrentPage = PageNum;

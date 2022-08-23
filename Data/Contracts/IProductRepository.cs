@@ -29,7 +29,7 @@ namespace Data.Contracts
         public List<Product> searchProduct(string title);
         List<Product> GetProducts();
 
-        ListProductDto GetListProductsByProductCategoryId(int productCategoryId);
+        ListProductDto GetListProductsByProductCategoryId(int productCategoryId, int PageNum = 1);
 
     }
 }

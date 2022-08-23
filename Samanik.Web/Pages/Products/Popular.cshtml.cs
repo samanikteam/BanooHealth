@@ -60,13 +60,13 @@ namespace Samanik.Web.Pages.Products
                 QParam.Append($"/Products/Popular?PageNum=-");
 
             }
-            if (listProductCategoryDto.ProductCategories.Count >= 0)
+            if (listProductDto.Products.Count >= 0)
             {
                 PagingData = new PagingData
                 {
                     CurrentPage = PageNum,
                     RecordsPerPage = PageSize,
-                    TotalRecords = listProductCategoryDto.count,
+                    TotalRecords = listProductDto.count,
                     UrlParams = QParam.ToString(),
                     LinksPerPage = 7
                 };

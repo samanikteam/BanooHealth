@@ -39,7 +39,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public void OnGet(int productCategoryId,string slug, int PageNum = 1)
         {
             bannerDto = _bannerRepository.GetBanner();
-            listProductDto = _productRepository.GetListProductsByProductCategoryId(productCategoryId);
+            listProductDto = _productRepository.GetListProductsByProductCategoryId(productCategoryId, PageNum);
             listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
             productCategoryDto = _ProductCategoryRepository.GetProductCategorybyId(productCategoryId);
             //Add By vahid
@@ -49,13 +49,13 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
                 QParam.Append($"/Shopping/ProductCategory/" + productCategoryId + "?PageNum=-");
 
             }
-            if (listProductCategoryDto.ProductCategories.Count >= 0)
+            if (listProductDto.Products.Count >= 0)
             {
                 PagingData = new PagingData
                 {
                     CurrentPage = PageNum,
                     RecordsPerPage = PageSize,
-                    TotalRecords = listProductCategoryDto.count,
+                    TotalRecords = listProductDto.count,
                     UrlParams = QParam.ToString(),
                     LinksPerPage = 7
                 };
