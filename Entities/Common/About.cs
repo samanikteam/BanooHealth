@@ -9,7 +9,6 @@ namespace Entities.Common
 {
     public class About : BaseEntity<int>
     {
-        [Required]
         [Display(Name = "تصویر شاخص")]
         public byte[] Avatar { get; set; }
         [Required]

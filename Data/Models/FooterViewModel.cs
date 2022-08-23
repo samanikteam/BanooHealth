@@ -11,6 +11,7 @@ namespace Data.Models
         public ListArticleDto ListArticle { get; set; }
         public ListArticleCategoryDto listArticleCategory { get; set; }
         public SiteSettingDto settingDto { get; set; }
+        public ContactusDto contactusDto { get; set; }
 
     }
 }

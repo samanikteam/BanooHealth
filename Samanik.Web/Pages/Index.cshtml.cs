@@ -1,5 +1,6 @@
 ﻿using Data.Contracts;
 using Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -43,7 +44,6 @@ namespace Samanik.Web.Pages
         public BannerDto bannerDto { get; set; }
         public ListSloganDto sloganDto { get; set; }
         public SiteSettingDto settingDto { get; set; }
-        public NewsDto newsDto { get; set; }
         public ListProductDto productDto { get; set; }
         public void OnGet()
         {
@@ -55,12 +55,11 @@ namespace Samanik.Web.Pages
             settingDto = _siteSettingRepository.GetSetting();
             productDto = _productRepository.GetListProduct();
         }
-        public async Task<IActionResult> OnPostNews(CancellationToken cancellationToken)
+        public async Task<IActionResult> OnPostNews(string Email,CancellationToken cancellationToken)
         {
-            string em = newsDto.Email;
-            await _newsRepository.AddEmail(newsDto, cancellationToken);
-            return Page();
-        }
+            await _newsRepository.AddEmail(Email, cancellationToken);
 
+            return RedirectToPage("/Index");
+        }
     }
 }

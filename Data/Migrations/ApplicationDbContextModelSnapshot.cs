@@ -234,7 +234,6 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<byte[]>("Avatar")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("AvatarAlt")
