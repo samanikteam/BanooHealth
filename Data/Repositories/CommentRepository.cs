@@ -1,5 +1,4 @@
-﻿
-using Common.Utilities;
+﻿using Common.Utilities;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
@@ -7,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using VisitorManagment.Core.Convertors;
@@ -45,23 +43,24 @@ namespace Data.Repositories
         public async Task AnswerComment(CommentDto CommentDto, CancellationToken cancellationToken)
         {
             #region وضعیت کامنت رو هم باید به پاسخ داده شده تغییر بدیم
-            var commnet = Table.Where(x => x.Id == CommentDto.Id && x.Status==Statuses.Confirm).FirstOrDefault();
-            commnet.Status = Statuses.Answerd;
-            await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            //var commnet = Table.Where(x => x.Id == CommentDto.Id && x.Status == Statuses.Confirm).FirstOrDefault();
+            //commnet.Status = Statuses.Answerd;
+            //await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             #endregion
 
+            //await AddComment(CommentDto, cancellationToken);
             Comment comment = new Comment()
             {
                 Name = CommentDto.Name,
                 Email = CommentDto.Email,
                 Message = CommentDto.Message,
                 ArticleId = CommentDto.ArticleId,
-                Status = Statuses.Answer,
-                ParentId =CommentDto.Id,
+                Status = Statuses.Confirm,
+                ParentId = CommentDto.Id,
                 RegisterDate = DateTime.Now
             };
 
-            await base.AddAsync(comment, cancellationToken);
+            await base.AddAsync(comment , cancellationToken);
 
         }
 
@@ -85,6 +84,8 @@ namespace Data.Repositories
         }
 
 
+
+
         /// <summary>
         /// لیست تمام پاسخ هایی که به نظرات  یک نفر برو روی یک مجله داده شده است
         /// </summary>
@@ -92,7 +93,7 @@ namespace Data.Repositories
         public ListCommentDto GetListAnswerCommentByEmailForOneArticle(int id, int articleId, string email, int PageNum = 1)
         {
             var comments = Table.Include(_ => _.Article)
-                        .Where(x => x.Status == Statuses.Answer && x.ArticleId == articleId  && x.ParentId == id)
+                        .Where(x => x.Status == Statuses.Answer && x.ArticleId == articleId && x.ParentId == id)
                         .OrderByDescending(a => a.RegisterDate);
             var take = 15;
             var skip = (PageNum - 1) * take;
@@ -150,16 +151,19 @@ namespace Data.Repositories
 
         public ListCommentDto GetListArticleComment(int id)
         {
-            var articleComments = Table.Where(a => a.ArticleId == id).OrderBy(x => x.RegisterDate);
+            var articleComments = Table.Where(x=>x.Status==Statuses.Confirm && x.ArticleId==id).OrderBy(x => x.RegisterDate);
             var list = new ListCommentDto() { };
 
             list.Comments = articleComments.Select(t => new CommentDto()
             {
+                Id = t.Id,
+                ParentId = t.ParentId,
                 Name = t.Name,
                 Email = t.Email,
                 Message = t.Message,
                 RegisterDate = t.RegisterDate.ToShamsi(),
             }).ToList();
+
 
             return list;
         }
@@ -217,7 +221,23 @@ namespace Data.Repositories
                 Status = t.Status,
                 ArticleId = t.ArticleId,
                 ArticleTitle = t.Article.Title,
-            }).OrderBy(u => u.Name).Skip(skip).Take(take).ToList();
+            }).Skip(skip).Take(take).ToList();
+
+            return list;
+        }
+
+        public ListCommentDto GetListAnswerComment()
+        {
+            var articleComments = Table.OrderBy(x => x.RegisterDate);
+            var list = new ListCommentDto() { };
+
+            list.Comments = articleComments.Select(t => new CommentDto()
+            {
+                Name = t.Name,
+                Email = t.Email,
+                Message = t.Message,
+                RegisterDate = t.RegisterDate.ToShamsi(),
+            }).ToList();
 
             return list;
         }

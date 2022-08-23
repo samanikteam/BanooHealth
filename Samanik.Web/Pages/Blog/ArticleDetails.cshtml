@@ -77,22 +77,97 @@
 
                         <div class="comments_box">
                             <h3> </h3>
-                            @foreach (var item in Model.listArticleCommentsDto.Comments)
-                            {
-                                <div class="comment_list">
-                                    <div class="comment_thumb">
-                                        <img src="assets/img/blog/comment3.png.jpg" alt="">
-                                    </div>
-                                    <div class="comment_content">
-                                        <div class="comment_meta">
-                                            <h5>@item.Name</h5>
-                                            <span>@item.RegisterDate</span>
-                                        </div>
-                                        <p>@item.Message</p>
-                                    </div>
 
-                                </div>
-                            }
+                            <ul class="media-list list-unstyled mb-0">
+                                @if (Model.listArticleCommentsDto.Comments.Count == 0)
+                                {
+                                    <li>
+                                        <span style="color:red">نظری یافت نشد</span>
+
+                                    </li>
+                                }
+                                else
+                                {
+                                    @foreach (var item in @Model.listArticleCommentsDto.Comments.Where(x => x.ParentId == null))
+                                    {
+                                        <li class="mt-4">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex align-items-center">
+                                                    <a class="ps-3" href="#">
+                                                    </a>
+                                                    <div class="commentor-detail">
+                                                        <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">@item.Email</a></h6>
+                                                        <small class="text-muted">@item.RegisterDate </small>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="mt-3">
+
+
+                                                <p class="text-muted font-italic p-3 bg-light rounded">
+                                                    @item.Message
+                                                </p>
+                                            </div>
+                                            @*پاسخ کامنت ها*@
+
+
+                                            <ul class="list-unstyled pe-4 pe-md-5  sub-comment" style="padding-right:40px">
+
+                                                @foreach (var answer in @Model.listArticleCommentsDto.Comments.Where(x => x.ParentId == item.Id))
+                                                {
+
+
+                                                    <li class="mt-4">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <a class="ps-3" href="#">
+                                                                </a>
+                                                                <div class="commentor-detail">
+                                                                    <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">@answer.Email</a></h6>
+                                                                    <small class="text-muted">@answer.RegisterDate </small>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="mt-3">
+
+                                                            <span style="color:red">پاسخ:</span>
+                                                            <p class="text-muted font-italic p-3 bg-light rounded">
+                                                                @answer.Message
+                                                            </p>
+                                                        </div>
+
+                                                    </li>
+
+                                                }
+                                            </ul>
+
+                                        </li>
+                                    }
+                                }
+
+
+
+                            </ul>
+
+
+                            @*  @foreach (var item in Model.listArticleCommentsDto.Comments)
+                            {
+                            <div class="comment_list">
+                            <div class="comment_thumb">
+                            <img src="assets/img/blog/comment3.png.jpg" alt="">
+                            </div>
+                            <div class="comment_content">
+                            <div class="comment_meta">
+                            <h5>@item.Name</h5>
+                            <span>@item.RegisterDate</span>
+                            </div>
+                            <p>@item.Message</p>
+                            </div>
+
+                            </div>
+                            }*@
                         </div>
                         <div class="comments_form">
                             <h3>یک پاسخ ارسال کنید </h3>
@@ -138,7 +213,7 @@
                                         <a href="~/Products/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" title="@item.AvatarTitle1" alt="@item.AvatarAlt1"></a>
                                     </div>
                                     <div class="post_info">
-                                        <h4><a  href="~/Products/@item.Id/@item.Slug">@item.Title</a></h4>
+                                        <h4><a href="~/Products/@item.Id/@item.Slug">@item.Title</a></h4>
                                         <span>@item.RegisterDate </span>
                                     </div>
                                 </div>
@@ -148,7 +223,7 @@
                             <div class="widget_title">
                                 <h3>مطالب اخیر</h3>
                             </div>
-                            @foreach (var item in Model.listArticleDto.Articles.Where(a=>a.IsDelete==false))
+                            @foreach (var item in Model.listArticleDto.Articles.Where(a => a.IsDelete == false))
                             {
                                 counter++;
                                 <div class="post_wrapper">

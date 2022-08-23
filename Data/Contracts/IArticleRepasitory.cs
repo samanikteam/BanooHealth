@@ -58,6 +58,11 @@ namespace Data.Contracts
         Task Active(int id, CancellationToken cancellationToken);
         Task Deactive(int id, CancellationToken cancellationToken);
 
+        #region MyRegion
+
+        ArticleQueryModel GetArticleDetails(int id);
+        #endregion
+
 
     }
 }
