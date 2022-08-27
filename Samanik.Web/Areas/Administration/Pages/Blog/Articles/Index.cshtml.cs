@@ -61,8 +61,8 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
 
         public async Task<IActionResult> OnPost(List<IFormFile> Image, List<int> ListCategoryId, CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-                return Page();
+            //if (!ModelState.IsValid)
+            //    return Page();
 
             var exist = await _Repasitory.IsExistArticle(dto.Title);
             if (exist)

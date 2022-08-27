@@ -4,7 +4,6 @@
     ViewData["Title"] = Model.ArticleCategorydto.Title;
     ViewData["Description"] = Model.ArticleCategorydto.Description;
     ViewData["Keywords"] = Model.ArticleCategorydto.keywords;
-    int counter = 0;
 }
 
 
@@ -85,22 +84,15 @@
                             <div class="widget_title">
                                 <h3>دیدگاه‌های جدید</h3>
                             </div>
-                            @foreach (var item in Model.commentDto.Comments.OrderByDescending(a => a.RegisterDate).Where(a => a.Status == 1))
+                            @foreach (var item in Model.commentDto.Comments.OrderByDescending(a => a.RegisterDate).Where(a => a.Status == 1).Take(5))
                             {
-                                counter++;
+
                                 <div class="post_wrapper">
                                     <div class="post_info">
                                         <span> <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Name</a> می‌گوید:</span>
                                         <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Message</a>
                                     </div>
                                 </div>
-                                if (counter == 5)
-                                {
-                                    counter = 0;
-                                    break;
-
-                                }
-
                             }
 
                         </div>
@@ -140,7 +132,7 @@
                                     <li><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></li>
                                 }
                             </ul>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
             </div>
@@ -149,4 +141,4 @@
 
 
     </div>
-</div>*@
+</div>

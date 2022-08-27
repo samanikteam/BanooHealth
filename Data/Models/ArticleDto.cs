@@ -55,7 +55,6 @@ namespace Data.Models
 
         public long? Visit { get; set; }
 
-        [Required]
         public bool IsDelete { get; set; }
 
 

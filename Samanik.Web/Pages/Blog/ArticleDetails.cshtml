@@ -5,7 +5,6 @@
     ViewData["Title"] = Model.articleDto.Title;
     ViewData["Description"] = Model.articleDto.Description;
     ViewData["Keywords"] = Model.articleDto.KeyWords;
-    int counter = 0;
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area">
@@ -40,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="blog_thumb">
-                                    <img width="350" height="300" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(Model.articleDto.Avatar)" title="@Model.articleDto.AvatarTitle" alt="@Model.articleDto.AvatarAlt">
+                                    <img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(Model.articleDto.Avatar)" title="@Model.articleDto.AvatarTitle" alt="@Model.articleDto.AvatarAlt">
                                 </div>
                                 <figcaption class="blog_content">
                                     <div class="post_content">
@@ -96,7 +95,7 @@
                                                     <a class="ps-3" href="#">
                                                     </a>
                                                     <div class="commentor-detail">
-                                                        <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">@item.Email</a></h6>
+                                                        <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">@item.Name</a></h6>
                                                         <small class="text-muted">@item.RegisterDate </small>
                                                     </div>
                                                 </div>
@@ -124,7 +123,7 @@
                                                                 <a class="ps-3" href="#">
                                                                 </a>
                                                                 <div class="commentor-detail">
-                                                                    <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">@answer.Email</a></h6>
+                                                                    <h6 class="mb-0"><a href="javascript:void(0)" class="media-heading text-dark">@answer.Name</a></h6>
                                                                     <small class="text-muted">@answer.RegisterDate </small>
                                                                 </div>
                                                             </div>
@@ -153,21 +152,21 @@
 
 
                             @*  @foreach (var item in Model.listArticleCommentsDto.Comments)
-                            {
-                            <div class="comment_list">
-                            <div class="comment_thumb">
-                            <img src="assets/img/blog/comment3.png.jpg" alt="">
-                            </div>
-                            <div class="comment_content">
-                            <div class="comment_meta">
-                            <h5>@item.Name</h5>
-                            <span>@item.RegisterDate</span>
-                            </div>
-                            <p>@item.Message</p>
-                            </div>
+                                {
+                                <div class="comment_list">
+                                <div class="comment_thumb">
+                                <img src="assets/img/blog/comment3.png.jpg" alt="">
+                                </div>
+                                <div class="comment_content">
+                                <div class="comment_meta">
+                                <h5>@item.Name</h5>
+                                <span>@item.RegisterDate</span>
+                                </div>
+                                <p>@item.Message</p>
+                                </div>
 
-                            </div>
-                            }*@
+                                </div>
+                                }*@
                         </div>
                         <div class="comments_form">
                             <h3>یک پاسخ ارسال کنید </h3>
@@ -223,9 +222,8 @@
                             <div class="widget_title">
                                 <h3>مطالب اخیر</h3>
                             </div>
-                            @foreach (var item in Model.listArticleDto.Articles.Where(a => a.IsDelete == false))
+                            @foreach (var item in Model.listArticleDto.Articles.Where(a => a.IsDelete == false).Take(5))
                             {
-                                counter++;
                                 <div class="post_wrapper">
                                     <div class="post_thumb">
                                         <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" title="@item.AvatarTitle" alt="@item.AvatarAlt"></a>
@@ -235,8 +233,7 @@
                                         <span>@item.RegisterDate </span>
                                     </div>
                                 </div>
-                                if (counter == 5)
-                                    break;
+
                             }
 
                         </div>
