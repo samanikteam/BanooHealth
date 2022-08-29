@@ -5,6 +5,7 @@ using Data.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Pages.MainPage.ProductDetails
 {
@@ -62,8 +63,6 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
             //listProductDetailWithPharmacyDto = _productRepository.GetListProductsWithPharmacyByProductId(id);
             listPharmacyWithProductDto = _pharmacyProductRepository.FindListPharmacyProductWhenExistProduct(id);
             productArticleDto = _ProductArticleRepository.GetListArticleAndProductByProductId(id);
-
-
         }
         public IActionResult OnPost(CancellationToken cancellationToken)
         {

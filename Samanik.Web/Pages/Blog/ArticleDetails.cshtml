@@ -46,14 +46,14 @@
                                         @Html.Raw(Model.articleDto.Text)
                                     </div>
                                     <div class="entry_content">
-                                        <div class="post_meta">
+                                        @*<div class="post_meta">
                                             <span>برچسب ها: </span>
                                             @foreach (var item in Model.listArticleCategoryDto)
                                             {
                                                 <span><a href="#">@item.Title</a></span>
                                             }
 
-                                        </div>
+                                        </div>*@
 
                                         <div class="post_meta">
                                             <span>تعداد بازدید: @Model.articleDto.Visit </span>
@@ -169,7 +169,7 @@
                                 }*@
                         </div>
                         <div class="comments_form">
-                            <h3>یک پاسخ ارسال کنید </h3>
+                            <h3>یک نظر ارسال کنید </h3>
                             <p>ایمیل شما منتشر نخواهد شد. فیلد های الزامی با * مشخص شده اند</p>
                             <p class="form-messege" style="color:green;"></p>
 

@@ -34,7 +34,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public ListProductCategoryDto listProductCategoryDto { get; set; }
 
         public PagingData PagingData { get; set; }
-        public int PageSize = 12;
+        public int PageSize = 10;
 
         public void OnGet( string ProductCatPath = null , int PageNum=1)
         {
@@ -47,7 +47,6 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
             if (PageNum != 0)
             {
                 QParam.Append($"/Shopping?PageNum=-");
-
             }
             if (listProductDto.Products.Count >= 0)
             {

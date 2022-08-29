@@ -28,7 +28,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public ListCommentDto ListComment { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 12;
+        public int PageSize = 20;
 
         public void OnGet(int PageNum = 1)
         {

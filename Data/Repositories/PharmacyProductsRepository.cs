@@ -122,11 +122,13 @@ namespace Data.Repositories
                 Username = t.Pharmacy.Username,
                 IsActive = t.Pharmacy.IsActive,
                 Registerdate = t.Pharmacy.Registerdate,
+
                 //product
                 ProductId = t.Product.Id,
                 ProductTitle = t.Product.Title,
                 ProductPrice = t.Price,
-                LinkAddress=t.LinkAddress
+                LinkAddress=t.LinkAddress,
+                
                 
 
             }).ToList();

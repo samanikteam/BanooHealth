@@ -14,7 +14,7 @@
                 <div class="breadcrumb_content">
                     <ul>
                         <li><a href="/Index">خانه</a></li>
-                        <li><a href="/MainPage/ProductsShop/ProductShop">محصولات</a></li>
+                        <li><a href="/shopping">محصولات</a></li>
                         <li>@Model.productDto.Title</li>
 
                     </ul>
@@ -69,13 +69,13 @@
                                                     @Model.productDto.Title
                                                 </h1>
                                             </div>
-                                            <div class="product_info_content" style=" width: 200px; height:200px; white-space: nowrap; overflow: hidden;">
+                                            <div class="product_info_content" >
                                                 <span>
                                                     @Model.productDto.Description
-                                                </span>
-
+                                                </span>  
                                             </div>
-
+                                            <br />
+                                            <br />
                                             <div class="product_meta">
                                                 <span>دسته: <a href="#">@ViewBag.ProductCategory</a></span>
                                             </div>
@@ -124,20 +124,22 @@
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-6">
                                                     <div>
+                                                        <span style="color:red;" class=""> @item.City</span> -
                                                         <span class="" style="margin-right:0%;">
                                                             @item.Name
-
                                                         </span>
                                                         @*<span>  &nbsp;   &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </span>*@
                                                         <span class="fw-bolder " style="margin-right:25%;">
                                                             @item.ProductTitle
 
                                                         </span>
+                                                        @{
 
+                                                        }
                                                         <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0")</span>
-                                                        <button type="submit" class="btn btn-outline-danger float-right"> خرید اینترنتی</button>
+
+                                                        <a href="@item.LinkAddress" class="btn btn-outline-danger float-right"> خرید اینترنتی</a>
                                                         <br />
-                                                        <span class=""> @item.City</span>
 
                                                     </div>
                                                 </div>

@@ -48,7 +48,7 @@ namespace Samanik.Web.Pages
         public void OnGet()
         {
             ArticleDto = _articleRepasitory.GetListArticle(1,12);
-            ArticleCategoryDto = _articelCategoryRepasitory.GetListArticleCategory(1,12);
+            ArticleCategoryDto = _articelCategoryRepasitory.GetListArticleCategory(1,30);
             sliderDto = _sliderRepository.GetListSliderDto(1,12);
             bannerDto = _bannerRepository.GetBanner();
             sloganDto = _sloganRepository.GetListSlogans();

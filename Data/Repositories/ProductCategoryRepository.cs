@@ -68,7 +68,7 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListProductCategoryDto GetListProductCategory(int PageNum = 1, int PageSize = 2)
+        public ListProductCategoryDto GetListProductCategory(int PageNum = 1, int PageSize = 15)
         {
             var productCategory = Table;
 
