@@ -60,10 +60,10 @@ namespace Data.Repositories
             return Table.ToList();
         }
 
-        public ListArticleCategoryDto GetListArticleCategory(int PageNum = 1)
+        public ListArticleCategoryDto GetListArticleCategory(int PageNum = 1,int PageSize=12)
         {
             var articleCategory = Table;
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListArticleCategoryDto() { };
             list.CurrentPage = PageNum;

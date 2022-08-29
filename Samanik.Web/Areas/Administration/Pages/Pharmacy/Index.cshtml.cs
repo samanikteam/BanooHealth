@@ -26,10 +26,10 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
        
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
         public void OnGet(int PageNum = 1)
         {
-            listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
+            listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum,PageSize);
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

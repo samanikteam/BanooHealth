@@ -23,12 +23,12 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public ListCommentDto ListComment { get; set; }
         #region صفحه بندی
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
         #endregion
 
         public void OnGet(int PageNum = 1)
         {
-            ListComment = _CommentRepository.GetListAnswerComments(PageNum);
+            ListComment = _CommentRepository.GetListAnswerComments(PageNum, PageSize);
             #region صفحه بندی
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

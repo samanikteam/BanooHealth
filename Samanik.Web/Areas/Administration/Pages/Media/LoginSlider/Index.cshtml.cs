@@ -26,10 +26,10 @@ namespace Samanik.Web.Areas.Administration.Pages.Media.LoginSlider
         public ListLoginSliderDto ListSlider { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
         public void OnGet(int PageNum = 1)
         {
-            ListSlider = _loginSlider.GetListLoginSliderDto(PageNum);
+            ListSlider = _loginSlider.GetListLoginSliderDto(PageNum,PageSize);
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

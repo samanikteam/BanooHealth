@@ -67,10 +67,10 @@ namespace Data.Repositories
             return product.Id;
         }
 
-        public ListProductDto GetListProduct(int PageNum = 1)
+        public ListProductDto GetListProduct(int PageNum = 1, int PageSize = 12)
         {
-            var product = Table.Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
-            var take = 8;
+            var product = Table.Where(x=>x.popular==true).Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListProductDto() { };
             list.CurrentPage = PageNum;
@@ -212,7 +212,7 @@ namespace Data.Repositories
             return productDto.Id;
         }
 
-        public ListProductDto GetListProductsByProductCategoryId(int productCategoryId)
+        public ListProductDto GetListProductsByProductCategoryId(int productCategoryId, int PageNum = 1, int PageSize = 0)
         {
             var listProductId = _proCategoryRepository.GetListProductIdWithProductCategoryId(productCategoryId);
 
@@ -224,8 +224,13 @@ namespace Data.Repositories
 
                 products.Add(product);
             }
-
-            var list = new ListProductDto();
+            var take = PageSize;
+            var skip = (PageNum - 1) * take;
+            var list = new ListProductDto() { };
+            list.CurrentPage = PageNum;
+            list.skip = skip;
+            list.count = products.Count();
+            list.PageCount = (int)Math.Ceiling(products.Count() / (double)take);
 
             list.Products = products.Select(t => new ProductDto
             {
@@ -243,7 +248,7 @@ namespace Data.Repositories
                 RegisterUserId = t.RegisterUserId,
                 IsDelete = t.IsDelete,
                 popular = t.popular
-            }).ToList();
+            }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
             return list;
         }

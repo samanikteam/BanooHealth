@@ -122,10 +122,10 @@ namespace Data.Repositories
         /// </summary>
         /// <param name="PageNum"> شماره صفحه </param>
         /// <returns></returns>
-        public ListCommentDto GetListAnswerComments(int PageNum = 1)
+        public ListCommentDto GetListAnswerComments(int PageNum = 1, int PageSize = 2)
         {
             var comments = Table.Include(_ => _.Article).Where(x => x.Status == Statuses.Confirm).OrderByDescending(a => a.RegisterDate);
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListCommentDto() { };
             list.CurrentPage = PageNum;
@@ -196,10 +196,10 @@ namespace Data.Repositories
             return list;
         }
 
-        public ListCommentDto GetListComments(int PageNum = 1)
+        public ListCommentDto GetListComments(int PageNum = 1, int PageSize = 0)
         {
             var comments = Table.Include(_ => _.Article).OrderByDescending(a => a.RegisterDate);
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListCommentDto() { };
             list.CurrentPage = PageNum;

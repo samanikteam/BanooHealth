@@ -50,7 +50,7 @@ namespace Samanik.Web.Pages.Products
         public void OnGet(string ProductCatPath = null , string slug=null, int PageNum = 1)
         {
 
-            listProductDto = _productRepository.GetListProduct(PageNum);
+            listProductDto = _productRepository.GetListProduct(PageNum,PageSize);
             listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
 
             //Add By vahid
@@ -60,13 +60,13 @@ namespace Samanik.Web.Pages.Products
                 QParam.Append($"/Products/Popular?PageNum=-");
 
             }
-            if (listProductCategoryDto.ProductCategories.Count >= 0)
+            if (listProductDto.Products.Count >= 0)
             {
                 PagingData = new PagingData
                 {
                     CurrentPage = PageNum,
                     RecordsPerPage = PageSize,
-                    TotalRecords = listProductCategoryDto.count,
+                    TotalRecords = listProductDto.count,
                     UrlParams = QParam.ToString(),
                     LinksPerPage = 7
                 };

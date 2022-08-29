@@ -47,13 +47,13 @@ namespace Samanik.Web.Pages
         public ListProductDto productDto { get; set; }
         public void OnGet()
         {
-            ArticleDto = _articleRepasitory.GetListArticle();
-            ArticleCategoryDto = _articelCategoryRepasitory.GetListArticleCategory();
-            sliderDto = _sliderRepository.GetListSliderDto();
+            ArticleDto = _articleRepasitory.GetListArticle(1,12);
+            ArticleCategoryDto = _articelCategoryRepasitory.GetListArticleCategory(1,12);
+            sliderDto = _sliderRepository.GetListSliderDto(1,12);
             bannerDto = _bannerRepository.GetBanner();
             sloganDto = _sloganRepository.GetListSlogans();
             settingDto = _siteSettingRepository.GetSetting();
-            productDto = _productRepository.GetListProduct();
+            productDto = _productRepository.GetListProduct(1,12);
         }
         public async Task<IActionResult> OnPostNews(string Email,CancellationToken cancellationToken)
         {

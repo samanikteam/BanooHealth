@@ -27,12 +27,12 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
         public ListProductCategoryDto ListProductCategoryDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
 
         public void OnGet(int PageNum = 1)
         {
             ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
-            ListProductCategoryDto = _Repository.GetListProductCategory(PageNum);
+            ListProductCategoryDto = _Repository.GetListProductCategory(PageNum,PageSize);
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

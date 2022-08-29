@@ -19,7 +19,7 @@ namespace Data.Contracts
 
         PharmacyDto GetPharmacyById(int id);
 
-        ListPharmacyDto GetListPharmacy(int PageNum = 1);
+        ListPharmacyDto GetListPharmacy(int PageNum = 1, int PageSize = 0);
 
         Task UpdateAsync(PharmacyDto dto, CancellationToken cancellationToken);
 

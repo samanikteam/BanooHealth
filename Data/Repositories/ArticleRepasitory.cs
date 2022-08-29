@@ -78,10 +78,10 @@ namespace Data.Repositories
 
       
        
-        public ListArticleDto GetListArticle(int PageNum = 1)
+        public ListArticleDto GetListArticle(int PageNum = 1, int PageSize = 12)
         {
             var article = Table.OrderByDescending(a => a.RegisterDate);
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListArticleDto() { };
             list.CurrentPage = PageNum;
@@ -279,7 +279,7 @@ namespace Data.Repositories
 
             return res;
         }
-        public ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId , int PageNum = 1)
+        public ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId , int PageNum = 1, int PageSize = 0)
         {
             var listarticleId = _articleCategoryAssignRepository.GetListArticleIdWithArticleCategoryId(articleCategoryId);
 
@@ -292,7 +292,7 @@ namespace Data.Repositories
                 articles.Add(product);
             }
 
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListArticleDto();
             list.CurrentPage = PageNum;

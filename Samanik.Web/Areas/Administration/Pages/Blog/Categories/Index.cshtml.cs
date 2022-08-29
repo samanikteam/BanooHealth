@@ -29,11 +29,13 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Categories
         public ListArticleCategoryDto ListArticleCategoryDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+      
+        //take
+        public int PageSize = 12;
         public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_Repository.GetArticleCategories(), "Id", "Title");
-            ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum);
+            ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum, PageSize);
 
             //Add By vahid
             StringBuilder QParam = new StringBuilder();

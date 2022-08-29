@@ -37,7 +37,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
         public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories().Where(a=>a.IsDelete==false), "Id", "Title");
-            listArticleDto = _Repasitory.GetListArticle(PageNum);
+            listArticleDto = _Repasitory.GetListArticle(PageNum,PageSize);
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

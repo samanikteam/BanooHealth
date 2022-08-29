@@ -59,10 +59,10 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListSliderDto GetListSliderDto(int PageNum = 1)
+        public ListSliderDto GetListSliderDto(int PageNum = 1, int PageSize = 12)
         {
             var slider = Table.OrderByDescending(a=>a.Id);
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListSliderDto() { };
             list.CurrentPage = PageNum;

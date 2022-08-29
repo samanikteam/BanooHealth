@@ -16,7 +16,7 @@ namespace Data.Contracts
         Task AddCategory(ArticleCategoryDto ArticleCategoryDto, string RegisterUserId,List<IFormFile> Image, CancellationToken cancellationToken);
         Task<bool> IsExistArticleCategory(string title, int id);
         List<Category> GetArticleCategories();
-        ListArticleCategoryDto GetListArticleCategory(int PageNum = 1);
+        ListArticleCategoryDto GetListArticleCategory(int PageNum = 1,int PageSize=12);
 
         ArticleCategoryDto GetarticleCategorybyId(int id);
         Task UpdateCategory(ArticleCategoryDto ArticleCategoryDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken);

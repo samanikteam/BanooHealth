@@ -55,11 +55,11 @@ namespace Data.Repositories
 
 
 
-        public ListPharmacyProductDto GetListPharmacyProducts(int PageNum = 1)
+        public ListPharmacyProductDto GetListPharmacyProducts(int PageNum = 1, int PageSize = 0)
         {
             var pharmacyProduct = Table.Include(x => x.Product).Include(x => x.Pharmacy).OrderByDescending(a => a.RegisterDate);
 
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListPharmacyProductDto() { };
             list.CurrentPage = PageNum;

@@ -37,11 +37,11 @@ namespace Samanik.Web.Pages.Blog
         public ListCommentDto commentDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
         public void OnGet(int categoryId, string title = "", int PageNum = 1)
         {
             commentDto = _commnetRepository.GetListComments(PageNum);
-            listArticle2 = _Repasitory.GetListArticle(PageNum);
+            listArticle2 = _Repasitory.GetListArticle(PageNum,PageSize);
             if (categoryId == 1)
             {
                 ViewData["SelectedArticle"] = "true";

@@ -28,11 +28,11 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public ListCommentDto ListComment { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
 
         public void OnGet(int PageNum = 1)
         {
-            ListComment = _CommentRepository.GetListComments(PageNum);
+            ListComment = _CommentRepository.GetListComments(PageNum,PageSize);
             ViewData["Articles"] = new SelectList(_ArticleRepasitory.GetArticlesForComment(), "Id", "Title");
             //Add By vahid
             StringBuilder QParam = new StringBuilder();

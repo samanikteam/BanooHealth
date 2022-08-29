@@ -25,10 +25,10 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.Filter
         public ListFilterDto Listdto{ get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
         public void OnGet(int PageNum = 1)
         {
-            Listdto = _filterRepository.GetListFilter(PageNum);
+            Listdto = _filterRepository.GetListFilter(PageNum,PageSize);
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)

@@ -40,14 +40,14 @@ namespace Samanik.Web.Pages.Blog
         public List<Category> listArticleCategoryDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 12;
         public void OnGet(int id, CancellationToken cancellationToken , int PageNum = 1)
         {
             articleDto = _Repasitory.GetArticleById(id);
             listArticleCategoryDto = _CRepasitory.GetArticleCategories();
-            listArticleDto = _Repasitory.GetListArticle(PageNum);
+            listArticleDto = _Repasitory.GetListArticle(PageNum,PageSize);
             listArticleCommentsDto = _CommentRepository.GetListArticleComment(id);
-            SidebarComments = _CommentRepository.GetListComments(PageNum);
+            SidebarComments = _CommentRepository.GetListComments(PageNum,PageSize);
             productDto = _Repasitory.GetListProductByArticleId(id);
             _Repasitory.Visited(id, cancellationToken);
 
