@@ -69,7 +69,7 @@ namespace Data.Repositories
 
         public ListProductDto GetListProduct(int PageNum = 1)
         {
-            var product = Table.Where(x=>x.popular==true).Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
+            var product = Table.Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
             var take = 8;
             var skip = (PageNum - 1) * take;
             var list = new ListProductDto() { };
@@ -252,7 +252,6 @@ namespace Data.Repositories
 
             return list;
         }
-
     }
 }
 
