@@ -252,7 +252,6 @@ namespace Data.Repositories
 
             return list;
         }
-
     }
 }
 

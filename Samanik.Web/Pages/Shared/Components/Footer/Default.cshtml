@@ -1,7 +1,6 @@
 ﻿@model Data.Models.FooterViewModel;
 
 @{ 
-    int articlecounter = 0;
 }
 <footer class="footer_widgets">
     <!--newsletter area start-->
@@ -57,7 +56,7 @@
                         <h3>دسته‌بندی مقالات</h3>
                         <div class="footer_menu">
                             <ul>
-                                @foreach (var item in Model.listArticleCategory.articleCategories.OrderByDescending(a=>a.RegisterDate))
+                                @foreach (var item in Model.listArticleCategory.articleCategories.OrderByDescending(a=>a.RegisterDate).Take(5))
                                 {
                                     <li><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></li>
                                 }
@@ -70,15 +69,9 @@
                         <h3>پربازدیدترین مقالات</h3>
                         <div class="footer_menu">
                             <ul>
-                                @foreach (var item in Model.ListArticle.Articles.OrderByDescending(a => a.Visit))
+                                @foreach (var item in Model.ListArticle.Articles.OrderByDescending(a => a.Visit).Take(5))
                                 {
-                                    articlecounter++;
                                     <li><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></li>
-                                    if (articlecounter == 10)
-                                    {
-                                        articlecounter = 0;
-                                        break;
-                                    }
                                 }
                             </ul>
                         </div>

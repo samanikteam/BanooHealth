@@ -5,7 +5,6 @@
     ViewData["Title"] = "جستجوی بانو هلث";
     ViewData["Description"] = "";
     ViewData["Keywords"] = "";
-    int counter = 0;
 }
 
 
@@ -102,22 +101,14 @@
                                 <div class="widget_title">
                                     <h3>آخرین دیدگاه‌ها</h3>
                                 </div>
-                                @foreach (var item in Model.commentDto.Comments.OrderByDescending(a => a.RegisterDate).Where(a => a.Status == 1))
+                                @foreach (var item in Model.commentDto.Comments.OrderByDescending(a => a.RegisterDate).Where(a => a.Status == 1).Take(5))
                                 {
-                                    counter++;
                                     <div class="post_wrapper">
                                         <div class="post_info">
                                             <span> <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Name</a> می‌گوید:</span>
                                             <a href="/Blog/ArticleDetails/@item.ArticleId">@item.Message</a>
                                         </div>
                                     </div>
-                                    if (counter == 5)
-                                    {
-                                        counter = 0;
-                                        break;
-
-                                    }
-
                                 }
 
                             </div>
@@ -125,9 +116,8 @@
                                 <div class="widget_title">
                                     <h3>مطالب اخیر</h3>
                                 </div>
-                                @foreach (var item in Model.listArticle2.Articles.OrderByDescending(a => a.RegisterDate).Where(a => a.IsDelete == false))
+                                @foreach (var item in Model.listArticle2.Articles.OrderByDescending(a => a.RegisterDate).Where(a => a.IsDelete == false).Take(5))
                                 {
-                                    counter++;
                                     <div class="post_wrapper">
                                         <div class="post_thumb">
                                             <a asp-page="ArticleDetails" asp-route-id="@item.Id" asp-route-slug="@item.Slug"><img style="max-height:60px; max-width:60px;" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.Title"></a>
@@ -137,11 +127,6 @@
                                             <span>@item.RegisterDate </span>
                                         </div>
                                     </div>
-                                    if (counter == 5)
-                                    {
-                                        counter = 0;
-                                        break;
-                                    }
                                 }
                             </div>
                         </div>

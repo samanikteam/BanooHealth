@@ -49,5 +49,6 @@ namespace Data.Contracts
 
         //Article Comment list
         ListCommentDto GetListArticleComment(int id);
+        ListCommentDto GetListAnswerComment();
     }
 }

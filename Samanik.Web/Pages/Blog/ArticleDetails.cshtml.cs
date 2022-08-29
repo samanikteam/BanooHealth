@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Common.Utilities;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
@@ -34,15 +35,25 @@ namespace Samanik.Web.Pages.Blog
         public ListArticleDto listArticleDto { get; set; }
         public ListCommentDto listArticleCommentsDto { get; set; }
         public ListCommentDto SidebarComments { get; set; }
+        public ListCommentDto listAnswerComment { get; set; }
+
         public ProductDto productDto { get; set; }
 
-        
+        public ArticleQueryModel Article;
+
+
+
         public List<Category> listArticleCategoryDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 12;
         public void OnGet(int id, CancellationToken cancellationToken , int PageNum = 1)
         {
+
+            #region MyRegion
+            //Article = arcre.GetArticleDetails(id);
+            #endregion
+
             articleDto = _Repasitory.GetArticleById(id);
             listArticleCategoryDto = _CRepasitory.GetArticleCategories();
             listArticleDto = _Repasitory.GetListArticle(PageNum,PageSize);
