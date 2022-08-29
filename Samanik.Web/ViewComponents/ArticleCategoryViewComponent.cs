@@ -19,7 +19,7 @@ namespace Samanik.Web.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            var categories = _categoryRepository.GetListArticleCategory();
+            var categories = _categoryRepository.GetListArticleCategory(1,30);
 
             return View(categories);
         }

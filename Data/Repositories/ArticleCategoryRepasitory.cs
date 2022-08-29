@@ -60,7 +60,7 @@ namespace Data.Repositories
             return Table.ToList();
         }
 
-        public ListArticleCategoryDto GetListArticleCategory(int PageNum = 1,int PageSize=12)
+        public ListArticleCategoryDto GetListArticleCategory(int PageNum = 1,int PageSize=15)
         {
             var articleCategory = Table;
             var take = PageSize;

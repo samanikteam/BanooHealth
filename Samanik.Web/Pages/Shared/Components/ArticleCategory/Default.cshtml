@@ -81,7 +81,7 @@
         <li id="cat_toggle" class="has-sub">
             <a href="#"> دسته‌های بیشتر</a>
             <ul class="categorie_sub">
-                @foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null).TakeLast(Model.articleCategories.Count()-10))
+                @foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null).TakeLast(Model.articleCategories.Count() - 10))
                 {
                     foreach (var item2 in Model.articleCategories.Where(a => a.ParentId == item.Id))
                     {
@@ -92,7 +92,8 @@
                     {
                         <li class="menu_item_children">
                             <a href="/Blog/Category/@item.Id/@item.Slug">@item.Title <i class="fa fa-angle-left"></i></a>
-                            <ul class="categories_mega_menu">12
+                            <ul class="categories_mega_menu">
+                                12
                                 @foreach (var item2 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item.Id))
                                 {
                                     <li class="menu_item_children">
