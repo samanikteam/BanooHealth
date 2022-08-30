@@ -77,7 +77,12 @@
                                             <br />
                                             <br />
                                             <div class="product_meta">
-                                                <span>دسته: <a href="#">@ViewBag.ProductCategory</a></span>
+                                                <span>دسته: 
+                                                    @Model.productDto.ProductCategoryTitle
+                                                        @* <a href="#">@Model.productDto.ProductCategoryTitle</a>*@
+
+                                                   
+                                                    </span>
                                             </div>
 
                                         </form>

@@ -19,6 +19,7 @@ namespace Data.Models
         [Required]
         [Display(Name = "آی دی  مجله")]
         public int ProductCategoryId { get; set; }
+        public string Title { get; set; }
 
         public int? SortNum { get; set; }
     }

@@ -60,6 +60,7 @@ namespace Data.Models
         [MaxLength(100)]
         [Display(Name = "نام برند")]
         public string BrandName { get; set; }
+        public string ProductCategoryTitle { get; set; }
 
     }
 
