@@ -29,6 +29,7 @@
                     <div class="widget_list widget_categories">
                         <h3>دسته‌های محصولات</h3>
                         <ul>
+                            <li><a href="/Shopping" class="category-level-2">همه محصولات</a></li>
                             @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null))
                             {
                                 <li>
@@ -69,8 +70,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="shop_banner_thumb">
-                                <a href="@Model.bannerDto.Link10"><img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow10" 
-                                    alt="@Model.bannerDto.Title9" title="@Model.bannerDto.Title9"></a>
+                                <a href="@Model.bannerDto.Link10">
+                                    <img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow10"
+                                         alt="@Model.bannerDto.Title9" title="@Model.bannerDto.Title9">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -80,19 +83,19 @@
                     <div class="shop_toolbar_btn">
                         <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
                     </div>
-                    <div class="niceselect_container">
-                        <form action="#">
-                            <label>ترتیب:</label>
-                            <select class="select_option" name="orderby" id="short">
-                                <option selected value="1">امتیاز متوسط</option>
-                                <option value="2">محبوبیت</option>
-                                <option value="3">تاریخ ارسال</option>
-                                <option value="4">قیمت صعودی</option>
-                                <option value="5">قیمت نزولی</option>
-                                <option value="6">نام محصول</option>
-                            </select>
-                        </form>
-                    </div>
+                    @*<div class="niceselect_container">
+                            <form action="#">
+                                <label>ترتیب:</label>
+                                <select class="select_option" name="orderby" id="short">
+                                    <option selected value="1">امتیاز متوسط</option>
+                                    <option value="2">محبوبیت</option>
+                                    <option value="3">تاریخ ارسال</option>
+                                    <option value="4">قیمت صعودی</option>
+                                    <option value="5">قیمت نزولی</option>
+                                    <option value="6">نام محصول</option>
+                                </select>
+                            </form>
+                        </div>*@
                     <div class="page_amount">
                         <p> @Model.listProductDto.Products.Count() محصول</p>
                     </div>
@@ -132,14 +135,13 @@
                                                 {
                                                     <span class="current_price">در حال حاضر قیمتی برای این محصول ارائه نشده</span>
                                                 }
-
                                                 <span>در @item.CountPharmacyExistProduct  داروخانه</span>
                                             </div>
                                         </div>
                                         <div class="add_to_cart">
                                             @if (item.MinimumPrice != null)
                                             {
-                                            <a href="/Products/@item.Id/@item.Slug" title="مشاهده داروخانه‌ها">مشاهده داروخانه‌ها</a>
+                                                <a href="/Products/@item.Id/@item.Slug" title="مشاهده داروخانه‌ها">مشاهده داروخانه‌ها</a>
                                             }
                                             else
                                             {
@@ -155,7 +157,7 @@
                     }
 
                 </div>
-                 <div paging-model="@Model.PagingData" page-class="btn border mt-3"
+                <div paging-model="@Model.PagingData" page-class="btn border mt-3"
                      page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
                 </div>
             </div>

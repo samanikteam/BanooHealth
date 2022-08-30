@@ -153,6 +153,8 @@ namespace Data.Repositories
                 ProductCategoryTitle = titleCategory,
                 //Price = result.PharmacyProducts.Select(x => x.Price).SingleOrDefault().ToString(),
                 //MinimumPrice = result.PharmacyProducts.Select(x => x.Price).Min().ToString(),
+                //MinimumPrice = result.PharmacyProducts.Where(x => x.productId == result.Id).Select(x => x.Price).Min().ToString(),
+
 
             };
             return product;
