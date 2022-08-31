@@ -39,7 +39,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public void OnGet( string ProductCatPath = null , int PageNum=1)
         {
             bannerDto = _bannerRepository.GetBanner();
-            listProductDto = _productRepository.GetListProduct(PageNum,PageSize);
+            listProductDto = _productRepository.GetListProduct();
             listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
 
             //Add By vahid

@@ -69,7 +69,7 @@ namespace Data.Repositories
 
         public ListProductDto GetListProduct(int PageNum = 1, int PageSize = 12)
         {
-            var product = Table.Where(x=>x.popular==true).Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
+            var product = Table.Include(x=>x.ProCategories).Include(x => x.PharmacyProducts).ThenInclude(x => x.Pharmacy);
             var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListProductDto() { };
@@ -83,8 +83,6 @@ namespace Data.Repositories
                 Id = t.Id,
                 Title = t.Title,
                 Description = t.Description.Substring(0, 100),
-                //ProductArticles = t.ProductArticles.Select(x => x.ArticleId).ToList(),
-                //CategoryId = t.Product,
                 Avatar1 = t.Avatar1,
                 AvatarTitle1 = t.AvatarTitle1,
                 AvatarAlt1 = t.AvatarAlt1,
@@ -96,7 +94,6 @@ namespace Data.Repositories
                 RegisterUserId = t.RegisterUserId,
                 IsDelete = t.IsDelete,
                 MinimumPrice = t.PharmacyProducts.Where(x => x.productId == t.Id).Select(x => x.Price).Min().ToString(),
-                //Table.Where(x=>x.productId==productId && x.Inventory!=0).Include(x=>x.Pharmacy).ToList();
                 CountPharmacyExistProduct = t.PharmacyProducts.Where(x => x.productId == t.Id && x.Inventory != 0).Count(),
                 BrandName = t.BrandName,
                 popular = t.popular
@@ -116,8 +113,18 @@ namespace Data.Repositories
             var result = Table.Where(x => x.Id == id).Include(x => x.ProductArticles)
                 .ThenInclude(x => x.Article)
                 .Include(x => x.ProductArticles).ThenInclude(x => x.Product)
+                .Include(x => x.ProCategories).ThenInclude(x => x.ProductCategory)
                 .SingleOrDefault();
 
+
+            //
+            var listTitle = result.ProCategories.Select(x => x.ProductCategory.Title).ToList();
+            var titleCategory = "";
+            foreach (var item in listTitle)
+            {
+                titleCategory += item+ " - ";
+            }
+            //
             var listCategoryId = _proCategoryRepository.GetListCategoryWithProductId(id);
 
             var listArticleId = _productArticleRepository.GetListArticleByProductId(id);
@@ -142,9 +149,12 @@ namespace Data.Repositories
                 ListProductLinked = result.ProductArticles.Select(x => x.Product).ToList(),
                 IsDelete = result.IsDelete,
                 BrandName = result.BrandName,
-                popular = result.popular
+                popular = result.popular,
+                ProductCategoryTitle = titleCategory,
                 //Price = result.PharmacyProducts.Select(x => x.Price).SingleOrDefault().ToString(),
                 //MinimumPrice = result.PharmacyProducts.Select(x => x.Price).Min().ToString(),
+                //MinimumPrice = result.PharmacyProducts.Where(x => x.productId == result.Id).Select(x => x.Price).Min().ToString(),
+
 
             };
             return product;

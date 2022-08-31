@@ -46,7 +46,7 @@ namespace Data.Repositories
 
         public ListProductFilterDto GetListProductFilters(int id)
         {
-            var ProductFilters = Table.AsSplitQuery().Include(x => x.filter).Where(a => a.ProductId == id).OrderByDescending(x => x.Id);
+            var ProductFilters = Table.Include(x=>x.product).ThenInclude(x=>x.ProCategories).ThenInclude(x=>x.ProductCategory).Include(x => x.filter).Where(a => a.ProductId == id).OrderByDescending(x => x.Id);
             var list = new ListProductFilterDto() { };
 
             list.ProductFilters = ProductFilters.Select(t => new ProductFilterDto()
@@ -56,8 +56,10 @@ namespace Data.Repositories
                 ProductId = t.ProductId,
                 Status = t.Status,
                 Value = t.Value,
-                Filtername=t.filter.Title
+                Filtername=t.filter.Title,
             }).ToList();
+
+
 
             return list;
         }

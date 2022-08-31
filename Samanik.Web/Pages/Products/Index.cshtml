@@ -16,7 +16,6 @@
                         <li><a href="/Index">خانه</a></li>
                         <li><a href="/shopping">محصولات</a></li>
                         <li>@Model.productDto.Title</li>
-
                     </ul>
                 </div>
             </div>
@@ -61,23 +60,23 @@
                                 <div class="col-lg-7 col-md-6">
                                     <div class="product_d_right">
                                         <form action="#">
-
-                                            <h3><a href="#"></a></h3>
-
                                             <div class="product_desc">
                                                 <h1 style="font-size:24px;">
                                                     @Model.productDto.Title
                                                 </h1>
                                             </div>
-                                            <div class="product_info_content" >
+                                            <div class="product_info_content">
                                                 <span>
                                                     @Model.productDto.Description
-                                                </span>  
+                                                </span>
                                             </div>
                                             <br />
                                             <br />
                                             <div class="product_meta">
-                                                <span>دسته: <a href="#">@ViewBag.ProductCategory</a></span>
+                                                <span>
+                                                    دسته:
+                                                    @Model.productDto.ProductCategoryTitle
+                                                </span>
                                             </div>
 
                                         </form>
@@ -107,9 +106,8 @@
                                 <div class="post_header">
                                     <h1 class="post_title"></h1>
                                     <div class="blog_meta">
-                                        <span class="fw-bolder">داروخانه‌های اینترنتی</span>
+                                        <span class="fw-bolder">داروخانه‌ها</span>
                                         <span class="meta_date" style="float:left"> <a href="#">راهنمای خرید امن</a> </span>
-                                        @*<span class="post_category">در : <a href="#">شرکت، عکس، مسافرت</a></span>*@
                                     </div>
                                 </div>
                             </figure>
@@ -124,29 +122,26 @@
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-6">
                                                     <div>
-                                                        <span style="color:red;" class=""> @item.City</span> -
-                                                        <span class="" style="margin-right:0%;">
+                                                        <span class="" style="margin-right:0%; color:green;">
                                                             @item.Name
                                                         </span>
                                                         @*<span>  &nbsp;   &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </span>*@
                                                         <span class="fw-bolder " style="margin-right:25%;">
-                                                            @item.ProductTitle
-
+                                                            @item.City
                                                         </span>
-                                                        @{
-
+                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0") تومان </span> 
+                                                        @if (item.LinkAddress!=null)
+                                                        {
+                                                            <a href="@item.LinkAddress" class="btn btn-outline-danger float-right"> خرید اینترنتی</a>
                                                         }
-                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0")</span>
-
-                                                        <a href="@item.LinkAddress" class="btn btn-outline-danger float-right"> خرید اینترنتی</a>
+                                                        else
+                                                        {
+                                                            <a href="/Products/PharmacyDetails/@item.PharmacyId" class="btn btn-outline-danger float-right">مشاهده اطلاعات</a>
+                                                        }
                                                         <br />
-
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
                                         </div>
                                     </figure>
                                 }
@@ -158,28 +153,16 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-12">
                                                     <div class="blog_meta">
-                                                        <span class="fw-bolder">در حال حاضر هیچ داروخانه این محصول را ارائه نمیکند</span>
+                                                        <span class="fw-bolder">در حال حاضر هیچ داروخانه این محصول را ارائه نمی‌کند</span>
                                                         <br />
-
-
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
-
                                         </div>
                                     </figure>
                                 }
-
                                 <hr />
-
-
                             }
-
-
-
                         </article>
                     </div>
                     <!--blog grid area start-->
@@ -191,7 +174,6 @@
                                 <div class="post_header">
                                     <div class="blog_meta">
                                         <span class="fw-bolder">توضیحات تکمیلی</span>
-
                                     </div>
                                     <div class="blog_content">
                                         @Html.Raw(Model.productDto.Text)
