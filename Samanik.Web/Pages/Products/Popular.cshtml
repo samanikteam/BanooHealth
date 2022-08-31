@@ -32,6 +32,9 @@
                     <div class="widget_list widget_categories">
                         <h3>دسته‌های محصولات</h3>
                         <ul>
+                            <li>
+                                <a class="category-level-2" href="/shopping">همه محصولات</a>
+                            </li>
                             @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null && p.IsDelete == false))
                             {
                                 <li>

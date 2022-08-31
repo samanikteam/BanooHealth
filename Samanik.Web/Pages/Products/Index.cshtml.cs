@@ -58,7 +58,7 @@ namespace Samanik.Web.Pages.MainPage.ProductDetails
         public void OnGet(int id,string slug)
         {
             listProductFilterDto = _productFilterRepository.GetListProductFilters(id);
-
+            
             productDto = _productRepository.GetProductByProductId(id);
             listProCommentsDto = _proCommentRepository.GetListProComment(id);
             listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);

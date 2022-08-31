@@ -5,6 +5,11 @@
     ViewData["Title"] = Model.productDto.Title;
     ViewData["Description"] = Model.productDto.Description;
     ViewData["Keywords"] = Model.productDto.KeyWords;
+
+    string currentUrl = Request.Scheme + "://" + Request.Host + Request.Path;
+    string enc = System.Net.WebUtility.UrlEncode(currentUrl);
+    string text = System.Net.WebUtility.UrlEncode(Model.productDto.Description);
+
 }
 
 <div class="breadcrumbs_area">
@@ -82,18 +87,15 @@
                                         </form>
                                         <div class="priduct_social">
                                             <ul>
-                                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> لایک</a></li>
-                                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> توییت</a></li>
-                                                <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> ذخیره</a></li>
-                                                <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> اشتراک گذاری</a></li>
-                                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> لینکدین</a></li>
+                                                <li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=@enc" target="_blank" rel="noopener noreferrer nofollow" title="facebook"><i class="fa fa-facebook"></i> فیس بوک</a></li>
+                                                <li><a class="twitter" href="https://twitter.com/intent/tweet?url=@enc&text=@text" target="_blank" rel="noopener noreferrer nofollow" title="twitter"><i class="fa fa-twitter"></i> توییت</a></li>
+                                                <li><a class="google-plus" href="https://plus.google.com/share?url=@enc" target="_blank" rel="noopener noreferrer nofollow" title="google +"><i class="fa fa-google-plus"></i> اشتراک گذاری</a></li>
                                             </ul>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>s
                     </div>
                 </div>
             </div>
@@ -129,8 +131,8 @@
                                                         <span class="fw-bolder " style="margin-right:25%;">
                                                             @item.City
                                                         </span>
-                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0") تومان </span> 
-                                                        @if (item.LinkAddress!=null)
+                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0") تومان </span>
+                                                        @if (item.LinkAddress != null)
                                                         {
                                                             <a href="@item.LinkAddress" class="btn btn-outline-danger float-right"> خرید اینترنتی</a>
                                                         }

@@ -35,7 +35,7 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public ListProductCategoryDto listProductCategoryDto { get; set; }
             //Add By Vahid
             public PagingData PagingData { get; set; }
-            public int PageSize = 12;
+            public int PageSize = 1;
         public void OnGet(int productCategoryId,string slug, int PageNum = 1)
         {
             bannerDto = _bannerRepository.GetBanner();

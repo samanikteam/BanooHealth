@@ -33,7 +33,7 @@ namespace Samanik.Web.Pages.Blog
         public ListCommentDto commentDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 8;
+        public int PageSize = 10;
         public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories(), "Id", "Title");

@@ -46,7 +46,7 @@ namespace Samanik.Web.Pages.Products
 
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 8;
+        public int PageSize = 10;
         public void OnGet(string ProductCatPath = null , string slug=null, int PageNum = 1)
         {
 

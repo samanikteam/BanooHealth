@@ -5,6 +5,11 @@
     ViewData["Title"] = Model.articleDto.Title;
     ViewData["Description"] = Model.articleDto.Description;
     ViewData["Keywords"] = Model.articleDto.KeyWords;
+
+
+    string currentUrl = Request.Scheme + "://" + Request.Host + Request.Path;
+    string enc = System.Net.WebUtility.UrlEncode(currentUrl);
+    string text = System.Net.WebUtility.UrlEncode(Model.articleDto.Description);
 }
 <!--breadcrumbs area start-->
 <div class="breadcrumbs_area">
@@ -62,11 +67,9 @@
                                         <div class="social_sharing">
                                             <p>اشتراک گذاری این مطلب:</p>
                                             <ul>
-                                                <li><a href="#" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#" title="twitter"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
-                                                <li><a href="#" title="google+"><i class="fa fa-google-plus"></i></a></li>
-                                                <li><a href="#" title="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                                <li><a href="https://www.facebook.com/sharer/sharer.php?u=@enc" target="_blank" rel="noopener noreferrer nofollow" title="facebook"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="https://twitter.com/intent/tweet?url=@enc&text=@text" target="_blank" rel="noopener noreferrer nofollow" title="twitter"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="https://plus.google.com/share?url=@enc" target="_blank" rel="noopener noreferrer nofollow" title="google+"><i class="fa fa-google-plus"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
