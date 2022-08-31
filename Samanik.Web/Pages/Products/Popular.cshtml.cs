@@ -51,7 +51,7 @@ namespace Samanik.Web.Pages.Products
         {
 
             listProductDto = _productRepository.GetListProduct(PageNum,PageSize);
-            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
+            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
 
             //Add By vahid
             StringBuilder QParam = new StringBuilder();

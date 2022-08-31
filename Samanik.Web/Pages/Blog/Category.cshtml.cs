@@ -34,7 +34,7 @@ namespace Samanik.Web.Pages.Blog
         public ListCommentDto commentDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 1;
+        public int PageSize = 8;
         public void OnGet(int articleCategoryId , string slug, int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_articleCategoryRepository.GetArticleCategories(), "Id", "Title");
