@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,18 +15,30 @@ namespace Samanik.Web.Areas.Administration.Pages.Setting
     public class IndexModel : PageModel
     {
         private readonly ISiteSettingRepository _repository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(ISiteSettingRepository repository)
+
+        public IndexModel(ISiteSettingRepository repository, IAuthorizationService authorizationService)
         {
             _repository = repository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
         public SiteSettingDto Dto { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Dto = _repository.GetSetting();
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Setting).Result.Succeeded)
+            {
+                Dto = _repository.GetSetting();
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {

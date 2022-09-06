@@ -1,7 +1,9 @@
 ﻿using Data;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
 using Entities.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,17 +11,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Samanik.Web.Areas.Administration.Pages.Users
 {
+    [Authorize]
     public class EditUserModel : PageModel
     {
         private readonly IUserRepasitory _repasitory;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IAuthorizationService _authorizationService;
 
-        public EditUserModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext dbContext, IUserRepasitory repasitory)
+        public EditUserModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext dbContext, IUserRepasitory repasitory, IAuthorizationService authorizationService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -27,79 +32,74 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
 
             _dbContext = dbContext;
             _repasitory = repasitory;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
         public EditUserDto editDto { get; set; }
 
-        public void OnGet(string id)
+        public IActionResult OnGet(string id)
         {
-            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
-
-            editDto = _repasitory.GetUserInfoById(id);
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Users).Result.Succeeded)
+            {
+                ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+                editDto = _repasitory.GetUserInfoById(id);
+                return Page();
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
+            
         }
 
-        public IActionResult OnPost(List<string> RoleId , CancellationToken cancellationToken)
+        public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
 
-            #region رکورد قبلی رو حذف میکنیم
-            var userIdForDelete = editDto.Id;
- 
-            _repasitory.Deactive(userIdForDelete, cancellationToken);
-            #endregion
-
-
             #region یه رکورد جدید ثبت میکنیم
-            var newUser = new ApplicationUser();
+            var newUser = await _userManager.FindByIdAsync(editDto.Id);
+            if (editDto.Password != null)
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(newUser);
+
+                var result = await _userManager.ResetPasswordAsync(newUser, token, editDto.Password);
+            }
             newUser.UserName = editDto.UserName;
             newUser.FirstName = editDto.FirstName;
             newUser.LastName = editDto.LastName;
             newUser.NationalCode = editDto.NationalCode;
             newUser.Tel = editDto.Tel;
-            var resultUser =  _userManager.CreateAsync(newUser, editDto.Password).Result;
+            var resultUser = _userManager.UpdateAsync(newUser).Result;
             _dbContext.SaveChanges();
 
-            var userId =  _userManager.GetUserIdAsync(newUser).Result;
+            var userId = _userManager.GetUserIdAsync(newUser).Result;
             if (resultUser.Succeeded)
             {
-                #region Add Roles in Table UserRoles
-                foreach (var item in RoleId)
-                {
-                    _dbContext.UserRoles.Add(new IdentityUserRole<string>
-                    {
-                        RoleId = item,
-                        UserId = userId
-                    });
-                }
-                _dbContext.SaveChanges();
+                //#region Add Roles in Table UserRoles
+                //foreach (var item in RoleId)
+                //{
+                //    _dbContext.UserRoles.Add(new IdentityUserRole<string>
+                //    {
+                //        RoleId = item,
+                //        UserId = userId
+                //    });
+                //}
+                //_dbContext.SaveChanges();
 
-                //*******************End*********************
-                #endregion
+                ////*******************End*********************
+                //#endregion
 
                 return RedirectToPage("Index");
 
             }
             else
             {
-                foreach (var err in resultUser.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, err.Description);
-                }
+
+                ModelState.AddModelError("", "در بروزرسانی کاربر مورد نظر خطایی به وجود آمده است");
+                return Page();
             }
             #endregion
 
-            #region نقش های نفر رو هم پاک میکنیم
-            //var roleList= _dbContext.UserRoles.Where(x=>x.UserId==userId).ToList();
-            //foreach (var role in roleList)
-            //{
-            //    _dbContext.UserRoles.Remove(role);
-
-            //}
-            //_dbContext.SaveChanges();
-            #endregion
-
-
-            return Redirect("/administration/users");
         }
     }
 }

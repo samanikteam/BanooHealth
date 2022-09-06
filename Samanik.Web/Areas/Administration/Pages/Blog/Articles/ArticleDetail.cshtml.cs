@@ -5,7 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
 using Entities.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -32,6 +34,16 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
 
         public void OnGet(int id)
         {
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs).Result.Succeeded)
+            {
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
+
+
             articleDto = _Repasitory.GetArticleById(id);
             listArticleDto = _Repasitory.GetListArticle();
 

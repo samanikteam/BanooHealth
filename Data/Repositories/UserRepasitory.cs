@@ -53,7 +53,7 @@ namespace Data.Repositories
 
         public List<ListUserDto> GetAllUserInfo()
         {
-            var result = _context.Users.ToList();
+            var result = _context.Users.Where(_ => _.IsDeleted==false).ToList();
             return result.Select(_ => new ListUserDto()
             {
                 Id = _.Id,
@@ -81,7 +81,6 @@ namespace Data.Repositories
                 LastName = t.LastName,
                 Tel = t.Tel,
                 NationalCode = t.NationalCode,
-                RoleId = roles,
             }).SingleOrDefault();
         }
 

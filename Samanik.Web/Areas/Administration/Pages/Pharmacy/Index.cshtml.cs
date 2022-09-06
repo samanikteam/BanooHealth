@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,6 +16,8 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
     public class IndexModel : PageModel
     {
         private readonly IPharmacyRepository _pharmacyRepository;
+        private readonly IAuthorizationService _authorizationService;
+
 
         public IndexModel(IPharmacyRepository pharmacyRepository)
         {
@@ -29,6 +33,21 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         public int PageSize = 15;
         public void OnGet(int PageNum = 1)
         {
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            {
+
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
+
+
+
+
+
             listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
             //Add By vahid
             StringBuilder QParam = new StringBuilder();

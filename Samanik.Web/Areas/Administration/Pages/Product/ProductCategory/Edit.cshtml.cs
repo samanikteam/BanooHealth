@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,19 +17,31 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
     public class EditModel : PageModel
     {
         private readonly IProductCategoryRepository _productCategoryRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public EditModel(IProductCategoryRepository productCategoryRepository)
+
+        public EditModel(IProductCategoryRepository productCategoryRepository, IAuthorizationService authorizationService)
         {
             _productCategoryRepository = productCategoryRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
         public ProductCategoryDto dto { get; set; }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            ViewData["ProductCategories"] = new SelectList(_productCategoryRepository.GetProductCategories(), "Id", "Title");
-            dto = _productCategoryRepository.GetProductCategorybyId(id);
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
+            {
+                ViewData["ProductCategories"] = new SelectList(_productCategoryRepository.GetProductCategories(), "Id", "Title");
+                dto = _productCategoryRepository.GetProductCategorybyId(id);
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken, List<IFormFile> Image)

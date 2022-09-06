@@ -43,20 +43,22 @@
                                             <td style="text-align:center">@item.Tel</td>
                                             @*<td>@item.RolesName</td>*@
                                             <td style="text-align:center">
-
+                                                <a href="/Administration/users/userroles/@item.Id"
+                                               class="btn btn-primary"> نقش کاربر
+                                                </a>
                                                 <a  asp-page="/Users/EditUser" asp-route-id="@item.Id"
                                                class="btn btn-icon btn-pills btn-soft-success">
                                                     <i class="uil uil-pen"></i>
                                                 </a>
-
-                                                @if (item.IsDeleted == false)
+                                                <a asp-page="/Users/Delete" asp-route-Id="@item.Id" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-trash"></i></a>
+                                               @* @if (item.IsDeleted == false)
                                                 {
-                                                    <button asp-page-handler="DeleteUser" asp-route-userId="@item.Id" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-trash"></i></button>
+                                                    <button asp-page="/Users/Delete" asp-route-userId="@item.Id" class="btn btn-icon btn-pills btn-soft-danger"><i class="uil uil-trash"></i></button>
                                                 }
                                                 else
                                                 {
                                                     <button asp-page-handler="EnableUser" asp-route-userId="@item.Id" class="btn btn-icon btn-pills btn-soft-info"><i class="uil uil-refresh"></i></button>
-                                                }
+                                                }*@
 
 
 
@@ -92,11 +94,8 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="mb-3">
-                                            <label class="form-label">شماره موبایل جهت ورود به سامانه: <span class="text-danger">*</span></label>
-                                            <input id="userName" asp-for="createDto.UserName" type="text" class="form-control" minlength="11" maxlength="11" placeholder="شماره موبایل را وارد کنید"
-                                                   pattern="[0-9]{4}[0-9]{3}[0-9]{4}"
-                                                   required oninvalid="setCustomValidity('لطفاً شماره موبایل   را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
+                                            <label class="form-label">نام کاربری جهت ورود به سامانه: <span class="text-danger">*</span></label>
+                                            <input asp-for="createDto.UserName" type="text" class="form-control" placeholder="نام کاربری را وارد کنید">
                                         </div>
                                     </div><!--end col-->
 
@@ -137,7 +136,7 @@
                                         </div>
                                     </div><!--end col-->
 
-                                    <div class="col-md-6">
+                                  @*  <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">نقش کاربر: <span class="text-danger">*</span></label>
                                             <select id="roleId" asp-items="ViewBag.Roles" name="RoleId" class="form-control doctor-name select2input" multiple
@@ -146,26 +145,19 @@
                                                 <option value="" disabled>نقش کاربر را مشخص کنید</option>
                                             </select>
                                         </div>
-                                    </div><!--end col-->
+                                    </div><!--end col-->*@
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">رمز عبور: <span class="text-danger">*</span></label>
-                                            <input id="password" asp-for="createDto.Password" type="password" class="form-control" placeholder="رمز عبور را وارد کنید"
+                                            <input asp-for="createDto.Password" type="text" class="form-control" placeholder="رمز عبور را وارد کنید"
                                                    required oninvalid="setCustomValidity('لطفاً رمز عبور  را وارد کنید')"
                                                    oninput="setCustomValidity('')">
                                         </div>
                                         <small style="color:red"> کلمه عبور باید حداقل شش کاراکتر و شامل حروف کوچک و بزرگ باشد</small>
                                     </div><!--end col-->
 
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">تکرار رمز عبور: <span class="text-danger">*</span></label>
-                                            <input id="rePassword" asp-for="createDto.ConfirmPassword" type="password" class="form-control" placeholder="مجددا رمز عبور را وارد کنید"
-                                                   required oninvalid="setCustomValidity('لطفاً تکرار رمز عبور  را وارد کنید')"
-                                                   oninput="setCustomValidity('')">
-                                        </div>
-                                    </div><!--end col-->
+                                  
                                     <br>
                                     <div class="col-lg-12 text-end">
                                         <button type="submit" class="btn btn-primary">ثبت اطلاعات</button>

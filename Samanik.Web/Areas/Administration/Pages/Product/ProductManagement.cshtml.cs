@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,14 +22,19 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         private readonly IArticleRepasitory _articleRepository;
         private readonly IProductArticleRepository _productArticleRepository;
         private readonly IProCategoriesRepository _proCategoriesRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public ProductManagementModel(IProductRepository productRepasitory, IProductCategoryRepository productCategoryRepasitory, IProductArticleRepository productArticleRepository, IArticleRepasitory articleRepository, IProCategoriesRepository proCategoriesRepository)
+
+        public ProductManagementModel(IProductRepository productRepasitory, IProductCategoryRepository productCategoryRepasitory,
+            IProductArticleRepository productArticleRepository, IArticleRepasitory articleRepository,
+            IProCategoriesRepository proCategoriesRepository, IAuthorizationService authorizationService)
         {
             _productRepasitory = productRepasitory;
             _productCategoryRepasitory = productCategoryRepasitory;
             _productArticleRepository = productArticleRepository;
             _articleRepository = articleRepository;
             _proCategoriesRepository = proCategoriesRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -38,31 +45,40 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         public PagingData PagingData { get; set; }
         public int PageSize = 15;
 
-        public void OnGet(int PageNum = 1)
+        public IActionResult OnGet(int PageNum = 1)
         {
-            #region Product Category
-            listProductCategoryDto = _productCategoryRepasitory.GetListProductCategory();
-            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
-            #endregion
-            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
-            listProductDto = _productRepasitory.GetListProduct(PageNum);
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
             {
-                QParam.Append($"/Administration/Product/ProductManagement?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (listProductDto.Products.Count >= 0)
-            {
-                PagingData = new PagingData
+                #region Product Category
+                listProductCategoryDto = _productCategoryRepasitory.GetListProductCategory();
+                ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+                #endregion
+                ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+                listProductDto = _productRepasitory.GetListProduct(PageNum);
+                //Add By vahid
+                StringBuilder QParam = new StringBuilder();
+                if (PageNum != 0)
                 {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = listProductDto.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
+                    QParam.Append($"/Administration/Product/ProductManagement?PageNum=-");
+                    //Administration / Blog / Articles / Index
+                }
+                if (listProductDto.Products.Count >= 0)
+                {
+                    PagingData = new PagingData
+                    {
+                        CurrentPage = PageNum,
+                        RecordsPerPage = PageSize,
+                        TotalRecords = listProductDto.count,
+                        UrlParams = QParam.ToString(),
+                        LinksPerPage = 7
+                    };
+                }
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
             }
         }
 

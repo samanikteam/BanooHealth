@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,12 +18,14 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Categories
     public class IndexModel : PageModel
     {
         private readonly IArticelCategoryRepasitory _Repository;
+        private readonly IAuthorizationService _authorizationService;
 
 
-        public IndexModel(IArticelCategoryRepasitory cRepasitory)
+
+        public IndexModel(IArticelCategoryRepasitory cRepasitory, IAuthorizationService authorizationService)
         {
             _Repository = cRepasitory;
-
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -30,28 +34,36 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Categories
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 15;
-        public void OnGet(int PageNum = 1)
+        public IActionResult OnGet(int PageNum = 1)
         {
-            ViewData["ArticleCategories"] = new SelectList(_Repository.GetArticleCategories(), "Id", "Title");
-            ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum);
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs).Result.Succeeded)
+            {
+                ViewData["ArticleCategories"] = new SelectList(_Repository.GetArticleCategories(), "Id", "Title");
+                ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum);
 
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
-            {
-                QParam.Append($"/Administration/Blog/Categories/Index?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (ListArticleCategoryDto.articleCategories.Count >= 0)
-            {
-                PagingData = new PagingData
+                //Add By vahid
+                StringBuilder QParam = new StringBuilder();
+                if (PageNum != 0)
                 {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = ListArticleCategoryDto.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
+                    QParam.Append($"/Administration/Blog/Categories/Index?PageNum=-");
+                    //Administration / Blog / Articles / Index
+                }
+                if (ListArticleCategoryDto.articleCategories.Count >= 0)
+                {
+                    PagingData = new PagingData
+                    {
+                        CurrentPage = PageNum,
+                        RecordsPerPage = PageSize,
+                        TotalRecords = ListArticleCategoryDto.count,
+                        UrlParams = QParam.ToString(),
+                        LinksPerPage = 7
+                    };
+                }
+                return Page();
+            }
+            else
+            {
+                return Redirect("/login/logout");
             }
         }
 

@@ -5,7 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
 using Entities.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -19,32 +21,44 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         private readonly IProductCategoryRepository _productCategoryRepasitory;
         private readonly IProductArticleRepository _productArticleRepository;
         private readonly IArticleRepasitory _articleRepository;
-        
+        private readonly IAuthorizationService _authorizationService;
+
+
         public IndexModel(IProductRepository productRepasitory, IArticleRepasitory articleRepository,
-            IProductArticleRepository productArticleRepository , IProductCategoryRepository productCategoryRepasitory)
+            IProductArticleRepository productArticleRepository , IProductCategoryRepository productCategoryRepasitory, IAuthorizationService authorizationService)
         {
             _productRepasitory = productRepasitory;
             _articleRepository = articleRepository;
             _productArticleRepository = productArticleRepository;
             _productCategoryRepasitory = productCategoryRepasitory;
+            _authorizationService = authorizationService;
         }
         [BindProperty]
         public ProductDto dto { get; set; }
         public ListProductDto listProductDto { get; set; }
         public ListProductCategoryDto listProductCategoryDto { get; set; }
        
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            #region Product Category
-            listProductCategoryDto = _productCategoryRepasitory.GetListProductCategory();
-            ViewData["ProductCategoryMother"]= new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories.Where(x=>x.ParentId==null), "Id", "Title");
-            #endregion
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
+            {
+                #region Product Category
+                listProductCategoryDto = _productCategoryRepasitory.GetListProductCategory();
+                ViewData["ProductCategoryMother"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories.Where(x => x.ParentId == null), "Id", "Title");
+                #endregion
 
 
-            //ViewData["ProductCategoriesChildFirst"] = new SelectList(listProCategoryChildFirst, "Id", "ProductCatTitle");
-            //ViewData["ProductCategoriesChildSecond"] = new SelectList(listProCategoryChildSecond, "Id", "ProductCatTitle");
-            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
-            listProductDto = _productRepasitory.GetListProduct();
+                //ViewData["ProductCategoriesChildFirst"] = new SelectList(listProCategoryChildFirst, "Id", "ProductCatTitle");
+                //ViewData["ProductCategoriesChildSecond"] = new SelectList(listProCategoryChildSecond, "Id", "ProductCatTitle");
+                ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+                listProductDto = _productRepasitory.GetListProduct();
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
 
         public async Task<IActionResult> OnPost(List<IFormFile> Image1, CancellationToken cancellationToken, List<int> articleListId, int productCategoriesMother=0,

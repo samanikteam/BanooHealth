@@ -6,27 +6,40 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Areas.Administration.Pages.Media.Banner
 {
     public class IndexModel : PageModel
     {
         private readonly IBannerRepository _bannerRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(IBannerRepository bennerRepository)
+
+        public IndexModel(IBannerRepository bennerRepository, IAuthorizationService authorizationService)
         {
             _bannerRepository = bennerRepository;
+            _authorizationService = authorizationService;
         }
-
         [BindProperty]
         public BannerDto Dto { get; set; }
        
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Dto = _bannerRepository.GetBanner();
-          
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            {
+                Dto = _bannerRepository.GetBanner();
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {

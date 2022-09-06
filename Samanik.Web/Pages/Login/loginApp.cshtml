@@ -37,13 +37,13 @@
             <div class="row">
                 <!--<div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide"
          data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[
-         @foreach (var item in Model.sliderDto.LoginSliders)
+     @*    @foreach (var item in Model.sliderDto.LoginSliders)
          {
              string s = "{'src':'data:/Them/assets/img/blog;base64,@Convert.ToBase64String('"+@item.Avatar+"')'},";
              //string s2 = '{"src":"data:/Them/assets/img/blog;base64,@Convert.ToBase64String('"+@item.Avatar+"')"},';
 
              s.ToString();
-         }
+         }*@
          ]}'>-->
                 @*{"src": "/Login/rtl/img/figure/bg29-l-1.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-2.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-3.jpg"}*@
                 <!--<div class="fxt-page-switcher">
@@ -54,8 +54,8 @@
                 <div class="vegas-container col-md-6 col-12 fxt-bg-img" id="vegas-slide" data-vegas-options='{"delay":5000, "timer":false,"animation":"kenburns", "transition":"swirlLeft", "slides":[{"src": "/Login/rtl/img/figure/bg29-l-1.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-2.jpg"}, {"src": "/Login/rtl/img/figure/bg29-l-3.jpg"}]}'>
                     <div class="fxt-page-switcher">
                         <a href="#" class="switcher-text1">ورود</a>
-                        <a href="/Login/Register" class="switcher-text1 active">ثبت نام</a>
-                    </div>
+@*                        <a href="/Login/Register" class="switcher-text1 active">ثبت نام</a>
+*@                    </div>
                 </div>
                 <div class="col-md-6 col-12 fxt-bg-color">
                     <div class="fxt-content">
@@ -67,12 +67,12 @@
                                 <h2>ورود</h2>
                             </div>
                             <div class="fxt-transformY-50 fxt-transition-delay-2">
-                                <p> برای ادامه در وب سایت ما وارد شوید </p>
+                                <p> برای ادامه در سایت وارد شوید </p>
                             </div>
                             <form method="POST">
                                 <div class="form-group">
                                     <div class="fxt-transformY-50 fxt-transition-delay-4">
-                                        <input asp-for="dto.UserName" type="tel" class="form-control" placeholder="شماره موبایل خود را وارد کنید" required="required">
+                                        <input asp-for="dto.UserName" type="tel" class="form-control" placeholder=" نام کاربری خود را وارد کنید" required="required">
                                         <i class="fa fa-fw fa-phone"></i>
                                     </div>
                                 </div>
@@ -87,10 +87,11 @@
                                         <div class="fxt-content-between">
                                             <button type="submit" class="fxt-btn-fill">ورود</button>
                                             @* <a href="/administration">ورود</a>*@
-                                            <a href="/Login/forgetPassword" class="switcher-text2">فراموشی رمزعبور</a>
+                                           @* <a href="/Login/forgetPassword" class="switcher-text2">فراموشی رمزعبور</a>*@
                                         </div>
                                     </div>
                                 </div>
+                                <div style="color:red;" asp-validation-summary="All"></div>
                             </form>
                         </div>
                         <div class="fxt-footer">

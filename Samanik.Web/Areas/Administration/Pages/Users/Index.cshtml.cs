@@ -1,6 +1,7 @@
 ﻿using Data;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
 using Entities.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Samanik.Web.Areas.Administration.Pages.Users
 {
-    //[Authorize(Roles ="Admin")]
+    [Authorize]
     [AutoValidateAntiforgeryToken]
     public class IndexModel : PageModel
     {
@@ -22,15 +23,15 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _dbContext;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext dbContext , IUserRepasitory repasitory)
+        public IndexModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext dbContext , IUserRepasitory repasitory, IAuthorizationService authorizationService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-
-
             _dbContext = dbContext;
             _repasitory = repasitory;
+            _authorizationService = authorizationService;
         }
        
         [BindProperty]
@@ -38,14 +39,24 @@ namespace Samanik.Web.Areas.Administration.Pages.Users
         [BindProperty]
         public CreateUserDto createDto { get; set; }
         public EditUserDto editDto { get; set; }
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            dto = _repasitory.GetAllUserInfo();
-            ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Users).Result.Succeeded)
+            {
+                dto = _repasitory.GetAllUserInfo();
+                ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
+                return Page();
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
+          
         }
         
         public async Task<IActionResult> OnPost(List<string> RoleId)
         {
+            dto = _repasitory.GetAllUserInfo();
             ViewData["Roles"] = new SelectList(_repasitory.GetRoles(), "Id", "Name");
 
             if (ModelState.IsValid)

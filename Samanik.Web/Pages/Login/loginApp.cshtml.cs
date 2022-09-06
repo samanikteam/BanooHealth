@@ -1,6 +1,7 @@
 ﻿using Data.Contracts;
 using Data.Models;
 using Entities.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Samanik.Web.Pages.Login
 {
+    [AllowAnonymous]
     public class loginAppModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
@@ -33,7 +35,7 @@ namespace Samanik.Web.Pages.Login
 
         public void OnGet()
         {
-            sliderDto = _sliderRepository.GetListLoginSliderDto();
+            //sliderDto = _sliderRepository.GetListLoginSliderDto();
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
@@ -59,7 +61,8 @@ namespace Samanik.Web.Pages.Login
 
                 if (result.IsLockedOut)
                 {
-                    ViewData["ErrorMessage"] = "اکانت شما به دلیل سه بار ورود ناموفق به مدت یک ساعت قفل شده است";
+                    //ViewData["ErrorMessage"] = "اکانت شما به دلیل سه بار ورود ناموفق به مدت یک ساعت قفل شده است";
+                    ModelState.AddModelError("", "اکانت شما به دلیل سه بار ورود ناموفق به مدت یک ساعت قفل شده است");
                     return Page();
                 }
                 ModelState.AddModelError("", "رمز عبور یا نام کاربری اشتباه است");

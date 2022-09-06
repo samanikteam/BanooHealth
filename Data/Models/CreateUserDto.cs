@@ -36,10 +36,10 @@ namespace Data.Models
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Password { get; set; }
 
-        [Display(Name = "تکرار کلمه عبور")]
-        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
-        [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
-        [Compare(nameof(Password))]
-        public string ConfirmPassword { get; set; }
+        //[Display(Name = "تکرار کلمه عبور")]
+        //[Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        //[MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
+        //[Compare(nameof(Password))]
+        //public string ConfirmPassword { get; set; }
     }
 }

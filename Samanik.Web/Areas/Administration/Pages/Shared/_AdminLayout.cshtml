@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using Data.Models.Constants
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -61,74 +64,95 @@
 
                     <li><a href="/Index"><i class="uil uil-sitemap ms-2 d-inline-block"></i>صفحه اصلی</a></li>
                     <li><a href="/administration"><i class="uil uil-dashboard ms-2 d-inline-block"></i>داشبورد</a></li>
+                    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Users)).Result.Succeeded)
+                    {
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i class="uil uil-dollar-sign-alt  ms-2  d-inline-block"></i>مدیریت کاربران / دسترسی ها</a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/Administration/Users">لیست کاربران‌</a></li>
+                                    <li><a href="/Administration/Users/Roles">مدیریت نقش ها / دسترسی ها</a></li>
+                                    @*<li><a href="#">مدیریت دسترسی ها</a></li>*@
+                                </ul>
+                            </div>
+                        </li>
+                    }
 
-                     <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-dollar-sign-alt  ms-2  d-inline-block"></i>مدیریت کاربران</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Users">لیست کاربران‌</a></li>
-                                <li><a href="#">مدیریت نفش ها</a></li>
-                                <li><a href="#">مدیریت دسترسی ها</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs)).Result.Succeeded)
+                    {
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i class="uil uil-letter-english-a ms-2 d-inline-block"></i>مدیریت بلاگ</a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/Administration/Blog/Articles/Index">مدیریت مجله‌ها</a></li>
+                                    <li><a href="/Administration/Blog/Categories">مدیریت دسته‌بندی‌ها</a></li>
+                                    <li><a href="/Administration/Blog/Comments">مدیریت نظرات</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-letter-english-a ms-2 d-inline-block"></i>مدیریت بلاگ</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Blog/Articles/Index">مدیریت مجله‌ها</a></li>
-                                <li><a href="/Administration/Blog/Categories">مدیریت دسته‌بندی‌ها</a></li>
-                                <li><a href="/Administration/Blog/Comments">مدیریت نظرات</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Product)).Result.Succeeded)
+                    {
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i class="uil uil-box ms-2 d-inline-block"></i>مدیریت محصولات دارویی</a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/Administration/Product/ProductManagement">مدیریت ‌محصولات</a></li>
+                                    <li><a href="/Administration/Product/ProductCategory">مدیریت دسته‌بندی‌ محصولات</a></li>
+                                    <li><a href="/Administration/Product/Filter">مدیریت ویژگی محصولات</a></li>
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-box ms-2 d-inline-block"></i>مدیریت محصولات دارویی</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Product/ProductManagement">مدیریت ‌محصولات</a></li>
-                                <li><a href="/Administration/Product/ProductCategory">مدیریت دسته‌بندی‌ محصولات</a></li>
-                                <li><a href="/Administration/Product/Filter">مدیریت ویژگی محصولات</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
 
-                            </ul>
-                        </div>
-                    </li>
+                    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh)).Result.Succeeded)
+                    {
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i class="uil uil-picture ms-2 d-inline-block"></i>مدیریت رسانه‌ها</a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/Administration/Media/Slider">مدیریت اسلایدر</a></li>
+                                    <li><a href="/Administration/Media/LoginSlider">مدیریت اسلایدر صفحه ورود</a></li>
+                                    <li><a href="/Administration/Media/Banner">مدیریت بنرها</a></li>
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-picture ms-2 d-inline-block"></i>مدیریت رسانه‌ها</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Media/Slider">مدیریت اسلایدر</a></li>
-                                <li><a href="/Administration/Media/LoginSlider">مدیریت اسلایدر صفحه ورود</a></li>
-                                <li><a href="/Administration/Media/Banner">مدیریت بنرها</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
 
-                            </ul>
-                        </div>
-                    </li>
+                    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.DarooKhaneh)).Result.Succeeded)
+                    {
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i class="uil uil-building ms-2 d-inline-block"></i>مدیریت داروخانه‌ها</a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="~/Administration/Pharmacy">مدیریت داروخانه‌ها</a></li>
+                                    <li><a href="~/Administration/Pharmacy/Product">محصولات داروخانه‌ها</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-building ms-2 d-inline-block"></i>مدیریت داروخانه‌ها</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="~/Administration/Pharmacy">مدیریت داروخانه‌ها</a></li>
-                                <li><a href="~/Administration/Pharmacy/Product">محصولات داروخانه‌ها</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Setting)).Result.Succeeded)
+                    {
+                        <li class="sidebar-dropdown">
+                            <a href="javascript:void(0)"><i class="uil uil-setting ms-2 d-inline-block"></i>تنظیمات</a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="/Administration/Setting">تنظیمات سایت</a></li>
+                                    <li><a href="/Administration/Slogan">شعارهای تبلیغاتی</a></li>
+                                    <li><a href="/Administration/Setting/ContactUs">تماس با ما</a></li>
+                                    <li><a href="/Administration/Setting/AboutUs">درباره ما</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-setting ms-2 d-inline-block"></i>تنظیمات</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Setting">تنظیمات سایت</a></li>
-                                <li><a href="/Administration/Slogan">شعارهای تبلیغاتی</a></li>
-                                <li><a href="/Administration/Setting/ContactUs">تماس با ما</a></li>
-                                <li><a href="/Administration/Setting/AboutUs">درباره ما</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                   
+
+
                 </ul>
                 <!-- sidebar-menu  -->
             </div>

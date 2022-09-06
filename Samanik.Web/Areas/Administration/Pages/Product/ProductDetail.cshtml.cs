@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -21,8 +23,12 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         private readonly IArticleRepasitory _articleRepository;
         private readonly IProductCategoryRepository _productCategoryRepasitory;
         private readonly IProCategoriesRepository _proCategoriesRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public ProductDetailModel(IProductRepository productRepasitory, IProductArticleRepository productArticleRepository, IProGalleryRepository proGalleryRepository, IArticleRepasitory articleRepository, IProductCategoryRepository productCategoryRepasitory, IProCategoriesRepository proCategoriesRepository)
+
+        public ProductDetailModel(IProductRepository productRepasitory, IProductArticleRepository productArticleRepository,
+            IProGalleryRepository proGalleryRepository, IArticleRepasitory articleRepository, IProductCategoryRepository productCategoryRepasitory,
+            IProCategoriesRepository proCategoriesRepository, IAuthorizationService authorizationService)
         {
             _productRepasitory = productRepasitory;
             _productArticleRepository = productArticleRepository;
@@ -30,6 +36,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
             _articleRepository = articleRepository;
             _productCategoryRepasitory = productCategoryRepasitory;
             _proCategoriesRepository = proCategoriesRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -38,17 +45,25 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
         public ListProGalleryDto listProGalleryDto { get; set; }
 
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
-            ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
+            {
+                ViewData["ProductCategory"] = new SelectList(_productCategoryRepasitory.GetListProductCategory().ProductCategories, "Id", "Title");
+                ViewData["ArticleList"] = new SelectList(_articleRepository.GetArticlesForComment(), "Id", "Title");
 
-            var productId = id;
-            ViewData["productId"] = productId;
-            dto = _productRepasitory.GetProductByProductId(productId);
-            listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);
+                var productId = id;
+                ViewData["productId"] = productId;
+                dto = _productRepasitory.GetProductByProductId(productId);
+                listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);
 
+                return Page();
 
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
 
 

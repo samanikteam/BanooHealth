@@ -18,7 +18,7 @@ namespace Data.Repositories
 
         public ContactusDto GetContactus()
         {
-            var contactus = Table.SingleOrDefault();
+            var contactus = Table.FirstOrDefault();
 
             var res = new ContactusDto()
             {

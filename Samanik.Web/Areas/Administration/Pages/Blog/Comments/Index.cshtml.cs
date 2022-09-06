@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,11 +18,14 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
     {
         private readonly ICommentRepository _CommentRepository;
         private readonly IArticleRepasitory _ArticleRepasitory;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(ICommentRepository commentRepository, IArticleRepasitory articleRepasitory)
+
+        public IndexModel(ICommentRepository commentRepository, IArticleRepasitory articleRepasitory, IAuthorizationService authorizationService)
         {
             _CommentRepository = commentRepository;
             _ArticleRepasitory = articleRepasitory;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -30,27 +35,36 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public PagingData PagingData { get; set; }
         public int PageSize = 15;
 
-        public void OnGet(int PageNum = 1)
+        public IActionResult OnGet(int PageNum = 1)
         {
-            ListComment = _CommentRepository.GetListComments(PageNum);
-            ViewData["Articles"] = new SelectList(_ArticleRepasitory.GetArticlesForComment(), "Id", "Title");
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs).Result.Succeeded)
             {
-                QParam.Append($"/Administration/Blog/Comments?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (ListComment.Comments.Count >= 0)
-            {
-                PagingData = new PagingData
+
+                ListComment = _CommentRepository.GetListComments(PageNum);
+                ViewData["Articles"] = new SelectList(_ArticleRepasitory.GetArticlesForComment(), "Id", "Title");
+                //Add By vahid
+                StringBuilder QParam = new StringBuilder();
+                if (PageNum != 0)
                 {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = ListComment.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
+                    QParam.Append($"/Administration/Blog/Comments?PageNum=-");
+                    //Administration / Blog / Articles / Index
+                }
+                if (ListComment.Comments.Count >= 0)
+                {
+                    PagingData = new PagingData
+                    {
+                        CurrentPage = PageNum,
+                        RecordsPerPage = PageSize,
+                        TotalRecords = ListComment.count,
+                        UrlParams = QParam.ToString(),
+                        LinksPerPage = 7
+                    };
+                }
+                return Page();
+            }
+            else
+            {
+                return Redirect("/login/logout");
             }
         }
 

@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,12 +19,15 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy.Product
         private readonly IPharmacyProduct _pharmacyProduct;
         private readonly IProductRepository _productRepository;
         private readonly IPharmacyRepository _pharmacyRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(IPharmacyProduct pharmacyProduct, IProductRepository productRepository, IPharmacyRepository pharmacyRepository)
+
+        public IndexModel(IPharmacyProduct pharmacyProduct, IProductRepository productRepository, IPharmacyRepository pharmacyRepository, IAuthorizationService authorizationService)
         {
             _pharmacyProduct = pharmacyProduct;
             _productRepository = productRepository;
             _pharmacyRepository = pharmacyRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -31,28 +36,38 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy.Product
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 15;
-        public void OnGet(int PageNum = 1)
+        public IActionResult OnGet(int PageNum = 1)
         {
-            listPharmacyProductDto = _pharmacyProduct.GetListPharmacyProducts(PageNum);
-            ViewData["PharmaciesList"] = new SelectList(_pharmacyRepository.GetPharmacies(), "Id", "Name");
-            ViewData["Products"] = new SelectList(_productRepository.GetProducts(), "Id", "Title");
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
+
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
             {
-                QParam.Append($"/Administration/Pharmacy/Product/Index?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (listPharmacyProductDto.PharmacyProducts.Count >= 0)
-            {
-                PagingData = new PagingData
+                listPharmacyProductDto = _pharmacyProduct.GetListPharmacyProducts(PageNum);
+                ViewData["PharmaciesList"] = new SelectList(_pharmacyRepository.GetPharmacies(), "Id", "Name");
+                ViewData["Products"] = new SelectList(_productRepository.GetProducts(), "Id", "Title");
+                //Add By vahid
+                StringBuilder QParam = new StringBuilder();
+                if (PageNum != 0)
                 {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = listPharmacyProductDto.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
+                    QParam.Append($"/Administration/Pharmacy/Product/Index?PageNum=-");
+                    //Administration / Blog / Articles / Index
+                }
+                if (listPharmacyProductDto.PharmacyProducts.Count >= 0)
+                {
+                    PagingData = new PagingData
+                    {
+                        CurrentPage = PageNum,
+                        RecordsPerPage = PageSize,
+                        TotalRecords = listPharmacyProductDto.count,
+                        UrlParams = QParam.ToString(),
+                        LinksPerPage = 7
+                    };
+                }
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
             }
         }
 

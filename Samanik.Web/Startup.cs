@@ -2,6 +2,7 @@ using Data;
 using Data.Contracts;
 using Data.Repositories;
 using Entities.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PermissionManagement.MVC.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +45,7 @@ namespace Samanik.Web
             //services.AddDbContext(Configuration);
 
             #region Slug maker
-            services.AddRouting(options=>
+            services.AddRouting(options =>
             {
                 options.LowercaseUrls = true;
                 options.AppendTrailingSlash = true;
@@ -52,10 +54,12 @@ namespace Samanik.Web
 
             #region Identity
 
-
+            services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
+
 
             #endregion
 
@@ -64,8 +68,9 @@ namespace Samanik.Web
             services.AddDbContextPool<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
-            });
 
+            });
+            //services.AddTransient<ApplicationDbContext>();
             #endregion
 
             #region IOC
@@ -124,7 +129,7 @@ namespace Samanik.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,21 +16,33 @@ namespace Samanik.Web.Areas.Administration.Pages.Setting
     {
         private readonly IContactUsRepository _contactUsRepository;
         private readonly ICallRepository _callRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public ContactUsModel(IContactUsRepository contactUsRepository, ICallRepository callRepository)
+
+        public ContactUsModel(IContactUsRepository contactUsRepository, ICallRepository callRepository, IAuthorizationService authorizationService)
         {
             _contactUsRepository = contactUsRepository;
             _callRepository = callRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
         public ContactusDto Dto { get; set; }
         public ListCallDto listCallDto { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Dto = _contactUsRepository.GetContactus();
-            listCallDto = _callRepository.GetListCall();
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Setting).Result.Succeeded)
+            {
+                Dto = _contactUsRepository.GetContactus();
+                listCallDto = _callRepository.GetListCall();
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)

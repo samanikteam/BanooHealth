@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,17 +15,29 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
     public class EditPharmacyModel : PageModel
     {
         private readonly IPharmacyRepository _pharmacyRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public EditPharmacyModel(IPharmacyRepository pharmacyRepository)
+
+        public EditPharmacyModel(IPharmacyRepository pharmacyRepository, IAuthorizationService authorizationService)
         {
             _pharmacyRepository = pharmacyRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
         public PharmacyDto dto { get; set; }
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            dto = _pharmacyRepository.GetPharmacyById(id);
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            {
+                dto = _pharmacyRepository.GetPharmacyById(id);
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)

@@ -1,0 +1,59 @@
+﻿@page "{id}"
+@model Samanik.Web.Areas.Administration.Pages.Users.Roles.PermissionModel
+@using Microsoft.AspNetCore.Identity;
+@{
+    Layout = "_AdminLayout";
+}
+
+<h1>Permissions</h1>
+<br />
+<div class="card">
+    <div id="viewAll" class="card-body table-responsive">
+        <form method="post" class="d-inline" enctype="multipart/form-data">
+            <input asp-for="@Model.model.RoleId" type="hidden" />
+            <table class="table table-striped" id="permissionTable">
+                <thead>
+                    <tr>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Permission
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.model.RoleClaims.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                <input asp-for="@Model.model.RoleClaims[i].Type" type="hidden" />
+                                @Model.model.RoleClaims[i].Type
+                            </td>
+                            <td>
+                                <input asp-for="@Model.model.RoleClaims[i].Value" type="hidden" />
+                                @Model.model.RoleClaims[i].Value
+                            </td>
+                            <td>
+                                <div class="form-check m-1">
+                                    <input asp-for="@Model.model.RoleClaims[i].Selected" class="form-check-input" />
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="col-sm-12" style="padding: 20px 20px 0px 0px">
+                <button type="submit" id="save" class="btn btn-success">
+                    <i class="fa fa-check"></i>
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

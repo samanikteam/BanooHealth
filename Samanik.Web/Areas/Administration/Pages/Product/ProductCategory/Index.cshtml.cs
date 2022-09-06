@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,10 +18,13 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
     public class IndexModel : PageModel
     {
         private readonly IProductCategoryRepository _Repository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public IndexModel(IProductCategoryRepository repository)
+
+        public IndexModel(IProductCategoryRepository repository, IAuthorizationService authorizationService)
         {
             _Repository = repository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -29,27 +34,36 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
         public PagingData PagingData { get; set; }
         public int PageSize = 15;
 
-        public void OnGet(int PageNum = 1)
+        public IActionResult OnGet(int PageNum = 1)
         {
-            ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
-            ListProductCategoryDto = _Repository.GetListProductCategory(PageNum);
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
             {
-                QParam.Append($"/Administration/Product/ProductCategory?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (ListProductCategoryDto.ProductCategories.Count >= 0)
-            {
-                PagingData = new PagingData
+                ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
+                ListProductCategoryDto = _Repository.GetListProductCategory(PageNum);
+                //Add By vahid
+                StringBuilder QParam = new StringBuilder();
+                if (PageNum != 0)
                 {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = ListProductCategoryDto.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
+                    QParam.Append($"/Administration/Product/ProductCategory?PageNum=-");
+                    //Administration / Blog / Articles / Index
+                }
+                if (ListProductCategoryDto.ProductCategories.Count >= 0)
+                {
+                    PagingData = new PagingData
+                    {
+                        CurrentPage = PageNum,
+                        RecordsPerPage = PageSize,
+                        TotalRecords = ListProductCategoryDto.count,
+                        UrlParams = QParam.ToString(),
+                        LinksPerPage = 7
+                    };
+                }
+                return Page();
+
+            }
+            else
+            {
+                return Redirect("/login/logout");
             }
         }
 
