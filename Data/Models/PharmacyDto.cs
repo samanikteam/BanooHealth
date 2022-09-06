@@ -103,6 +103,8 @@ namespace Data.Models
         public long ProductPrice { get; set; }
 
         public string LinkAddress { get; set; }
+
+        public int PharmacyId { get; set; }
     }
     public class ListPharmacyWithProductDto
     {

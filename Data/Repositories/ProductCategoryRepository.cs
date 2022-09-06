@@ -68,11 +68,11 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListProductCategoryDto GetListProductCategory(int PageNum = 1)
+        public ListProductCategoryDto GetListProductCategory(int PageNum = 1, int PageSize = 12)
         {
             var productCategory = Table;
 
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListProductCategoryDto() { };
             list.CurrentPage = PageNum;

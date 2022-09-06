@@ -20,10 +20,13 @@ namespace Data.Repositories
     public class ArticleRepasitory : Repository<Article>, IArticleRepasitory
     {
         private readonly IArticleCategoryAssignRepository _articleCategoryAssignRepository;
+        private readonly ApplicationDbContext _context;
 
-        public ArticleRepasitory(ApplicationDbContext dbContext, IArticleCategoryAssignRepository articleCategoryAssignRepository) : base(dbContext)
+        public ArticleRepasitory(ApplicationDbContext dbContext, IArticleCategoryAssignRepository articleCategoryAssignRepository
+            , ApplicationDbContext context) : base(dbContext)
         {
             _articleCategoryAssignRepository = articleCategoryAssignRepository;
+            _context = context;
         }
 
         public async Task<int> AddAsync(ArticleDto ArticleDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken)
@@ -31,7 +34,7 @@ namespace Data.Repositories
             Article article = new Article()
             {
                 Title = ArticleDto.Title,
-               // ArticleCategoryId = ArticleDto.ArticleCategoryId,
+                // ArticleCategoryId = ArticleDto.ArticleCategoryId,
                 Description = ArticleDto.Description,
                 KeyWords = ArticleDto.KeyWords,
                 Slug = ArticleDto.Slug,
@@ -41,7 +44,7 @@ namespace Data.Repositories
                 AvatarAlt = ArticleDto.AvatarAlt,
                 RegisterDate = DateTime.Now,
                 IsDelete = false,
-                Visit=1
+                Visit = 1
             };
 
             #region Add Avatar(FileStream) in Model
@@ -78,10 +81,10 @@ namespace Data.Repositories
 
       
        
-        public ListArticleDto GetListArticle(int PageNum = 1)
+        public ListArticleDto GetListArticle(int PageNum = 1, int PageSize = 12)
         {
             var article = Table.OrderByDescending(a => a.RegisterDate);
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListArticleDto() { };
             list.CurrentPage = PageNum;
@@ -97,9 +100,9 @@ namespace Data.Repositories
                 Avatar = t.Avatar,
                 KeyWords = t.KeyWords,
                 RegisterDate = t.RegisterDate.ToShamsi(),
-                Visit=t.Visit,
-                Slug=t.Slug,
-                IsDelete=t.IsDelete
+                Visit = t.Visit,
+                Slug = t.Slug,
+                IsDelete = t.IsDelete
 
             }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
@@ -177,8 +180,8 @@ namespace Data.Repositories
                 KeyWords = article.KeyWords,
                 RegisterDate = article.RegisterDate.ToShamsi(),
                 ArticleCategoryId = listArticleCategoryId,
-                Visit=article.Visit
-                
+                Visit = article.Visit
+
             };
 
             return res;
@@ -216,7 +219,7 @@ namespace Data.Repositories
                         .Include(x => x.ProductArticles).ThenInclude(x => x.Article).SingleOrDefault();
 
 
-            var result=Table.Where(x => x.Id == id).Include(x => x.ProductArticles).ThenInclude(x => x.Product).SingleOrDefault();
+            var result = Table.Where(x => x.Id == id).Include(x => x.ProductArticles).ThenInclude(x => x.Product).SingleOrDefault();
 
             var product = new ProductDto
             {
@@ -242,10 +245,10 @@ namespace Data.Repositories
             return resultSearch;
         }
 
-        public List<Article> searchArticle( string title)
+        public List<Article> searchArticle(string title)
         {
             List<Article> articles = Table.Where(c => c.Title.Contains(title)).ToList();
-            
+
             return articles;
         }
 
@@ -258,7 +261,7 @@ namespace Data.Repositories
 
         public ArticleDto GetArticleBySlug(string slug)
         {
-            var article = Table.Where(a=>a.Slug==slug).SingleOrDefault();
+            var article = Table.Where(a => a.Slug == slug).SingleOrDefault();
             var listArticleCategoryId = _articleCategoryAssignRepository.GetListArticleCategoryIdWithArticleId(article.Id);
 
             var res = new ArticleDto()
@@ -279,7 +282,7 @@ namespace Data.Repositories
 
             return res;
         }
-        public ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId , int PageNum = 1)
+        public ListArticleDto GetListArticlesByArticleCategoryId(int articleCategoryId , int PageNum = 1, int PageSize = 0)
         {
             var listarticleId = _articleCategoryAssignRepository.GetListArticleIdWithArticleCategoryId(articleCategoryId);
 
@@ -292,7 +295,7 @@ namespace Data.Repositories
                 articles.Add(product);
             }
 
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListArticleDto();
             list.CurrentPage = PageNum;
@@ -310,7 +313,7 @@ namespace Data.Repositories
                 RegisterDate = t.RegisterDate.ToShamsi(),
                 Visit = t.Visit
             }).OrderByDescending(x => x.RegisterDate).Skip(skip).Take(take).ToList();
-           // OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
+            // OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
             return list;
         }
 
@@ -327,6 +330,8 @@ namespace Data.Repositories
             article.IsDelete = true;
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
+
+
 
         //public ArticleDto GetListBlogByProductId(int id)
         //{
@@ -353,5 +358,58 @@ namespace Data.Repositories
         //    };
         //    return product;
         //}
+
+        #region MyRegion
+        public ArticleQueryModel GetArticleDetails(int id)
+        {
+            var article = Table
+           .Include(x => x.Category)
+           .Where(x => x.RegisterDate <= DateTime.Now)
+           .Select(x => new ArticleQueryModel
+           {
+               Id = x.Id,
+               Title = x.Title,
+               CategoryName = x.Category.Title,
+               CategorySlug = x.Category.Slug,
+               Slug = x.Slug,
+               Description = x.Description,
+               Keywords = x.KeyWords,
+               MetaDescription = x.Description,
+               Picture = x.Avatar,
+               PictureAlt = x.AvatarAlt,
+               PictureTitle = x.AvatarTitle,
+               PublishDate = x.RegisterDate.ToShamsi(),
+               ShortDescription = x.Description,
+           }).FirstOrDefault(x => x.Id == id);
+
+                    if (!string.IsNullOrWhiteSpace(article.Keywords))
+                        article.KeywordList = article.Keywords.Split(",").ToList();
+
+            
+                    //var comments =
+                    //    .Where(x => !x.IsCanceled)
+                    //    .Where(x => x.IsConfirmed)
+                    //    .Where(x => x.Type == CommentType.Article)
+                    //    .Where(x => x.OwnerRecordId == article.Id)
+                    //    .Select(x => new CommentQueryModel
+                    //    {
+                    //        Id = x.Id,
+                    //        Message = x.Message,
+                    //        Name = x.Name,
+                    //        ParentId = x.ParentId,
+                    //        CreationDate = x.CreationDate.ToFarsi()
+                    //    }).OrderByDescending(x => x.Id).ToList();
+
+            //foreach (var comment in comments)
+            //{
+            //    if (comment.ParentId > 0)
+            //        comment.parentName = comments.FirstOrDefault(x => x.Id == comment.ParentId)?.Name;
+            //}
+
+            //article.Comments = comments;
+
+            return article;
+        }
+        #endregion
     }
 }

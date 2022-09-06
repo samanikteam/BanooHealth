@@ -12,7 +12,7 @@ namespace Data.Contracts
 {
     public interface INewsRepository : IRepository<News>
     {
-        Task AddEmail(NewsDto newsDto, CancellationToken cancellationToken);
+        Task AddEmail(string Email, CancellationToken cancellationToken);
 
     }
 }

@@ -64,6 +64,17 @@
 
                     <li><a href="/Index"><i class="uil uil-sitemap ms-2 d-inline-block"></i>صفحه اصلی</a></li>
                     <li><a href="/administration"><i class="uil uil-dashboard ms-2 d-inline-block"></i>داشبورد</a></li>
+
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-dollar-sign-alt  ms-2  d-inline-block"></i>مدیریت کاربران</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Users">لیست کاربران‌</a></li>
+                                <li><a href="#">مدیریت نفش ها</a></li>
+                                <li><a href="#">مدیریت دسترسی ها</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Users)).Result.Succeeded)
                     {
                         <li class="sidebar-dropdown">
@@ -78,6 +89,17 @@
                         </li>
                     }
 
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-letter-english-a ms-2 d-inline-block"></i>مدیریت بلاگ</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Blog/Articles/Index">مدیریت مجله‌ها</a></li>
+                                <li><a href="/Administration/Blog/Categories">مدیریت دسته‌بندی‌ها</a></li>
+                                <li><a href="/Administration/Blog/Comments">مدیریت نظرات</a></li>
+                                <li><a href="/Administration/Blog/Comments/answercomments">مدیریت پاسخگویی نظرات</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs)).Result.Succeeded)
                     {
                         <li class="sidebar-dropdown">
@@ -92,6 +114,18 @@
                         </li>
                     }
 
+                    <li class="sidebar-dropdown">
+                        <a href="javascript:void(0)"><i class="uil uil-box ms-2 d-inline-block"></i>مدیریت محصولات دارویی</a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li><a href="/Administration/Product/ProductManagement">مدیریت ‌محصولات</a></li>
+                                <li><a href="/Administration/Product/ProductCategory">مدیریت دسته‌بندی‌ محصولات</a></li>
+                                <li><a href="/Administration/Product/Filter">مدیریت ویژگی محصولات</a></li>
+                                @*<li><a href="/Administration/Product/Comments">مدیریت نظرات</a></li>
+                                <li><a href="/Administration/Product/Comments/answercomments">مدیریت پاسخگویی نظرات</a></li>*@
+                            </ul>
+                        </div>
+                    </li>
                     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Product)).Result.Succeeded)
                     {
                         <li class="sidebar-dropdown">
@@ -156,56 +190,7 @@
                 </ul>
                 <!-- sidebar-menu  -->
             </div>
-            <!-- sidebar-content  -->
-            <ul class="sidebar-footer list-unstyled mb-0">
-                <li class="list-inline-item mb-0 me-1">
-                    <a href="#" class="btn btn-icon btn-pills btn-soft-primary">
-                        <i class="uil uil-comment icons"></i>
-                    </a>
-                </li>
 
-                <li class="list-inline-item mb-0 me-1">
-                    <div class="dropdown dropdown-primary">
-                        <button type="button" class="btn btn-pills btn-soft-primary dropdown-toggle p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="~/AdminThem/images/language/american.png" class="avatar avatar-ex-small rounded-circle" alt=""></button>
-                        <div class="dropdown-menu dd-menu drop-ups dropdown-menu-end bg-white shadow border-0 mt-3 p-2" data-simplebar style="height: 175px;">
-                            <a href="javascript:void(0)" class="d-flex align-items-center">
-                                <img src="~/AdminThem/images/language/chinese.png" class="avatar avatar-client rounded-circle shadow" alt="">
-                                <div class="flex-1 text-left me-2 overflow-hidden">
-                                    <small class="text-dark mb-0">چینی</small>
-                                </div>
-                            </a>
-
-                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
-                                <img src="~/AdminThem/images/language/european.png" class="avatar avatar-client rounded-circle shadow" alt="">
-                                <div class="flex-1 text-left me-2 overflow-hidden">
-                                    <small class="text-dark mb-0">اوروپایی</small>
-                                </div>
-                            </a>
-
-                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
-                                <img src="~/AdminThem/images/language/indian.png" class="avatar avatar-client rounded-circle shadow" alt="">
-                                <div class="flex-1 text-left me-2 overflow-hidden">
-                                    <small class="text-dark mb-0">هندی</small>
-                                </div>
-                            </a>
-
-                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
-                                <img src="~/AdminThem/images/language/japanese.png" class="avatar avatar-client rounded-circle shadow" alt="">
-                                <div class="flex-1 text-left me-2 overflow-hidden">
-                                    <small class="text-dark mb-0">ژاپنی</small>
-                                </div>
-                            </a>
-
-                            <a href="javascript:void(0)" class="d-flex align-items-center mt-2">
-                                <img src="~/AdminThem/images/language/russian.png" class="avatar avatar-client rounded-circle shadow" alt="">
-                                <div class="flex-1 text-left me-2 overflow-hidden">
-                                    <small class="text-dark mb-0">روسی</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </nav>
         <!-- sidebar-wrapper  -->
         <!-- Start Page Content -->

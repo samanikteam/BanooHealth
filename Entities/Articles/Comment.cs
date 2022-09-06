@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Entities.Articles
 {
     public class Comment: BaseEntity<int>
     {
+        public int? ParentId { get; set; }
 
         [Required]
         [MaxLength(200)]
@@ -37,6 +39,9 @@ namespace Entities.Articles
 
         #region Relations
         public Article Article { get; set; }
+
+        [ForeignKey("ParentId")]
+        public List<Comment> Comments { get; set; }
         #endregion
 
 

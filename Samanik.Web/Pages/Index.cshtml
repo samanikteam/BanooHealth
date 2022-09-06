@@ -3,14 +3,12 @@
 @{
     Layout = "";
 
-
     ViewData["Title"] = "صفحه اصلی | سمانیک";
     ViewData["Description"] = Model.settingDto.Description;
     ViewData["Keywords"] = Model.settingDto.Keywords;
 
-    int articlecounter = 0;
-    int productcounter = 0;
-    int productcounter2 = 0;
+    int count = Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true).Count();
+    int j1 = 0, j2 = 0, j3 = 0;
 }
 <!DOCTYPE html>
 <html class="no-js" lang="fa" dir="rtl">
@@ -30,9 +28,10 @@
                 <!--header top start-->
                 <div class="header_top">
                     <div class="row align-items-center">
-                        <a asp-page="/Index"> 
-                            <img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow9" alt="@Model.bannerDto.Title9" 
-                            title="@Model.bannerDto.Title9" /></a>
+                        <a asp-page="/Index">
+                            <img src="~/Them/assets/img/bg/@Model.bannerDto.AvatarShow9" alt="@Model.bannerDto.Title9"
+                                 title="@Model.bannerDto.Title9" />
+                        </a>
                     </div>
                 </div>
                 <!--header top start-->
@@ -123,7 +122,7 @@
                                     <div class="slider_content">
 
                                     </div>
-                                </div>  
+                                </div>
                             }
                         </div>
                         <!-- Add Arrows -->
@@ -223,7 +222,7 @@
                         <h2>آخرین مطالب @Model.settingDto.Title</h2>
                     </div>
                     <div class="blog_container blog_column4 owl-carousel">
-                        @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate).Where(a=>a.IsDelete==false))
+                        @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate).Where(a => a.IsDelete == false))
                         {
                             <article class="single_blog">
                                 <figure>
@@ -283,10 +282,10 @@
                     {
                         <div class="single_categories_product">
                             <div class="categories_product_content">
-                                <h4><a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug">@item.Title</a></h4>
+                                <h4><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></h4>
                             </div>
                             <div class="categories_product_thumb">
-                                <a href="/Blog/ArticleByArticleCategory/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.AvatarTitle"></a>
+                                <a href="/Blog/Category/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.AvatarTitle"></a>
                             </div>
                         </div>
                     }
@@ -303,9 +302,8 @@
                             <h2>پربازدیدترین مطالب @Model.settingDto.Title</h2>
                         </div>
                         <div class="blog_container blog_column4 owl-carousel">
-                            @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit).Where(a=>a.IsDelete==false))
+                            @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit).Where(a => a.IsDelete == false).Take(10))
                             {
-                                articlecounter++;
                                 <article class="single_blog">
                                     <figure>
                                         <div class="blog_thumb">
@@ -325,11 +323,6 @@
                                         </figcaption>
                                     </figure>
                                 </article>
-                                if (articlecounter == 10)
-                                {
-                                    articlecounter = 0;
-                                    break;
-                                }
                             }
                         </div>
                     </div>
@@ -342,49 +335,49 @@
 
         <!--پر بازدید ترین ویدئو ها-->
         @*<div class="blog_area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section_title s_title_style3">
-                                <h2>پربازدیدترین ویدیو های @Model.settingDto.Title</h2>
-                            </div>
-                            <div class="blog_container blog_column4 owl-carousel">
-                                <article class="single_blog">
-                                    <figure>
-                                        <div class="blog_thumb">
-                                            <video width="320" height="240" controls>
-                                                <source src="~/VedioProduct/movie.mp4" type="video/mp4">
-                                                <source src="~/VedioProduct/movie.mp4" type="video/ogg">
-                                                Your browser does not support the video tag.
-                                            </video>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section_title s_title_style3">
+                            <h2>پربازدیدترین ویدیو های @Model.settingDto.Title</h2>
+                        </div>
+                        <div class="blog_container blog_column4 owl-carousel">
+                            <article class="single_blog">
+                                <figure>
+                                    <div class="blog_thumb">
+                                        <video width="320" height="240" controls>
+                                            <source src="~/VedioProduct/movie.mp4" type="video/mp4">
+                                            <source src="~/VedioProduct/movie.mp4" type="video/ogg">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                    <figcaption class="blog_content">
+                                        <h4><a href="blog-details.html">مطلب دارای گالری</a></h4>
+                                        <div class="post_meta">
+                                            <p>توسط  <a href="#">مدیر</a> در تاریخ <a href="#">18 بهمن 1398</a></p>
                                         </div>
-                                        <figcaption class="blog_content">
-                                            <h4><a href="blog-details.html">مطلب دارای گالری</a></h4>
-                                            <div class="post_meta">
-                                                <p>توسط  <a href="#">مدیر</a> در تاریخ <a href="#">18 بهمن 1398</a></p>
-                                            </div>
-                                            <div class="post_desc">
-                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</p>
-                                            </div>
-                                            <footer class="post_readmore">
-                                                <a href="#">بیشتر بخوانید</a>
-                                            </footer>
-                                        </figcaption>
-                                    </figure>
-                                </article>
+                                        <div class="post_desc">
+                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</p>
+                                        </div>
+                                        <footer class="post_readmore">
+                                            <a href="#">بیشتر بخوانید</a>
+                                        </footer>
+                                    </figcaption>
+                                </figure>
+                            </article>
 
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
+        </div>*@
 
         <br />
         <br />
 
 
         <!--پرفروش ترین محصولات-->
-        <div class="small_product_area mb-55">
+        <div class="product_area">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -392,125 +385,63 @@
                             <div class="section_title">
                                 <h2>محصولات پرفروش</h2>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div class="tab-content">
-
-                    <div class="tab-pane fade show active" id="Games2" role="tabpanel">
-                        <div class="product_carousel small_p_container  small_product_column3 owl-carousel">
-                            <div class="product_items">
-                                @foreach (var item in Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true))
-                                {
-                                    productcounter++;
-                                    <figure class="single_product">
+                    <div class="tab-pane fade show active" role="tabpanel">
+                        <div class="product_carousel product_style product_column5 owl-carousel">
+                            @foreach (var item in Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true))
+                            {
+                                <article class="single_product">
+                                    <figure>
                                         <div class="product_thumb">
                                             <a class="primary_img" href="/Products/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="@item.AvatarAlt1" title="@item.AvatarTitle1"></a>
+                                            @*<a class="secondary_img" href="product-details.html"><img src="assets/img/product/product2.jpg" alt=""></a>*@
+                                            <div class="label_product">
+                                                <span class="label_sale">فروش</span>
+                                            </div>
+                                            <div class="action_links">
+                                                <ul>
+                                                    <li class="wishlist"><a href="wishlist.html" title="افزودن به علاقه‌مندی‌ها"><i class="ion-android-favorite-outline"></i></a></li>
+                                                    <li class="compare"><a href="#" title="افزودن به مقایسه"><i class="ion-ios-settings-strong"></i></a></li>
+                                                    <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="مشاهده سریع"><i class="ion-ios-search-strong"></i></a></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div class="product_content">
-                                            <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug">@item.Title</a></h4>
-                                            <div class="product_rating">
-                                                <span>@item.Description</span>
+                                            <div class="product_content_inner">
+                                                <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug">@item.Title</a></h4>
+                                                <div class="product_rating">
+                                                    <span>@item.Description</span>
+                                                </div>
+                                                <div class="price_box">
+                                                    @if (item.MinimumPrice != null)
+                                                    {
+                                                        <span>قیمت از</span>
+                                                        <span class="current_price">@Int32.Parse(item.MinimumPrice).ToString("N0") تومان</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="current_price">داروخانه‌ای ثبت نشده است.</span>
+                                                    }
+                                                </div>
                                             </div>
-                                            <div class="price_box">
-                                                قیمت از
-                                                <span class="current_price">@item.MinimumPrice</span>
-
+                                            <div class="add_to_cart">
+                                                <a href="/Products/@item.Id/@item.Slug" title="مشاهده محصول">مشاهده محصول</a>
                                             </div>
-                                            <div class="product_cart_button">
-                                                <a href="/Products/@item.Id/@item.Slug" title="مشاهده"><i class="fa fa-eye"></i></a>
-                                            </div>
-
                                         </div>
                                     </figure>
-                                    if (productcounter == 2)
-                                        break;
-                                }
-                            </div>
-                            <div class="product_items">
-                                @foreach (var item in Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true))
-                                {
-                                    if (productcounter2 >= 2)
-                                    {
-                                        productcounter++;
-                                        <figure class="single_product">
-                                            <div class="product_thumb">
-                                                <a class="primary_img" href="/Products/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="@item.AvatarAlt1" title="@item.AvatarTitle1"></a>
-                                            </div>
-                                            <div class="product_content">
-                                                <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug">@item.Title</a></h4>
-                                                <div class="product_rating">
-                                                    <span>@item.Description</span>
-                                                </div>
-                                                <div class="price_box">
-                                                    قیمت از
-                                                    <span class="current_price">@item.MinimumPrice</span>
-                                                </div>
-                                                <div class="product_cart_button">
-                                                    <a href="/Products/@item.Id/@item.Slug" title="مشاهده"><i class="fa fa-eye"></i></a>
-                                                </div>
-
-                                            </div>
-                                        </figure>
-                                        if (productcounter == 4)
-                                        {
-                                            productcounter2 = 0;
-                                            break;
-                                        }
-
-                                    }
-                                    else
-                                        productcounter2++;
-
-
-                                }
-                            </div>
-                            <div class="product_items">
-                                @foreach (var item in Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true))
-                                {
-                                    if (productcounter2 >= 4)
-                                    {
-                                        productcounter++;
-                                        <figure class="single_product">
-                                            <div class="product_thumb">
-                                                <a class="primary_img" href="/Products/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="@item.AvatarAlt1" title="@item.AvatarTitle1"></a>
-                                            </div>
-                                            <div class="product_content">
-                                                <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug">@item.Title</a></h4>
-                                                <div class="product_rating">
-                                                    <span>@item.Description</span>
-                                                </div>
-                                                <div class="price_box">
-                                                    قیمت از
-                                                    <span class="current_price">@item.MinimumPrice</span>
-                                                </div>
-                                                <div class="product_cart_button">
-                                                    <a href="/Products/@item.Id/@item.Slug" title="مشاهده"><i class="fa fa-eye"></i></a>
-                                                </div>
-
-                                            </div>
-                                        </figure>
-                                        if (productcounter == 6)
-                                        {
-                                            productcounter2 = 0;
-                                            break;
-                                        }
-
-                                    }
-                                    else
-                                        productcounter2++;
-
-
-                                }
-                            </div>
+                                </article>
+                            }
                         </div>
                     </div>
                 </div>
 
-
             </div>
         </div>
+
+
     </div>
     <!--home section bg area end-->
 

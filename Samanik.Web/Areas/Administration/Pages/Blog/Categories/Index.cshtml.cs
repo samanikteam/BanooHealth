@@ -40,6 +40,13 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Categories
             {
                 ViewData["ArticleCategories"] = new SelectList(_Repository.GetArticleCategories(), "Id", "Title");
                 ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum);
+      
+        //take
+        public int PageSize = 12;
+        public void OnGet(int PageNum = 1)
+        {
+            ViewData["ArticleCategories"] = new SelectList(_Repository.GetArticleCategories(), "Id", "Title");
+            ListArticleCategoryDto = _Repository.GetListArticleCategory(PageNum, PageSize);
 
                 //Add By vahid
                 StringBuilder QParam = new StringBuilder();

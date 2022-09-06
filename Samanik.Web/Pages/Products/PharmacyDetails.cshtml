@@ -1,0 +1,92 @@
+﻿@page "{id}"
+@model Samanik.Web.Pages.Products.PharmacyDetailsModel
+@{
+    Layout = "";
+}
+
+
+<!DOCTYPE html>
+<html class="no-js" lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>اطلاعات داروخانه @Model.dto.Name</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Them/assets/img/favicon.ico1">
+
+    <meta name="theme-color" content="#c40316">
+
+    <!-- CSS
+    ========================= -->
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="~/Them/assets/css/plugins.css">
+
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="~/Them/assets/css/style.css">
+
+
+</head>
+
+<body>
+
+    <!--coming soon area start-->
+    <div class="coming_soon_area js-ripples">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="coming_soon_container">
+                        <div class="coming_soon_logo text-center">
+                            @*<a href="#"><img src="~/Them/assets/img/logo/logo-white.png" alt=""></a>*@
+                        </div>
+
+                        <div class="coming_soon_title">
+                            <h2>@Model.dto.Name - @Model.dto.DrName</h2>
+                            <p>شماره تماس:   @Model.dto.Phone
+                            <br />
+                            استان: @Model.dto.Province | شهر: @Model.dto.City | آدرس: @Model.dto.Address
+                            </p>
+                        </div>
+
+                        @*<div class="coming_soon_timing">
+                            <div data-countdown="2045/12/15"></div>
+                        </div>*@
+
+
+                        <div class="coming_soon_newsletter">
+                            <h3>برای اطلاع از اخبار ما مشترک شوید</h3>
+                            <div class="subscribe_form">
+                                <form method="post" class="mc-form footer-newsletter">
+                                    <input name="id" type="hidden" value="@Model.dto.Id" />
+                                    <input id="mc-email" name="Email" type="email" autocomplete="off" placeholder="ایمیل خود را وارد کنید ...">
+                                    <button id="mc-submit">اشتراک</button>
+                                </form>
+                                <!-- mailchimp-alerts Start -->
+                                <div class="mailchimp-alerts text-centre">
+                                    <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+                                    <div class="mailchimp-success"></div><!-- mailchimp-success end -->
+                                    <div class="mailchimp-error"></div><!-- mailchimp-error end -->
+                                </div><!-- mailchimp-alerts end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--coming soon area end-->
+    <!-- JS
+    ============================================ -->
+    <!-- Plugins JS -->
+    <script src="~/Them/assets/js/plugins.js"></script>
+
+    <!-- Main JS -->
+    <script src="~/Them/assets/js/main.js"></script>
+
+
+
+</body>
+
+</html>

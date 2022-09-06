@@ -9,6 +9,8 @@ namespace Data.Models
 {
     public class ProCommentDto
     {
+        public int Id { get; set; }
+        public int? ParentId { get; set; }
         //[Required]
         [MaxLength(200)]
         [Display(Name = "نام")]
@@ -32,7 +34,7 @@ namespace Data.Models
         public string RegisterDate { get; set; }
 
         public int ProductId { get; set; }
-       // public string ProdoctTitle { get; set; }
+        public string ProdoctTitle { get; set; }
 
     }
 
@@ -41,5 +43,7 @@ namespace Data.Models
         public List<ProCommentDto> ProComments { get; set; }
         public int CurrentPage { get; set; }
         public int PageCount { get; set; }
+        public int count { get; set; }
+        public int skip { get; set; }
     }
 }

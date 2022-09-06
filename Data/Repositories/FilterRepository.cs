@@ -41,10 +41,10 @@ namespace Data.Repositories
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        public ListFilterDto GetListFilter(int PageNum = 1)
+        public ListFilterDto GetListFilter(int PageNum = 1, int PageSize = 0)
         {
             var filters = Table;
-            var take = 15;
+            var take = PageSize;
             var skip = (PageNum - 1) * take;
             var list = new ListFilterDto() { };
             list.CurrentPage = PageNum;

@@ -31,6 +31,28 @@ namespace Samanik.Web.Areas.Administration.Pages.Media.LoginSlider
         public ListLoginSliderDto ListSlider { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
+        public int PageSize = 12;
+        public void OnGet(int PageNum = 1)
+        {
+            ListSlider = _loginSlider.GetListLoginSliderDto(PageNum,PageSize);
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Media/LoginSlider/Index?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (ListSlider.LoginSliders.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = ListSlider.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         public int PageSize = 15;
         public IActionResult OnGet(int PageNum = 1)
         {

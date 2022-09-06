@@ -11,5 +11,7 @@ namespace Common.Utilities
         public const int New = 0;
         public const int Confirm = 1;
         public const int Cancel = 2;
+        public const int Answerd = 3;//===پاسخ داده شده
+        public const int Answer = 4;//===کارشناس پاسخ داده است
     }
 }

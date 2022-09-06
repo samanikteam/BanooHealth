@@ -208,6 +208,9 @@ namespace Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("datetime2");
 
@@ -217,6 +220,8 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArticleId");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Comments");
                 });
@@ -229,7 +234,6 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<byte[]>("Avatar")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("AvatarAlt")
@@ -702,6 +706,9 @@ namespace Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -712,6 +719,8 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("ProductId");
 
@@ -1323,6 +1332,10 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Entities.Articles.Comment", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ParentId");
+
                     b.Navigation("Article");
                 });
 
@@ -1366,6 +1379,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Products.ProComment", b =>
                 {
+                    b.HasOne("Entities.Products.ProComment", null)
+                        .WithMany("ProComments")
+                        .HasForeignKey("ParentId");
+
                     b.HasOne("Entities.Products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -1483,6 +1500,16 @@ namespace Data.Migrations
             modelBuilder.Entity("Entities.Articles.Category", b =>
                 {
                     b.Navigation("Articles");
+                });
+
+            modelBuilder.Entity("Entities.Articles.Comment", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Entities.Products.ProComment", b =>
+                {
+                    b.Navigation("ProComments");
                 });
 
             modelBuilder.Entity("Entities.Products.Product", b =>

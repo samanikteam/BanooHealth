@@ -16,7 +16,7 @@ namespace Data.Contracts
         Task<int> AddAsync(ProductDto productDto, string RegisterUserId, List<IFormFile> Image1, CancellationToken cancellationToken);
         Task<int> UpdateAsync(ProductDto productDto, string RegisterUserId, List<IFormFile> Image, CancellationToken cancellationToken);
 
-        ListProductDto GetListProduct(int PageNum = 1);
+        ListProductDto GetListProduct(int PageNum = 1, int PageSize = 12);
 
         Task<bool> IsExistProduct(string title);
 
@@ -29,7 +29,7 @@ namespace Data.Contracts
         public List<Product> searchProduct(string title);
         List<Product> GetProducts();
 
-        ListProductDto GetListProductsByProductCategoryId(int productCategoryId);
+        ListProductDto GetListProductsByProductCategoryId(int productCategoryId, int PageNum = 1, int PageSize = 0);
 
     }
 }

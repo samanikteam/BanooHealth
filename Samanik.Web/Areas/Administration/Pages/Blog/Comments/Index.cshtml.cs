@@ -33,7 +33,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public ListCommentDto ListComment { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 20;
 
         public IActionResult OnGet(int PageNum = 1)
         {
@@ -66,6 +66,28 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
             {
                 return Redirect("/login/logout");
             }
+        public void OnGet(int PageNum = 1)
+        {
+            ListComment = _CommentRepository.GetListComments(PageNum,PageSize);
+            ViewData["Articles"] = new SelectList(_ArticleRepasitory.GetArticlesForComment(), "Id", "Title");
+            //Add By vahid
+            StringBuilder QParam = new StringBuilder();
+            if (PageNum != 0)
+            {
+                QParam.Append($"/Administration/Blog/Comments?PageNum=-");
+                //Administration / Blog / Articles / Index
+            }
+            if (ListComment.Comments.Count >= 0)
+            {
+                PagingData = new PagingData
+                {
+                    CurrentPage = PageNum,
+                    RecordsPerPage = PageSize,
+                    TotalRecords = ListComment.count,
+                    UrlParams = QParam.ToString(),
+                    LinksPerPage = 7
+                };
+            }
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
@@ -79,13 +101,13 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Comments
         public async Task<IActionResult> OnPostConfirm(int id, CancellationToken cancellationToken)
         {
             await _CommentRepository.Confirm(id,cancellationToken);
-            return Redirect("/Administration/Blog/Comments/Index");
+            return Redirect("/Administration/Blog/Comments/answercomments?PageNum=1");
         }
 
         public async Task<IActionResult> OnPostCancel(int id, CancellationToken cancellationToken)
         {
             await _CommentRepository.Cancel(id,cancellationToken);
-            return Redirect("/Administration/Blog/Comments/Index");
+            return Redirect("/Administration/Blog/Comments/answercomments?PageNum=1");
         }
     }
 }

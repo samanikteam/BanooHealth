@@ -8,7 +8,7 @@ namespace Data.Models
 {
     public class ArticleDto
     {
-        public int Id{ get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(150)]
@@ -55,7 +55,6 @@ namespace Data.Models
 
         public long? Visit { get; set; }
 
-        [Required]
         public bool IsDelete { get; set; }
 
 
@@ -74,5 +73,36 @@ namespace Data.Models
         public int PageCount { get; set; }
         public int count { get; set; }
         public int skip { get; set; }
+    }
+
+    public class ArticleQueryModel
+    {
+        public long Id { get; set; }
+        public string Title { get; set; }
+        public string ShortDescription { get; set; }
+        public string Description { get; set; }
+        public byte[] Picture { get; set; }
+        public string PictureAlt { get; set; }
+        public string PictureTitle { get; set; }
+        public string PublishDate { get; set; }
+        public string Slug { get; set; }
+        public string Keywords { get; set; }
+        public List<string> KeywordList { get; set; }
+        public string MetaDescription { get; set; }
+        public string CanonicalAddress { get; set; }
+        public long CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string CategorySlug { get; set; }
+        public List<CommentQueryModel> Comments { get; set; }
+    }
+
+    public class CommentQueryModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Message { get; set; }
+        public string CreationDate { get; set; }
+        public long ParentId { get; set; }
+        public string parentName { get; set; }
     }
 }

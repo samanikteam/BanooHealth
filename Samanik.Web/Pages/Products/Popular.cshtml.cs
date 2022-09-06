@@ -46,12 +46,12 @@ namespace Samanik.Web.Pages.Products
 
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 8;
+        public int PageSize = 16;
         public void OnGet(string ProductCatPath = null , string slug=null, int PageNum = 1)
         {
 
-            listProductDto = _productRepository.GetListProduct(PageNum);
-            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
+            listProductDto = _productRepository.GetListProduct(PageNum,PageSize);
+            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(1,50);
 
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
@@ -60,13 +60,13 @@ namespace Samanik.Web.Pages.Products
                 QParam.Append($"/Products/Popular?PageNum=-");
 
             }
-            if (listProductCategoryDto.ProductCategories.Count >= 0)
+            if (listProductDto.Products.Count >= 0)
             {
                 PagingData = new PagingData
                 {
                     CurrentPage = PageNum,
                     RecordsPerPage = PageSize,
-                    TotalRecords = listProductCategoryDto.count,
+                    TotalRecords = listProductDto.count,
                     UrlParams = QParam.ToString(),
                     LinksPerPage = 7
                 };

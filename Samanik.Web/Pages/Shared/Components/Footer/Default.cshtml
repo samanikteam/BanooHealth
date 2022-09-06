@@ -1,7 +1,6 @@
 ﻿@model Data.Models.FooterViewModel;
 
 @{ 
-    int articlecounter = 0;
 }
 <footer class="footer_widgets">
     <!--newsletter area start-->
@@ -12,18 +11,18 @@
                     <div class="col-lg-3 col-md-5">
                         <div class="newsletter_sing_up">
                             <h3>عضویت در خبرنامه</h3>
-                            <p>با عضویت از <span>30% تخفیف</span> بهره مند شوید</p>
+                            <p>با عضویت از <span>اخبار بانوهلث</span> بهره مند شوید</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-7">
                         <div class="subscribe_content">
-                            <p><strong>به 226,000+ مشترک ما</strong> بپیوندید و از تخفیف های ویژه هفتگی مخصوص مشترکین خبرنامه بهره مند شوید.</p>
+                            <p><strong>به مشترکین ما</strong> بپیوندید و از تخفیف های ویژه هفتگی مخصوص مشترکین خبرنامه بهره مند شوید.</p>
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-12">
                         <div class="subscribe_form">
                             <form class="mc-form footer-newsletter" method="post" asp-page-handler="News">
-                                <input  type="email" autocomplete="off" placeholder="... آدرس ایمیل شما" dir="ltr">
+                                <input type="email" name="Email" autocomplete="off" placeholder="... آدرس ایمیل شما" dir="ltr">
                                 <button type="submit">اشتراک</button>
                             </form>
                             <!-- mailchimp-alerts Start -->
@@ -47,7 +46,7 @@
                     <div class="widgets_container contact_us">
                         <h3>درباره ما</h3>
                         <div class="aff_content">
-                            <p>شرکت "سمانیک سلامت گستر" به اختصار "سمانیک" با هدف تهیه، تولید و عرضه محصولات سلامت محور با تمرکز بر فراورده های دارویی، مکمل و فراورده های طبیعی و گیاهی از سال 1395شروع به کار نموده است. هدف اصلی سمانیک ایفای نقش در تامین سلامت و آرامش جامعه با تاکید بر ارائه محصولات اثر بخش باکیفیت با قیمت مناسب می باشد..</p>
+                            <p>@Model.contactusDto.Description</p>
                         </div>
                     </div>
                 </div>
@@ -56,7 +55,7 @@
                         <h3>دسته‌بندی مقالات</h3>
                         <div class="footer_menu">
                             <ul>
-                                @foreach (var item in Model.listArticleCategory.articleCategories.OrderByDescending(a=>a.RegisterDate))
+                                @foreach (var item in Model.listArticleCategory.articleCategories.OrderByDescending(a=>a.RegisterDate).Take(5))
                                 {
                                     <li><a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a></li>
                                 }
@@ -69,15 +68,9 @@
                         <h3>پربازدیدترین مقالات</h3>
                         <div class="footer_menu">
                             <ul>
-                                @foreach (var item in Model.ListArticle.Articles.OrderByDescending(a => a.Visit))
+                                @foreach (var item in Model.ListArticle.Articles.OrderByDescending(a => a.Visit).Take(5))
                                 {
-                                    articlecounter++;
                                     <li><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></li>
-                                    if (articlecounter == 10)
-                                    {
-                                        articlecounter = 0;
-                                        break;
-                                    }
                                 }
                             </ul>
                         </div>
@@ -103,10 +96,10 @@
                                     <img src="~/Them/assets/img/icon/icon-phone.png" alt="">
                                 </div>
                                 <div class="contact_text">
-                                    <p>تلفن تماس 24 ساعته: <br> <strong class="ltr-text">(+98) 021-88395400</strong></p>
+                                    <p>تلفن تماس: <br> <strong class="ltr-text">@Model.contactusDto.Phone</strong></p>
                                 </div>
                             </div>
-                            <p>تهران ، بلوار کشاورز - خیابان نادری - پلاک 2 واحد 506</p>
+                            <p>@Model.contactusDto.Address</p>
                         </div>
 
                         <div class="footer_social">

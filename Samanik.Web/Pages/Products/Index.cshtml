@@ -5,6 +5,11 @@
     ViewData["Title"] = Model.productDto.Title;
     ViewData["Description"] = Model.productDto.Description;
     ViewData["Keywords"] = Model.productDto.KeyWords;
+
+    string currentUrl = Request.Scheme + "://" + Request.Host + Request.Path;
+    string enc = System.Net.WebUtility.UrlEncode(currentUrl);
+    string text = System.Net.WebUtility.UrlEncode(Model.productDto.Description);
+
 }
 
 <div class="breadcrumbs_area">
@@ -14,9 +19,8 @@
                 <div class="breadcrumb_content">
                     <ul>
                         <li><a href="/Index">خانه</a></li>
-                        <li><a href="/MainPage/ProductsShop/ProductShop">محصولات</a></li>
+                        <li><a href="/shopping">محصولات</a></li>
                         <li>@Model.productDto.Title</li>
-
                     </ul>
                 </div>
             </div>
@@ -61,36 +65,33 @@
                                 <div class="col-lg-7 col-md-6">
                                     <div class="product_d_right">
                                         <form action="#">
-
-                                            <h3><a href="#"></a></h3>
-
                                             <div class="product_desc">
                                                 <h1 style="font-size:24px;">
                                                     @Model.productDto.Title
                                                 </h1>
                                             </div>
-                                            <div class="product_info_content" style=" width: 200px; height:200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <div class="product_info_content">
                                                 <span>
                                                     @Model.productDto.Description
                                                 </span>
-
                                             </div>
-
+                                            <br />
+                                            <br />
                                             <div class="product_meta">
-                                                <span>دسته: <a href="#">@ViewBag.ProductCategory</a></span>
+                                                <span>
+                                                    دسته:
+                                                    @Model.productDto.ProductCategoryTitle
+                                                </span>
                                             </div>
 
                                         </form>
                                         <div class="priduct_social">
                                             <ul>
-                                                <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i> لایک</a></li>
-                                                <li><a class="twitter" href="#" title="twitter"><i class="fa fa-twitter"></i> توییت</a></li>
-                                                <li><a class="pinterest" href="#" title="pinterest"><i class="fa fa-pinterest"></i> ذخیره</a></li>
-                                                <li><a class="google-plus" href="#" title="google +"><i class="fa fa-google-plus"></i> اشتراک گذاری</a></li>
-                                                <li><a class="linkedin" href="#" title="linkedin"><i class="fa fa-linkedin"></i> لینکدین</a></li>
+                                                <li><a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=@enc" target="_blank" rel="noopener noreferrer nofollow" title="facebook"><i class="fa fa-facebook"></i> فیس بوک</a></li>
+                                                <li><a class="twitter" href="https://twitter.com/intent/tweet?url=@enc&text=@text" target="_blank" rel="noopener noreferrer nofollow" title="twitter"><i class="fa fa-twitter"></i> توییت</a></li>
+                                                <li><a class="google-plus" href="https://plus.google.com/share?url=@enc" target="_blank" rel="noopener noreferrer nofollow" title="google +"><i class="fa fa-google-plus"></i> اشتراک گذاری</a></li>
                                             </ul>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -107,9 +108,8 @@
                                 <div class="post_header">
                                     <h1 class="post_title"></h1>
                                     <div class="blog_meta">
-                                        <span class="fw-bolder">داروخانه‌های اینترنتی</span>
+                                        <span class="fw-bolder">داروخانه‌ها</span>
                                         <span class="meta_date" style="float:left"> <a href="#">راهنمای خرید امن</a> </span>
-                                        @*<span class="post_category">در : <a href="#">شرکت، عکس، مسافرت</a></span>*@
                                     </div>
                                 </div>
                             </figure>
@@ -124,27 +124,26 @@
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-6">
                                                     <div>
-                                                        <span class="" style="margin-right:0%;">
+                                                        <span class="" style="margin-right:0%; color:green;">
                                                             @item.Name
-
                                                         </span>
                                                         @*<span>  &nbsp;   &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; </span>*@
                                                         <span class="fw-bolder " style="margin-right:25%;">
-                                                            @item.ProductTitle
-
+                                                            @item.City
                                                         </span>
-
-                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0")</span>
-                                                        <button type="submit" class="btn btn-outline-danger float-right"> خرید اینترنتی</button>
+                                                        <span class="fw-bolder mr-0" style="margin-right:25%;">@item.ProductPrice.ToString("N0") تومان </span>
+                                                        @if (item.LinkAddress != null)
+                                                        {
+                                                            <a href="@item.LinkAddress" class="btn btn-outline-danger float-right"> خرید اینترنتی</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="/Products/PharmacyDetails/@item.PharmacyId" class="btn btn-outline-danger float-right">مشاهده اطلاعات</a>
+                                                        }
                                                         <br />
-                                                        <span class=""> @item.City</span>
-
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
                                         </div>
                                     </figure>
                                 }
@@ -156,28 +155,16 @@
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-12">
                                                     <div class="blog_meta">
-                                                        <span class="fw-bolder">در حال حاضر هیچ داروخانه این محصول را ارائه نمیکند</span>
+                                                        <span class="fw-bolder">در حال حاضر هیچ داروخانه این محصول را ارائه نمی‌کند</span>
                                                         <br />
-
-
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
-
                                         </div>
                                     </figure>
                                 }
-
                                 <hr />
-
-
                             }
-
-
-
                         </article>
                     </div>
                     <!--blog grid area start-->
@@ -189,7 +176,6 @@
                                 <div class="post_header">
                                     <div class="blog_meta">
                                         <span class="fw-bolder">توضیحات تکمیلی</span>
-
                                     </div>
                                     <div class="blog_content">
                                         @Html.Raw(Model.productDto.Text)
@@ -220,7 +206,7 @@
                                                         <figcaption class="blog_content">
                                                             <h4><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></h4>
                                                             <div class="post_meta">
-                                                                <p>توسط  <a href="#">مدیر</a> در تاریخ <a href="#">@item.RegisterDate</a></p>
+                                                                <p>توسط  <a href="#">مدیر</a> در تاریخ <a href="#">@item.RegisterDate.ToShamsi()</a></p>
                                                             </div>
                                                             <div class="post_desc">
                                                                 <p>@item.Description</p>

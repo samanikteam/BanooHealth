@@ -33,29 +33,30 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public ProductCategoryDto productCategoryDto { get; set; }
 
         public ListProductCategoryDto listProductCategoryDto { get; set; }
-            //Add By Vahid
-            public PagingData PagingData { get; set; }
-            public int PageSize = 8;
-        public void OnGet(int productCategoryId,string slug, int PageNum = 1)
+        //Add By Vahid
+        public PagingData PagingData { get; set; }
+        public int PageSize = 16;
+        public void OnGet(int productCategoryId, string slug, int PageNum = 1)
         {
             bannerDto = _bannerRepository.GetBanner();
-            listProductDto = _productRepository.GetListProductsByProductCategoryId(productCategoryId);
-            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
+            listProductDto = _productRepository.GetListProductsByProductCategoryId(productCategoryId, PageNum, PageSize);
+            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory();
             productCategoryDto = _ProductCategoryRepository.GetProductCategorybyId(productCategoryId);
+            
             //Add By vahid
             StringBuilder QParam = new StringBuilder();
             if (PageNum != 0)
             {
                 QParam.Append($"/Shopping/ProductCategory/" + productCategoryId + "?PageNum=-");
-
             }
-            if (listProductCategoryDto.ProductCategories.Count >= 0)
+
+            if (listProductDto.Products.Count >= 0)
             {
                 PagingData = new PagingData
                 {
                     CurrentPage = PageNum,
                     RecordsPerPage = PageSize,
-                    TotalRecords = listProductCategoryDto.count,
+                    TotalRecords = listProductDto.count,
                     UrlParams = QParam.ToString(),
                     LinksPerPage = 7
                 };

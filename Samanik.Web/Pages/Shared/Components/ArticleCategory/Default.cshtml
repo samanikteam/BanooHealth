@@ -1,13 +1,11 @@
 ﻿@model Data.Models.ListArticleCategoryDto
-@{ 
-    int counter = 0;
+@{
     bool MotherCategory = false;
 }
 <ul>
-    @foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null))
+    @if (Model.articleCategories.Count <= 11)
     {
-        counter++;
-        if (counter <= 11)
+        foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null).Take(11))
         {
             foreach (var item2 in Model.articleCategories.Where(a => a.ParentId == item.Id))
             {
@@ -42,9 +40,84 @@
                 </li>
             }
         }
-        else
+    }
+    else
+    {
+        foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null).Take(10))
         {
-            break;
+            foreach (var item2 in Model.articleCategories.Where(a => a.ParentId == item.Id))
+            {
+                MotherCategory = true;
+                break;
+            }
+            if (MotherCategory)
+            {
+                <li class="menu_item_children">
+                    <a href="/Blog/Category/@item.Id/@item.Slug">@item.Title <i class="fa fa-angle-left"></i></a>
+                    <ul class="categories_mega_menu">
+                        @foreach (var item2 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item.Id))
+                        {
+                            <li class="menu_item_children">
+                                <a href="/Blog/Category/@item2.Id/@item2.Slug">@item2.Title</a>
+                                <ul class="categorie_sub_menu">
+                                    @foreach (var item3 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item2.Id))
+                                    {
+                                        <li><a href="/Blog/Category/@item3.Id/@item3.Slug">@item3.Title</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                MotherCategory = false;
+            }
+            else
+            {
+                <li class="menu_item_children">
+                    <a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a>
+                </li>
+            }
         }
+        <li id="cat_toggle" class="has-sub">
+            <a href="#"> دسته‌های بیشتر</a>
+            <ul class="categorie_sub">
+                @foreach (var item in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == null).TakeLast(Model.articleCategories.Count() - 10))
+                {
+                    foreach (var item2 in Model.articleCategories.Where(a => a.ParentId == item.Id))
+                    {
+                        MotherCategory = true;
+                        break;
+                    }
+                    if (MotherCategory)
+                    {
+                        <li class="menu_item_children">
+                            <a href="/Blog/Category/@item.Id/@item.Slug">@item.Title <i class="fa fa-angle-left"></i></a>
+                            <ul class="categories_mega_menu">
+                                12
+                                @foreach (var item2 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item.Id))
+                                {
+                                    <li class="menu_item_children">
+                                        <a href="/Blog/Category/@item2.Id/@item2.Slug">@item2.Title</a>
+                                        <ul class="categorie_sub_menu">
+                                            @foreach (var item3 in Model.articleCategories.Where(a => a.IsDelete == false && a.ParentId == item2.Id))
+                                            {
+                                                <li><a href="/Blog/Category/@item3.Id/@item3.Slug">@item3.Title</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        MotherCategory = false;
+                    }
+                    else
+                    {
+                        <li class="menu_item_children">
+                            <a href="/Blog/Category/@item.Id/@item.Slug">@item.Title</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
     }
 </ul>

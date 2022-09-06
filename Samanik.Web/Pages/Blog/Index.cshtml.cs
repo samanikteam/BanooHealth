@@ -33,13 +33,13 @@ namespace Samanik.Web.Pages.Blog
         public ListCommentDto commentDto { get; set; }
         //Add By Vahid
         public PagingData PagingData { get; set; }
-        public int PageSize = 15;
+        public int PageSize = 10;
         public void OnGet(int PageNum = 1)
         {
             ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories(), "Id", "Title");
             listArticleCategoryDto = _CRepasitory.GetArticleCategories();
-            listArticleDto = _Repasitory.GetListArticle(PageNum);
-            commentDto = _commnetRepository.GetListComments(PageNum);
+            listArticleDto = _Repasitory.GetListArticle(PageNum, PageSize);
+            commentDto = _commnetRepository.GetListComments(PageNum,PageSize);
 
 
             StringBuilder QParam = new StringBuilder();

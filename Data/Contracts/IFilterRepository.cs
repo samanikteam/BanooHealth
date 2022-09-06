@@ -13,7 +13,7 @@ namespace Data.Contracts
     public interface IFilterRepository :IRepository<Filter>
     {
         Task AddFilter(FilterDto filterDto, CancellationToken cancellationToken);
-        ListFilterDto GetListFilter(int PageNum = 1);
+        ListFilterDto GetListFilter(int PageNum = 1, int PageSize = 0);
         List<Filter> Getfilters();
         Task Active(int id, CancellationToken cancellationToken);
         Task Deactive(int id, CancellationToken cancellationToken);
