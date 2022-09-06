@@ -1,7 +1,7 @@
 ﻿@page "{slug?}"
 @model Samanik.Web.Pages.Products.PopularModel
 @{
-    ViewData["Title"] = "";
+    ViewData["Title"] = "معرفی پر فروش ترین مکمل ها";
     ViewData["Description"] = "";
     ViewData["Keywords"] = "";
 }
@@ -33,7 +33,7 @@
                         <h3>دسته‌های محصولات</h3>
                         <ul>
                             <li>
-                                <a class="category-level-2" href="/shopping">همه محصولات</a>
+                                <a class="category-level-2" style="color:red;" href="/shopping">همه محصولات</a>
                             </li>
                             @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null && p.IsDelete == false))
                             {
@@ -93,7 +93,7 @@
                     <div class="shop_toolbar_btn">
                         <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
                     </div>
-                    <div class="niceselect_container">
+                    @*<div class="niceselect_container">
                         <form action="#">
                             <label>ترتیب:</label>
                             <select class="select_option" name="orderby" id="short">
@@ -105,7 +105,7 @@
                                 <option value="6">نام محصول</option>
                             </select>
                         </form>
-                    </div>
+                    </div>*@
                 </div>
                 <!--shop toolbar end-->
                 <!--shop wrapper start-->
@@ -146,7 +146,7 @@
                                         <div class="add_to_cart">
                                             @if (item.MinimumPrice != null)
                                             {
-                                                <a href="/Products/@item.Id/@item.Slug" title="افزودن به سبد">افزودن به سبد</a>
+                                                <a href="/Products/@item.Id/@item.Slug" title="مشاهده و خرید">مشاهده و خرید</a>
                                             }
                                             else
                                             {

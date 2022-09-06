@@ -200,7 +200,7 @@ namespace Data.Repositories
             return list;
         }
 
-        public ListCommentDto GetListComments(int PageNum = 1, int PageSize = 0)
+        public ListCommentDto GetListComments(int PageNum = 1, int PageSize = 12)
         {
             var comments = Table.Include(_ => _.Article).OrderByDescending(a => a.RegisterDate);
             var take = PageSize;

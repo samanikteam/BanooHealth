@@ -29,7 +29,7 @@
                     <div class="widget_list widget_categories">
                         <h3>دسته‌های محصولات</h3>
                         <ul>
-                            <li><a href="/Shopping" class="category-level-2">همه محصولات</a></li>
+                            <li><a href="/Shopping" style="color:red;" class="category-level-2">همه محصولات</a></li>
                             @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null))
                             {
                                 <li>
@@ -135,6 +135,7 @@
                                                 {
                                                     <span class="current_price">در حال حاضر قیمتی برای این محصول ارائه نشده</span>
                                                 }
+
                                                 <span>در @item.CountPharmacyExistProduct  داروخانه</span>
                                             </div>
                                         </div>

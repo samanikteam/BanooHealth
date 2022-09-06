@@ -34,13 +34,13 @@ namespace Samanik.Web.Pages.MainPage.ProductsShop
         public ListProductCategoryDto listProductCategoryDto { get; set; }
 
         public PagingData PagingData { get; set; }
-        public int PageSize = 10;
+        public int PageSize = 16;
 
-        public void OnGet( string ProductCatPath = null , int PageNum=1)
+        public void OnGet(string ProductCatPath = null, int PageNum = 1)
         {
             bannerDto = _bannerRepository.GetBanner();
-            listProductDto = _productRepository.GetListProduct();
-            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(PageNum);
+            listProductDto = _productRepository.GetListProduct(PageNum, PageSize);
+            listProductCategoryDto = _ProductCategoryRepository.GetListProductCategory(1, 50);
 
             //Add By vahid
             StringBuilder QParam = new StringBuilder();

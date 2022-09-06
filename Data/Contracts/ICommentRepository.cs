@@ -24,7 +24,7 @@ namespace Data.Contracts
 
         List<Comment> GetComments();
 
-        ListCommentDto GetListComments(int PageNum = 1, int PageSize = 0);
+        ListCommentDto GetListComments(int PageNum = 1, int PageSize = 12);
         /// <summary>
         /// لیست نظرات جهت پاسخ به آنها
         /// </summary>

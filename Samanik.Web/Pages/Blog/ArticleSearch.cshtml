@@ -2,7 +2,7 @@
 @model Samanik.Web.Pages.Blog.ArticleSearchModel
 @{
     //Seo tags
-    ViewData["Title"] = "جستجوی بانو هلث";
+    ViewData["Title"] = "جستجو";
     ViewData["Description"] = "";
     ViewData["Keywords"] = "";
 }
@@ -35,7 +35,7 @@
                     <div class="col-lg-9 col-md-12">
                         <div class="blog_wrapper mb-60">
                             <div class="blog_header">
-                                <h1>بلاگ</h1>
+                                <h1>مجله</h1>
                             </div>
                             <div class="blog_wrapper_inner">
                                 @if (Model.listArticle.Count() == 0 || Model.listArticle == null)
@@ -77,10 +77,6 @@
                             </div>
                         </div>
                         <!--blog pagination area start-->
-
-                        <div paging-model="@Model.PagingData" page-class="btn border mt-3"
-                         page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
-                    </div>
 
                         @*<div class="blog_pagination">
                             <div class="pagination">
@@ -225,7 +221,7 @@
                             <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
 
                         </div>
-                        <div class="niceselect_container">
+                        @*<div class="niceselect_container">
                             <form action="#">
                                 <label>ترتیب:</label>
                                 <select class="select_option" name="orderby" id="short">
@@ -237,7 +233,7 @@
                                     <option value="6">نام محصول</option>
                                 </select>
                             </form>
-                        </div>
+                        </div>*@
                         <div class="page_amount">
                             <p>@Model.listProduct.Count() محصول</p>
                         </div>

@@ -32,6 +32,9 @@
                     <div class="widget_list widget_categories">
                         <h3>دسته‌های محصولات</h3>
                         <ul>
+                            <li>
+                                <a href="/Shopping" style="color:red;" class="category-level-2">همه محصولات</a>
+                            </li>
                             @foreach (var item in Model.listProductCategoryDto.ProductCategories.Where(p => p.ParentId == null))
                             {
                                 <li>
@@ -85,19 +88,19 @@
                     <div class="shop_toolbar_btn">
                         <button data-role="grid_4" type="button" class=" active btn-grid-4" data-toggle="tooltip" title="4"></button>
                     </div>
-                    <div class="niceselect_container">
-                        <form action="#">
-                            <label>ترتیب:</label>
-                            <select class="select_option" name="orderby" id="short">
-                                <option selected value="1">امتیاز متوسط</option>
-                                <option value="2">محبوبیت</option>
-                                <option value="3">تاریخ ارسال</option>
-                                <option value="4">قیمت صعودی</option>
-                                <option value="5">قیمت نزولی</option>
-                                <option value="6">نام محصول</option>
-                            </select>
-                        </form>
-                    </div>
+                    @*<div class="niceselect_container">
+                            <form action="#">
+                                <label>ترتیب:</label>
+                                <select class="select_option" name="orderby" id="short">
+                                    <option selected value="1">امتیاز متوسط</option>
+                                    <option value="2">محبوبیت</option>
+                                    <option value="3">تاریخ ارسال</option>
+                                    <option value="4">قیمت صعودی</option>
+                                    <option value="5">قیمت نزولی</option>
+                                    <option value="6">نام محصول</option>
+                                </select>
+                            </form>
+                        </div>*@
                     <div class="page_amount">
                         <p>@Model.listProductDto.Products.Count() محصول</p>
                     </div>
@@ -121,12 +124,12 @@
                                                 <span class="label_sale">فروش</span>
                                             </div>
                                             @*<div class="action_links">
-                                    <ul>
-                                    <li class="wishlist"><a href="#" title="افزودن به علاقه‌مندی‌ها"><i class="ion-android-favorite-outline"></i></a></li>
-                                    <li class="compare"><a href="#" title="افزودن به مقایسه"><i class="ion-ios-settings-strong"></i></a></li>
-                                    <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="مشاهده سریع"><i class="ion-ios-search-strong"></i></a></li>
-                                    </ul>
-                                    </div>*@
+                                                <ul>
+                                                <li class="wishlist"><a href="#" title="افزودن به علاقه‌مندی‌ها"><i class="ion-android-favorite-outline"></i></a></li>
+                                                <li class="compare"><a href="#" title="افزودن به مقایسه"><i class="ion-ios-settings-strong"></i></a></li>
+                                                <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="مشاهده سریع"><i class="ion-ios-search-strong"></i></a></li>
+                                                </ul>
+                                                </div>*@
                                         </div>
 
                                         <div class="product_content grid_content">
@@ -173,10 +176,10 @@
                     }
                 </div>
                 <div paging-model="@Model.PagingData" page-class="btn border mt-3"
-                 page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+                     page-class-links="text-center" page-class-normal="btn" page-class-selected="btn btn-info  active" page-class-label="p-2 font-weight-bold  pt-md-2  text-center" class="text-center">
+                </div>
             </div>
-            </div>
-            
+
         </div>
     </div>
 </div>

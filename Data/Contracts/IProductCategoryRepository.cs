@@ -16,7 +16,7 @@ namespace Data.Contracts
         Task AddProductCategory(ProductCategoryDto ProductCategoryDto, List<IFormFile> Image, CancellationToken cancellationToken);
         Task<bool> IsExistProductCategory(string title, int id);
         List<ProductCategory> GetProductCategories();
-        ListProductCategoryDto GetListProductCategory(int PageNum = 1, int PageSize = 15);
+        ListProductCategoryDto GetListProductCategory(int PageNum = 1, int PageSize = 16);
 
         Task Active(int id, CancellationToken cancellationToken);
         Task Deactive(int id, CancellationToken cancellationToken);
