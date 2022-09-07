@@ -31,33 +31,11 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.Filter
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 12;
-        public void OnGet(int PageNum = 1)
-        {
-            Listdto = _filterRepository.GetListFilter(PageNum,PageSize);
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
-            {
-                QParam.Append($"/Administration/Product/Filter/Index?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (Listdto.filters.Count >= 0)
-            {
-                PagingData = new PagingData
-                {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = Listdto.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
-            }
-        public int PageSize = 15;
         public IActionResult OnGet(int PageNum = 1)
         {
             if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
             {
-                Listdto = _filterRepository.GetListFilter(PageNum);
+                Listdto = _filterRepository.GetListFilter(PageNum, PageSize);
                 //Add By vahid
                 StringBuilder QParam = new StringBuilder();
                 if (PageNum != 0)

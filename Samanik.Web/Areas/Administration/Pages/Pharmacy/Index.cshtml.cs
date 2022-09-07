@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly IPharmacyRepository _pharmacyRepository;
@@ -31,11 +32,30 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 12;
-        public void OnGet(int PageNum = 1)
+        public IActionResult OnGet(int PageNum = 1)
         {
             if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
             {
-
+                listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
+                listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum, PageSize);
+                //Add By vahid
+                StringBuilder QParam = new StringBuilder();
+                if (PageNum != 0)
+                {
+                    QParam.Append($"/Administration/Pharmacy/Index?PageNum=-");
+                    //Administration / Blog / Articles / Index
+                }
+                if (listPharmacy.pharmacies.Count >= 0)
+                {
+                    PagingData = new PagingData
+                    {
+                        CurrentPage = PageNum,
+                        RecordsPerPage = PageSize,
+                        TotalRecords = listPharmacy.count,
+                        UrlParams = QParam.ToString(),
+                        LinksPerPage = 7
+                    };
+                }
                 return Page();
 
             }
@@ -44,30 +64,6 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
                 return Redirect("/login/logout");
             }
 
-
-
-
-
-            listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
-            listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum,PageSize);
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
-            {
-                QParam.Append($"/Administration/Pharmacy/Index?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (listPharmacy.pharmacies.Count >= 0)
-            {
-                PagingData = new PagingData
-                {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = listPharmacy.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
-            }
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {

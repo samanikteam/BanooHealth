@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Areas.Administration.Pages.Pharmacy.Product
 {
+    [Authorize]
     public class EditProductModel : PageModel
     {
         private readonly IPharmacyProduct _pharmacyProduct;

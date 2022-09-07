@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Areas.Administration.Pages.Media.Slider
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ISliderRepository _slider;
@@ -31,33 +32,11 @@ namespace Samanik.Web.Areas.Administration.Pages.Media.Slider
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 12;
-        public void OnGet(int PageNum = 1)
-        {
-            ListSlider = _slider.GetListSliderDto(PageNum, PageSize);
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
-            {
-                QParam.Append($"/Administration/Media/Slider/Index?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (ListSlider.Sliders.Count >= 0)
-            {
-                PagingData = new PagingData
-                {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = ListSlider.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
-            }
-        public int PageSize = 15;
         public IActionResult OnGet(int PageNum = 1)
         {
             if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
             {
-                ListSlider = _slider.GetListSliderDto(PageNum);
+                ListSlider = _slider.GetListSliderDto(PageNum, PageSize);
                 //Add By vahid
                 StringBuilder QParam = new StringBuilder();
                 if (PageNum != 0)

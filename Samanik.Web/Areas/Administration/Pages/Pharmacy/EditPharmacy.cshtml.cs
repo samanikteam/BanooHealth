@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
 {
+    [Authorize]
     public class EditPharmacyModel : PageModel
     {
         private readonly IPharmacyRepository _pharmacyRepository;

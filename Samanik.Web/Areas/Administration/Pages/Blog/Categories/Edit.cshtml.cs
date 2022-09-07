@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Areas.Administration.Pages.Blog.Categories
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly IArticelCategoryRepasitory _articleCategoryRepasitory;

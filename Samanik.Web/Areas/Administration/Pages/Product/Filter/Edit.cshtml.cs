@@ -10,6 +10,7 @@ using System.Text;
 
 namespace Samanik.Web.Areas.Administration.Pages.Product.Filter
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly IFilterRepository _filterRepository;

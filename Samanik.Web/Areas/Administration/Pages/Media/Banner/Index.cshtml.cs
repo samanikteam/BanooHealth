@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Areas.Administration.Pages.Media.Banner
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly IBannerRepository _bannerRepository;

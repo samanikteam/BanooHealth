@@ -15,39 +15,39 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
 {
+    [Authorize]
     public class ArticleDetailModel : PageModel
     {
         private readonly IArticleRepasitory _Repasitory;
         private readonly IArticelCategoryRepasitory _CRepasitory;
         private readonly IArticleCategoryAssignRepository _CAssignRepository;
-
-        public ArticleDetailModel(IArticleRepasitory repasitory, IArticelCategoryRepasitory cRepasitory, IArticleCategoryAssignRepository cAssignRepository)
+        private readonly IAuthorizationService _authorizationService;
+        public ArticleDetailModel(IArticleRepasitory repasitory, IArticelCategoryRepasitory cRepasitory, IArticleCategoryAssignRepository cAssignRepository, IAuthorizationService authorizationService)
         {
             _Repasitory = repasitory;
             _CRepasitory = cRepasitory;
             _CAssignRepository = cAssignRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
         public ArticleDto articleDto { get; set; }
         public ListArticleDto listArticleDto { get; set; }
 
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
             if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs).Result.Succeeded)
             {
+                articleDto = _Repasitory.GetArticleById(id);
+                listArticleDto = _Repasitory.GetListArticle();
 
+                ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories(), "Id", "Title");
+                return Page();
             }
             else
             {
                 return Redirect("/login/logout");
             }
-
-
-            articleDto = _Repasitory.GetArticleById(id);
-            listArticleDto = _Repasitory.GetListArticle();
-
-            ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories(), "Id", "Title");
 
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken, List<int> ListCategoryId,List<IFormFile> Image)

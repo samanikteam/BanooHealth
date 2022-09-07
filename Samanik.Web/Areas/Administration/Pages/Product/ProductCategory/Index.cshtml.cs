@@ -39,7 +39,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
             if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
             {
                 ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
-                ListProductCategoryDto = _Repository.GetListProductCategory(PageNum);
+                ListProductCategoryDto = _Repository.GetListProductCategory(PageNum, PageSize);
                 //Add By vahid
                 StringBuilder QParam = new StringBuilder();
                 if (PageNum != 0)
@@ -65,28 +65,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.ProductCategory
             {
                 return Redirect("/login/logout");
             }
-        public void OnGet(int PageNum = 1)
-        {
-            ViewData["ProductCategories"] = new SelectList(_Repository.GetProductCategories(), "Id", "Title");
-            ListProductCategoryDto = _Repository.GetListProductCategory(PageNum,PageSize);
-            //Add By vahid
-            StringBuilder QParam = new StringBuilder();
-            if (PageNum != 0)
-            {
-                QParam.Append($"/Administration/Product/ProductCategory?PageNum=-");
-                //Administration / Blog / Articles / Index
-            }
-            if (ListProductCategoryDto.ProductCategories.Count >= 0)
-            {
-                PagingData = new PagingData
-                {
-                    CurrentPage = PageNum,
-                    RecordsPerPage = PageSize,
-                    TotalRecords = ListProductCategoryDto.count,
-                    UrlParams = QParam.ToString(),
-                    LinksPerPage = 7
-                };
-            }
+       
         }
 
         public async Task<IActionResult> OnPost(List<IFormFile> Image, CancellationToken cancellationToken)

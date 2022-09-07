@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Areas.Administration.Pages.Media.Slider
 {
+    [Authorize]
     public class EditSliderModel : PageModel
     {
         private readonly ISliderRepository _sliderRepository;

@@ -1,19 +1,27 @@
 using Data.Contracts;
 using Data.Models;
+using Data.Models.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing.Printing;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Samanik.Web.Areas.Administration.Pages.Product.Comments
 {
+    [Authorize]
     public class AnswersModel : PageModel
     {
         private readonly IProCommentRepository _CommentRepository;
+        private readonly IAuthorizationService _authorizationService;
 
-        public AnswersModel(IProCommentRepository CommentRepository)
+
+        public AnswersModel(IProCommentRepository CommentRepository,IAuthorizationService authorizationService)
         {
             _CommentRepository = CommentRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -22,13 +30,22 @@ namespace Samanik.Web.Areas.Administration.Pages.Product.Comments
         public ListProCommentDto listAnswerComment { get; set; }
 
 
-        public void OnGet(int id, int productId, string email)
+        public IActionResult OnGet(int id, int productId, string email)
         {
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Product).Result.Succeeded)
+            {
+                listComment = _CommentRepository.GetListProCommentByEmailForOneProduct(id, email);
+                listAnswerComment = _CommentRepository.GetListAnswerProCommentByEmailForOneProduct(id, productId, email);
+                ViewData["id"] = id;
+                ViewData["productId"] = productId;
+                return Page();
 
-            listComment = _CommentRepository.GetListProCommentByEmailForOneProduct(id, email);
-            listAnswerComment = _CommentRepository.GetListAnswerProCommentByEmailForOneProduct(id, productId, email);
-            ViewData["id"] = id;
-            ViewData["productId"] = productId;
+            }
+            else
+            {
+                return Redirect("/login/logout");
+            }
+           
         }
 
 
