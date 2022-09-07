@@ -47,7 +47,7 @@ namespace Samanik.Web.Pages.Blog
         //Add By Vahid
         public PagingData PagingData { get; set; }
         public int PageSize = 12;
-        public void OnGet(int id, CancellationToken cancellationToken , int PageNum = 1)
+        public IActionResult OnGet(int id, CancellationToken cancellationToken , int PageNum = 1)
         {
 
             #region MyRegion
@@ -81,6 +81,8 @@ namespace Samanik.Web.Pages.Blog
                     LinksPerPage = 7
                 };
             }
+
+            return Page();
 
         }
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
