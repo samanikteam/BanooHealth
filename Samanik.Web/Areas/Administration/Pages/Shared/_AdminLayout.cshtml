@@ -65,16 +65,6 @@
                     <li><a href="/Index"><i class="uil uil-sitemap ms-2 d-inline-block"></i>صفحه اصلی</a></li>
                     <li><a href="/administration"><i class="uil uil-dashboard ms-2 d-inline-block"></i>داشبورد</a></li>
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-dollar-sign-alt  ms-2  d-inline-block"></i>مدیریت کاربران</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Users">لیست کاربران‌</a></li>
-                                <li><a href="#">مدیریت نفش ها</a></li>
-                                <li><a href="#">مدیریت دسترسی ها</a></li>
-                            </ul>
-                        </div>
-                    </li>
                     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Users)).Result.Succeeded)
                     {
                         <li class="sidebar-dropdown">
@@ -89,17 +79,6 @@
                         </li>
                     }
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-letter-english-a ms-2 d-inline-block"></i>مدیریت بلاگ</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Blog/Articles/Index">مدیریت مجله‌ها</a></li>
-                                <li><a href="/Administration/Blog/Categories">مدیریت دسته‌بندی‌ها</a></li>
-                                <li><a href="/Administration/Blog/Comments">مدیریت نظرات</a></li>
-                                <li><a href="/Administration/Blog/Comments/answercomments">مدیریت پاسخگویی نظرات</a></li>
-                            </ul>
-                        </div>
-                    </li>
                     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Blogs)).Result.Succeeded)
                     {
                         <li class="sidebar-dropdown">
@@ -109,23 +88,12 @@
                                     <li><a href="/Administration/Blog/Articles/Index">مدیریت مجله‌ها</a></li>
                                     <li><a href="/Administration/Blog/Categories">مدیریت دسته‌بندی‌ها</a></li>
                                     <li><a href="/Administration/Blog/Comments">مدیریت نظرات</a></li>
+                                    <li><a href="/Administration/Blog/Comments/answercomments">مدیریت پاسخگویی نظرات</a></li>
                                 </ul>
                             </div>
                         </li>
                     }
 
-                    <li class="sidebar-dropdown">
-                        <a href="javascript:void(0)"><i class="uil uil-box ms-2 d-inline-block"></i>مدیریت محصولات دارویی</a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="/Administration/Product/ProductManagement">مدیریت ‌محصولات</a></li>
-                                <li><a href="/Administration/Product/ProductCategory">مدیریت دسته‌بندی‌ محصولات</a></li>
-                                <li><a href="/Administration/Product/Filter">مدیریت ویژگی محصولات</a></li>
-                                @*<li><a href="/Administration/Product/Comments">مدیریت نظرات</a></li>
-                                <li><a href="/Administration/Product/Comments/answercomments">مدیریت پاسخگویی نظرات</a></li>*@
-                            </ul>
-                        </div>
-                    </li>
                     @if ((AuthorizationService.AuthorizeAsync(User, Permissions.Samanik.Product)).Result.Succeeded)
                     {
                         <li class="sidebar-dropdown">
