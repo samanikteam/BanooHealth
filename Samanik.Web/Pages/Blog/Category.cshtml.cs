@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Pages.Blog
 {
+    [AllowAnonymous]
     public class ArticleByArticleCategoryModel : PageModel
     {
         private readonly IArticleRepasitory _Repasitory;

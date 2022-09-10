@@ -8,12 +8,13 @@ using Data.Models;
 using Data.Repositories;
 using Entities.Articles;
 using Entities.Products;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Pages.Blog
 {
+    [AllowAnonymous]
     public class ArticleSearchModel : PageModel
     {
         private readonly IArticleRepasitory _Repasitory;

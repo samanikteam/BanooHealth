@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Pages.MainPage.ProductsShop
 {
+    [AllowAnonymous]
     public class ProductByProductCategoryModel : PageModel
     {
         private readonly IProductRepository _productRepository;

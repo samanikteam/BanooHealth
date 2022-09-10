@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Threading;
 using Data.Contracts;
 using Data.Models;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Samanik.Web.Pages.MainPage.ProductDetails
 {
+    [AllowAnonymous]
     public class ProductDetailModel : PageModel
     {
 

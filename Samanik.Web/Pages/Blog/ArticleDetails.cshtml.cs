@@ -8,11 +8,13 @@ using Common.Utilities;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Pages.Blog
 {
+    [AllowAnonymous]
     public class ArticleDetailsModel : PageModel
     {
         private readonly IArticleRepasitory _Repasitory;

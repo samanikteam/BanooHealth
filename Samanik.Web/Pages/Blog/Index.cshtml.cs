@@ -2,6 +2,7 @@
 using Data.Models;
 using Data.Repositories;
 using Entities.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Samanik.Web.Pages.Blog
 {
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly IArticleRepasitory _Repasitory;

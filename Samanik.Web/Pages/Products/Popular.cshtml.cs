@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
 using Entities.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Pages.Products
 {
+    [AllowAnonymous]
     public class PopularModel : PageModel
     {
         private readonly IArticleRepasitory _Repasitory;

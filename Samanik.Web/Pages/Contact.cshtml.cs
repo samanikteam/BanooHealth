@@ -5,11 +5,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Samanik.Web.Pages.MainPage
 {
+    [AllowAnonymous]
     public class ContactModel : PageModel
     {
         private readonly IContactUsRepository _contactuserepository;
