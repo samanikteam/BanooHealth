@@ -18,7 +18,6 @@ namespace Data.Repositories
 
         public async Task AddAssign(List<int> categoryId, int articleId, CancellationToken cancellationToken)
         {
-
             await base.DeleteRangeAsync(Table.Where(a=>a.ArticleId==articleId),cancellationToken);
 
             foreach (var item in categoryId)
@@ -29,11 +28,9 @@ namespace Data.Repositories
                     CategoryId = item,
                     SortNum = 0
                 };
-
                 await base.AddAsync(articleCategory, cancellationToken);
             }
         }
-
 
 
         public List<int> GetListArticleIdWithArticleCategoryId(int articleCategoryId)
