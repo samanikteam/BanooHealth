@@ -57,7 +57,8 @@ namespace Data.Models
 
         public bool IsDelete { get; set; }
 
-
+        [Display(Name = "نویسنده")]
+        public string author { get; set; }
 
         //لیست مجلات مرتبط
         public List<Article> ListArticleLinked { get; set; }

@@ -8,7 +8,6 @@
     ViewData["Keywords"] = Model.settingDto.Keywords;
 
     int count = Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true).Count();
-    int j1 = 0, j2 = 0, j3 = 0;
 }
 <!DOCTYPE html>
 <html class="no-js" lang="fa" dir="rtl">
@@ -232,7 +231,7 @@
                                     <figcaption class="blog_content">
                                         <h4><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></h4>
                                         <div class="post_meta">
-                                            <p>توسط  <a href="#">مدیر</a> در تاریخ <a href="#">@item.RegisterDate</a></p>
+                                            <p>توسط  <a href="#">@item.author</a> در تاریخ <a href="#">@item.RegisterDate</a></p>
                                         </div>
                                         <div class="post_desc">
                                             <p>@item.Description</p>

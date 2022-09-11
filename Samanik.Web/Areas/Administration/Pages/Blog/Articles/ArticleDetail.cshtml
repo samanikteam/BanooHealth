@@ -12,7 +12,7 @@
                 <h5 class="mb-0"> @Model.articleDto.Title</h5>
 
                 <ul class="list-unstyled mt-2 mb-0">
-                    <li class="list-inline-item user text-muted ms-2"><i class="mdi mdi-account"></i> مهدی آریانژاد</li>
+                    <li class="list-inline-item user text-muted ms-2"><i class="mdi mdi-account"></i> @Model.articleDto.author</li>
                     <li class="list-inline-item date text-muted"><i class="mdi mdi-calendar-check"></i> @Model.articleDto.RegisterDate</li>
                 </ul>
             </div>
@@ -167,7 +167,7 @@
                                             <label class="form-label">دسته‌بندی: <span class="text-danger">*</span></label>
 
                                             <select class="form-control doctor-name select2input" asp-items="ViewBag.ArticleCategories" name="ListCategoryId" asp-for="articleDto.ArticleCategoryId" multiple
-                                                     oninvalid="setCustomValidity('لطفاً دسته بندی  را وارد کنید')"
+                                                    oninvalid="setCustomValidity('لطفاً دسته بندی  را وارد کنید')"
                                                     oninput="setCustomValidity('')">
                                                 <option disabled>دسته‌بندی را انتخاب کنید</option>
                                             </select>
@@ -200,7 +200,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">توضیحات متا: <span class="text-danger">*</span></label>
                                             <input asp-for="articleDto.Description" id="name" type="text" class="form-control" placeholder="MetaDescription :"
-                                                                                               required oninvalid="setCustomValidity('لطفاً  توضیحات متا  را وارد کنید')"
+                                                   required oninvalid="setCustomValidity('لطفاً  توضیحات متا  را وارد کنید')"
                                                    oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
@@ -209,7 +209,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">کلمات کلیدی: <span class="text-danger">*</span></label>
                                             <input asp-for="articleDto.KeyWords" id="name" type="text" class="form-control" placeholder="key words :"
-                                             required oninvalid="setCustomValidity('لطفاً کلمات کلیدی  را وارد کنید')"
+                                                   required oninvalid="setCustomValidity('لطفاً کلمات کلیدی  را وارد کنید')"
                                                    oninput="setCustomValidity('')" />
                                         </div>
                                     </div><!--end col-->
@@ -217,6 +217,13 @@
                                         <div class="mb-3">
                                             <label class="form-label">تعداد نمایش: <span class="text-danger">*</span></label>
                                             <input asp-for="articleDto.Visit" type="number" class="form-control" placeholder="Visit :">
+                                        </div>
+                                    </div><!--end col-->
+
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام نویسنده:</label>
+                                            <input asp-for="articleDto.author" type="text" class="form-control" placeholder="author :">
                                         </div>
                                     </div><!--end col-->
 
