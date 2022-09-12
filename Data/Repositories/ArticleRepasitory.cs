@@ -44,7 +44,8 @@ namespace Data.Repositories
                 AvatarAlt = ArticleDto.AvatarAlt,
                 RegisterDate = DateTime.Now,
                 IsDelete = false,
-                Visit = 1
+                Visit = 1,
+                author= ArticleDto.author
             };
 
             #region Add Avatar(FileStream) in Model
@@ -102,7 +103,8 @@ namespace Data.Repositories
                 RegisterDate = t.RegisterDate.ToShamsi(),
                 Visit = t.Visit,
                 Slug = t.Slug,
-                IsDelete = t.IsDelete
+                IsDelete = t.IsDelete,
+                author=t.author
 
             }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
@@ -142,7 +144,7 @@ namespace Data.Repositories
             article.LastUpdateDate = DateTime.Now;
             article.IsDelete = false;
             article.Visit = ArticleDto.Visit;
-
+            article.author = ArticleDto.author;
 
 
             foreach (var item in Image)
@@ -180,7 +182,8 @@ namespace Data.Repositories
                 KeyWords = article.KeyWords,
                 RegisterDate = article.RegisterDate.ToShamsi(),
                 ArticleCategoryId = listArticleCategoryId,
-                Visit = article.Visit
+                Visit = article.Visit,
+                author=article.author
 
             };
 
@@ -277,7 +280,8 @@ namespace Data.Repositories
                 KeyWords = article.KeyWords,
                 RegisterDate = article.RegisterDate.ToShamsi(),
                 ArticleCategoryId = listArticleCategoryId,
-                Visit = article.Visit
+                Visit = article.Visit,
+                author=article.author
             };
 
             return res;
@@ -311,7 +315,8 @@ namespace Data.Repositories
                 Avatar = t.Avatar,
                 KeyWords = t.KeyWords,
                 RegisterDate = t.RegisterDate.ToShamsi(),
-                Visit = t.Visit
+                Visit = t.Visit,
+                author=t.author
             }).OrderByDescending(x => x.RegisterDate).Skip(skip).Take(take).ToList();
             // OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
             return list;

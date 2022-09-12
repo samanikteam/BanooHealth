@@ -58,7 +58,6 @@ namespace Samanik.Web.Areas.Administration.Pages.Product
                 listProGalleryDto = _proGalleryRepository.GetListPorGalleryByProductId(id);
 
                 return Page();
-
             }
             else
             {

@@ -41,7 +41,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Blog.Articles
                 articleDto = _Repasitory.GetArticleById(id);
                 listArticleDto = _Repasitory.GetListArticle();
 
-                ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetArticleCategories(), "Id", "Title");
+                ViewData["ArticleCategories"] = new SelectList(_CRepasitory.GetListArticleCategory().articleCategories, "Id", "Title");
                 return Page();
             }
             else

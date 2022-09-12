@@ -36,11 +36,11 @@ namespace Samanik.Web.Areas.Administration.Pages
 
         public void OnGet()
         {
-            ArticleDto = _articleRepasitory.GetListArticle(1,2);
-            productDto = _productRepository.GetListProduct(1,2);
-            commentDto = _commentRepository.GetListComments(1,2);
+            ArticleDto = _articleRepasitory.GetListArticle(1,5);
+            productDto = _productRepository.GetListProduct(1,5);
+            commentDto = _commentRepository.GetListComments(1,50);
             procommentDto = _proCommentRepository.GetListProComments();
-            pharmacyDto = _pharmacyRepository.GetListPharmacy(1,2);
+            pharmacyDto = _pharmacyRepository.GetListPharmacy(1,50);
         }
 
     }

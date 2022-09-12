@@ -71,7 +71,8 @@ namespace Entities.Articles
 
         public long? Visit { get; set; }
 
-
+        [Display(Name = "نویسنده")]
+        public string author { get; set; }
 
         #region Relations
         public Category Category { get; set; }

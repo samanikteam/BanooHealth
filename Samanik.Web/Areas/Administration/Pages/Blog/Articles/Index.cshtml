@@ -220,6 +220,15 @@
                                         </div>
                                     </div><!--end col-->
 
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">نام نویسنده: </label>
+                                            <input asp-for="dto.author" type="text" class="form-control" placeholder="author :"
+                                                   oninvalid="setCustomValidity('لطفاً نام نویسنده را وارد کنید')"
+                                                   oninput="setCustomValidity('')" />
+                                        </div>
+                                    </div><!--end col-->
+
                                     <div class="col-lg-12 text-end">
                                         <button type="submit" class="btn btn-primary">افزودن بلاگ</button>
                                     </div><!--end col-->

@@ -83,7 +83,7 @@
                                                   </textarea>
                                     <script src="~/lib/ckeditor/ckeditor.js"></script>
                                     <script>
-                                                CKEDITOR.replace("myeditor");
+                                        CKEDITOR.replace("myeditor");
                                     </script>
                                 </div>
                             </div><!--end col-->
@@ -109,6 +109,13 @@
                                 <div class="mb-3">
                                     <label class="form-label">تعداد نمایش: <span class="text-danger">*</span></label>
                                     <input asp-for="articleDto.Visit" type="number" class="form-control" placeholder="Visit :">
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="form-label">نام نویسنده: </label>
+                                    <input asp-for="articleDto.author" type="text" class="form-control" placeholder="author :">
                                 </div>
                             </div><!--end col-->
 
