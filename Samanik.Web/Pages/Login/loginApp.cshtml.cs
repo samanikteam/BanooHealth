@@ -45,7 +45,7 @@ namespace Samanik.Web.Pages.Login
             {
                 var result = await _signInManager.PasswordSignInAsync(dto.UserName, dto.Password, dto.RemmemberMe, true);
                 var user = await _userManager.FindByNameAsync(dto.UserName);
-                if (result.Succeeded)
+                if (result.Succeeded && user.IsDeleted != true)
                 {
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {

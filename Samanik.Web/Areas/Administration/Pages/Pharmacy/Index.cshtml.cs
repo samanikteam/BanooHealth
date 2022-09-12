@@ -20,9 +20,10 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         private readonly IAuthorizationService _authorizationService;
 
 
-        public IndexModel(IPharmacyRepository pharmacyRepository)
+        public IndexModel(IPharmacyRepository pharmacyRepository, IAuthorizationService authorizationService)
         {
             _pharmacyRepository = pharmacyRepository;
+            _authorizationService = authorizationService;
         }
 
         [BindProperty]
@@ -34,7 +35,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         public int PageSize = 12;
         public IActionResult OnGet(int PageNum = 1)
         {
-            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.DarooKhaneh).Result.Succeeded)
             {
                 listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
                 listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum, PageSize);

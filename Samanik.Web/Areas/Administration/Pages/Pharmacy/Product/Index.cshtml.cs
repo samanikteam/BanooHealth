@@ -40,7 +40,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy.Product
         public IActionResult OnGet(int PageNum = 1)
         {
             
-            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.DarooKhaneh).Result.Succeeded)
             {
                 listPharmacyProductDto = _pharmacyProduct.GetListPharmacyProducts(PageNum, PageSize);
                 ViewData["PharmaciesList"] = new SelectList(_pharmacyRepository.GetPharmacies(), "Id", "Name");

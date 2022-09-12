@@ -29,7 +29,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         public PharmacyDto dto { get; set; }
         public IActionResult OnGet(int id)
         {
-            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.DarooKhaneh).Result.Succeeded)
             {
                 dto = _pharmacyRepository.GetPharmacyById(id);
                 return Page();

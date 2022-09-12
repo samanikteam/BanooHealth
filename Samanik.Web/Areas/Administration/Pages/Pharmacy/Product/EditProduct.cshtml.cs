@@ -31,7 +31,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy.Product
 
         public IActionResult OnGet(int id)
         {
-            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.Resaneh).Result.Succeeded)
+            if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.DarooKhaneh).Result.Succeeded)
             {
                 dto = _pharmacyProduct.GetProductPharmactById(id);
                 return Page();
