@@ -77,7 +77,7 @@ namespace Data.Repositories
             return res;
         }
 
-        public ListPharmacyDto GetListPharmacy(int PageNum = 1, int PageSize = 0)
+        public ListPharmacyDto GetListPharmacy(int PageNum = 1, int PageSize = 12)
         {
             var pharmacies = Table.OrderByDescending(a => a.Registerdate);
             var take = PageSize;

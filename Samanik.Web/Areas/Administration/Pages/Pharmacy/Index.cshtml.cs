@@ -37,7 +37,7 @@ namespace Samanik.Web.Areas.Administration.Pages.Pharmacy
         {
             if (_authorizationService.AuthorizeAsync(User, Permissions.Samanik.DarooKhaneh).Result.Succeeded)
             {
-                listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
+                //listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum);
                 listPharmacy = _pharmacyRepository.GetListPharmacy(PageNum, PageSize);
                 //Add By vahid
                 StringBuilder QParam = new StringBuilder();

@@ -104,7 +104,7 @@ namespace Data.Repositories
                 Visit = t.Visit,
                 Slug = t.Slug,
                 IsDelete = t.IsDelete,
-                author=t.author
+                //author=t.author
 
             }).OrderBy(u => u.Title).Skip(skip).Take(take).ToList();
 
