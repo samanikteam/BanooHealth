@@ -1,7 +1,7 @@
 ﻿@page "{slug?}"
 @model Samanik.Web.Pages.Products.PopularModel
 @{
-    ViewData["Title"] = "معرفی پر فروش ترین مکمل ها";
+    ViewData["Title"] = "معرفی پر فروش ترین مکمل‌ها";
     ViewData["Description"] = "";
     ViewData["Keywords"] = "";
 }
@@ -114,50 +114,7 @@
                     @foreach (var item in Model.listProductDto.Products.Where(a => a.popular == true))
                     {
                         <div class="col-lg-3 col-md-4 col-12 ">
-                            <article class="single_product">
-                                <figure>
-                                    <div class="product_thumb">
-
-                                        <a class="primary_img" href="/Products/@item.Id/@item.Slug">
-                                            <img width="250" height="250" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="@item.AvatarAlt1" title="@item.AvatarTitle1">
-                                        </a>
-                                        <div class="label_product">
-                                            <span class="label_sale">فروش</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="product_content grid_content">
-                                        <div class="product_content_inner">
-
-                                            <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug">@item.Title</a></h4>
-                                            <div class="price_box">
-                                                @if (item.MinimumPrice != null)
-                                                {
-                                                    <span class="current_price">از: @Int32.Parse(item.MinimumPrice).ToString("N0") تومان</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="current_price">در حال حاضر قیمتی برای این محصول ارائه نشده</span>
-                                                }
-
-                                                <span>در @item.CountPharmacyExistProduct  داروخانه</span>
-                                            </div>
-                                        </div>
-                                        <div class="add_to_cart">
-                                            @if (item.MinimumPrice != null)
-                                            {
-                                                <a href="/Products/@item.Id/@item.Slug" title="مشاهده و خرید">مشاهده و خرید</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="#" title="موجود شد خبرم کن!">ناموجود</a>
-                                            }
-
-                                        </div>
-                                    </div>
-
-                                </figure>
-                            </article>
+                           @Html.Partial("_Products",item)
                         </div>
                     }
 

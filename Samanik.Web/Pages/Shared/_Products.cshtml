@@ -1,0 +1,49 @@
+﻿@model Data.Models.ProductDto
+
+<article class="single_product">
+    <figure>
+        <div class="product_thumb">
+
+            <a class="primary_img" href="/Products/@Model.Id/@Model.Slug">
+                <img width="250" height="250" src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(Model.Avatar1)" alt="@Model.AvatarAlt1" title="@Model.AvatarTitle1">
+            </a>
+
+
+
+            <div class="label_product">
+                <span class="label_sale">فروش</span>
+            </div>
+        </div>
+
+        <div class="product_content grid_content">
+            <div class="product_content_inner">
+
+                <h4 class="product_name"><a href="/Products/@Model.Id/@Model.Slug">@Model.Title</a></h4>
+                <div class="price_box">
+                    @if (Model.MinimumPrice != null)
+                    {
+                        <span class="current_price">از: @Int32.Parse(Model.MinimumPrice).ToString("N0") تومان</span>
+                    }
+                    else
+                    {
+                        <span class="current_price">در حال حاضر قیمتی برای این محصول ارائه نشده</span>
+                    }
+
+                    <span>در @Model.CountPharmacyExistProduct  داروخانه</span>
+                </div>
+            </div>
+            <div class="add_to_cart">
+                @if (Model.MinimumPrice != null)
+                {
+                    <a href="/Products/@Model.Id/@Model.Slug" title="مشخصات و خرید">مشاهده داروخانه‌ها</a>
+                }
+                else
+                {
+                    <a href="/Products/@Model.Id/@Model.Slug" title="موجود شد خبرم کن!">ناموجود</a>
+                }
+
+            </div>
+        </div>
+
+    </figure>
+</article>

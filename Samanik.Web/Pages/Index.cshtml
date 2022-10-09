@@ -223,25 +223,7 @@
                     <div class="blog_container blog_column4 owl-carousel">
                         @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.RegisterDate).Where(a => a.IsDelete == false))
                         {
-                            <article class="single_blog">
-                                <figure>
-                                    <div class="blog_thumb">
-                                        <a href="/Blog/ArticleDetails/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.AvatarTitle"></a>
-                                    </div>
-                                    <figcaption class="blog_content">
-                                        <h4><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></h4>
-                                        <div class="post_meta">
-                                            <p>توسط  <a href="#">@item.author</a> در تاریخ <a href="#">@item.RegisterDate</a></p>
-                                        </div>
-                                        <div class="post_desc">
-                                            <p>@item.Description</p>
-                                        </div>
-                                        <footer class="post_readmore">
-                                            <a href="/Blog/ArticleDetails/@item.Id/@item.Slug">بیشتر بخوانید</a>
-                                        </footer>
-                                    </figcaption>
-                                </figure>
-                            </article>
+                           @Html.Partial("_IndexArticles", item)
                         }
                     </div>
                 </div>
@@ -303,25 +285,7 @@
                         <div class="blog_container blog_column4 owl-carousel">
                             @foreach (var item in Model.ArticleDto.Articles.OrderByDescending(a => a.Visit).Where(a => a.IsDelete == false).Take(10))
                             {
-                                <article class="single_blog">
-                                    <figure>
-                                        <div class="blog_thumb">
-                                            <a href="/Blog/ArticleDetails/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar)" alt="@item.AvatarAlt" title="@item.AvatarTitle"></a>
-                                        </div>
-                                        <figcaption class="blog_content">
-                                            <h4><a href="/Blog/ArticleDetails/@item.Id/@item.Slug">@item.Title</a></h4>
-                                            <div class="post_meta">
-                                                <p>بازدید  <a href="#">@item.Visit</a> | تاریخ <a href="#">@item.RegisterDate</a></p>
-                                            </div>
-                                            <div class="post_desc">
-                                                <p>@item.Description</p>
-                                            </div>
-                                            <footer class="post_readmore">
-                                                <a href="/Blog/ArticleDetails/@item.Id/@item.Slug">بیشتر بخوانید</a>
-                                            </footer>
-                                        </figcaption>
-                                    </figure>
-                                </article>
+                                @Html.Partial("_IndexArticles", item)
                             }
                         </div>
                     </div>
@@ -332,45 +296,7 @@
         <br />
         <br />
 
-        <!--پر بازدید ترین ویدئو ها-->
-        @*<div class="blog_area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section_title s_title_style3">
-                            <h2>پربازدیدترین ویدیو های @Model.settingDto.Title</h2>
-                        </div>
-                        <div class="blog_container blog_column4 owl-carousel">
-                            <article class="single_blog">
-                                <figure>
-                                    <div class="blog_thumb">
-                                        <video width="320" height="240" controls>
-                                            <source src="~/VedioProduct/movie.mp4" type="video/mp4">
-                                            <source src="~/VedioProduct/movie.mp4" type="video/ogg">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                    <figcaption class="blog_content">
-                                        <h4><a href="blog-details.html">مطلب دارای گالری</a></h4>
-                                        <div class="post_meta">
-                                            <p>توسط  <a href="#">مدیر</a> در تاریخ <a href="#">18 بهمن 1398</a></p>
-                                        </div>
-                                        <div class="post_desc">
-                                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون</p>
-                                        </div>
-                                        <footer class="post_readmore">
-                                            <a href="#">بیشتر بخوانید</a>
-                                        </footer>
-                                    </figcaption>
-                                </figure>
-                            </article>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
+       
         <br />
         <br />
 
@@ -392,46 +318,7 @@
                         <div class="product_carousel product_style product_column5 owl-carousel">
                             @foreach (var item in Model.productDto.Products.Where(a => a.IsDelete == false && a.popular == true))
                             {
-                                <article class="single_product">
-                                    <figure>
-                                        <div class="product_thumb">
-                                            <a class="primary_img" href="/Products/@item.Id/@item.Slug"><img src="data:/Them/assets/img/blog;base64,@Convert.ToBase64String(item.Avatar1)" alt="@item.AvatarAlt1" title="@item.AvatarTitle1"></a>
-                                            @*<a class="secondary_img" href="product-details.html"><img src="assets/img/product/product2.jpg" alt=""></a>*@
-                                            <div class="label_product">
-                                                <span class="label_sale">فروش</span>
-                                            </div>
-                                            <div class="action_links">
-                                                <ul>
-                                                    <li class="wishlist"><a href="wishlist.html" title="افزودن به علاقه‌مندی‌ها"><i class="ion-android-favorite-outline"></i></a></li>
-                                                    <li class="compare"><a href="#" title="افزودن به مقایسه"><i class="ion-ios-settings-strong"></i></a></li>
-                                                    <li class="quick_button"><a href="#" data-toggle="modal" data-target="#modal_box" title="مشاهده سریع"><i class="ion-ios-search-strong"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="product_content">
-                                            <div class="product_content_inner">
-                                                <h4 class="product_name"><a href="/Products/@item.Id/@item.Slug">@item.Title</a></h4>
-                                                <div class="product_rating">
-                                                    <span>@item.Description</span>
-                                                </div>
-                                                <div class="price_box">
-                                                    @if (item.MinimumPrice != null)
-                                                    {
-                                                        <span>قیمت از</span>
-                                                        <span class="current_price">@Int32.Parse(item.MinimumPrice).ToString("N0") تومان</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="current_price">داروخانه‌ای ثبت نشده است.</span>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div class="add_to_cart">
-                                                <a href="/Products/@item.Id/@item.Slug" title="مشاهده محصول">مشاهده محصول</a>
-                                            </div>
-                                        </div>
-                                    </figure>
-                                </article>
+                                @Html.Partial("_Products", item)
                             }
                         </div>
                     </div>
